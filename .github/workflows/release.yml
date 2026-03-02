@@ -13,22 +13,39 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
+      - name: Show node/npm versions
+        run: |
+          node -v
+          npm -v
+
+      # This is the Changesets action that will either create/update the release PR
+      # or, when the release PR is merged, run the publish script.
       - name: Create Release PR or Publish
         uses: changesets/action@v1
         with:
+          # command to run to bump package versions (must be defined in package.json)
           version: npm run version-packages
+          # command to run to actually publish (must be defined in package.json)
           publish: npm run release
         env:
+          # GitHub token used by Changesets to create PRs and push commits
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # npm auth for publishing — set this in your repo secrets
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # ensure npm CLI can also pick it up (compat)
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

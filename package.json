@@ -11,8 +11,9 @@
     "build-storybook": "ng run gob-ds:build-storybook",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "changeset publish",
-    "build:lib": "ng build gob-ds"
+    "build:lib": "ng build gob-ds",
+    "publish:dist": "npm run build:lib && cd dist/gob-ds && npm publish",
+    "release": "npm run publish:dist"
   },
   "prettier": {
     "printWidth": 100,
