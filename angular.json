@@ -3,5 +3,61 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "gob-ds": {
+      "projectType": "library",
+      "root": "projects/gob-ds",
+      "sourceRoot": "projects/gob-ds/src",
+      "prefix": "gob",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/gob-ds/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/gob-ds/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/gob-ds/tsconfig.spec.json"
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "projects/gob-ds/.storybook",
+            "browserTarget": "gob-ds:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/gob-ds"
+            ],
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "projects/gob-ds/.storybook",
+            "browserTarget": "gob-ds:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/gob-ds"
+            ],
+            "outputDir": "storybook-static"
+          }
+        }
+      }
+    }
   }
 }

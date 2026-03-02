@@ -4,6 +4,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "strict": true,
+    "paths": {
+      "gob-ds": [
+        "./dist/gob-ds"
+      ]
+    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -22,5 +27,13 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": []
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/gob-ds/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/gob-ds/tsconfig.spec.json"
+    }
+  ]
 }
