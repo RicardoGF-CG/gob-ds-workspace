@@ -27,7 +27,7 @@
       }
     ]
   },
-  "private": false,
+  "private": true,
   "workspaces": [
     "projects/*"
   ],
