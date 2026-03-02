@@ -33,6 +33,9 @@ jobs:
           node -v
           npm -v
 
+      - name: Authenticate with npm
+        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+
       # This is the Changesets action that will either create/update the release PR
       # or, when the release PR is merged, run the publish script.
       - name: Create Release PR or Publish
