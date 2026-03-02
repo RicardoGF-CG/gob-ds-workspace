@@ -13,6 +13,10 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # NODE_AUTH_TOKEN must be available to ALL subprocesses (including npm publish
+    # which runs 2 levels deep inside the changesets action). Job-level env guarantees this.
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,9 +37,6 @@ jobs:
           node -v
           npm -v
 
-      - name: Authenticate with npm
-        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-
       # This is the Changesets action that will either create/update the release PR
       # or, when the release PR is merged, run the publish script.
       - name: Create Release PR or Publish
@@ -46,9 +47,5 @@ jobs:
           # command to run to actually publish (must be defined in package.json)
           publish: npm run release
         env:
-          # GitHub token used by Changesets to create PRs and push commits
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # npm auth for publishing — set this in your repo secrets
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          # ensure npm CLI can also pick it up (compat)
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
