@@ -8,7 +8,11 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "storybook": "ng run gob-ds:storybook",
-    "build-storybook": "ng run gob-ds:build-storybook"
+    "build-storybook": "ng run gob-ds:build-storybook",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
+    "build:lib": "ng build gob-ds"
   },
   "prettier": {
     "printWidth": 100,
@@ -42,6 +46,7 @@
     "@angular/cli": "^20.3.18",
     "@angular/compiler-cli": "^20.3.0",
     "@angular/platform-browser-dynamic": "^20.3.0",
+    "@changesets/cli": "^2.29.8",
     "@compodoc/compodoc": "^1.2.1",
     "@storybook/addon-a11y": "^10.2.14",
     "@storybook/addon-docs": "^10.2.14",

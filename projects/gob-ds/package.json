@@ -1,6 +1,9 @@
 {
   "name": "gob-ds",
   "version": "0.1.0",
+  "scripts": {
+    "prepublishOnly": "cd ../.. && npm run build:lib"
+  },
   "peerDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/core": "^20.3.0"

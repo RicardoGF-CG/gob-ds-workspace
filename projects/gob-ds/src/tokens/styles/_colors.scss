@@ -1,0 +1,76 @@
+:root {
+  // ─── Brand ───────────────────────────
+  --color-brand-50:   #E6EEF5;
+  --color-brand-100:  #CCDDE9;
+  --color-brand-200:  #99BBD4;
+  --color-brand-300:  #6699BE;
+  --color-brand-400:  #3377A9;
+  --color-brand-500:  #005593;
+  --color-brand-600:  #003F6E;
+  --color-brand-700:  #002F54;
+  --color-brand-800:  #001F38;
+  --color-brand-900:  #000F1C;
+  --color-brand-950:  #00070D;
+
+  --color-white: #FFFFFF;
+  --search-bg: #F3F4F6;
+
+  // ─── Neutral scale ─────────────────────────────
+  --color-neutral-50:  #F6F7F8;
+  --color-neutral-200: #E3E9F5;
+  --color-neutral-300: #C3CAD7;
+  --color-neutral-500: #A4ACBA;
+  --color-neutral-600: #878E9D;
+  --color-neutral-700: #6B7280;
+  --color-neutral-800: #505763;
+  --color-neutral-900: #373C46;
+
+  // ─── Status semantic colors  ──────────────────
+  // Live → Green
+  --color-status-success-bg:      #ECFEF6;
+  --color-status-success-text:    #004E3B;
+  --color-status-success-border:  #ADDFCB;
+
+  // Inactive → Yellow/Orange
+  --color-status-warning-bg:   #FEFCE8;
+  --color-status-warning-text: #733E0A;
+  --color-status-warning-border:  #F1D9A0;
+
+  // Neutral → Gray
+  --color-status-neutral-bg:   #F9FAFB;
+  --color-status-neutral-text: #101828;
+  --color-status-neutral-border:  #CFD1D7;
+  
+  // Default → Blue
+  --color-status-default-bg:   #EFF6FF;
+  --color-status-default-text: #1C398E;
+  --color-status-default-border:  #B7D3FF;
+  
+  // Error → Red
+  --color-status-error-bg:   #FEF3F3;
+  --color-status-error-text: #82181A;
+  --color-status-error-border:  #FCC8C8;
+  --color-status-error:  #a21315;
+
+  // ─── Semánticos generales ──────────────────────────────────
+  --color-primary:        var(--color-brand-700);
+  --color-primary-hover:  var(--color-brand-800);
+  --color-primary-subtle: var(--color-brand-50);
+
+    // Text
+  --color-text-primary:   var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-700);
+  --color-text-tertiary:  var(--color-neutral-600);
+  --color-text-disabled:  var(--color-neutral-500);
+  --color-text-inverse:   var(--color-white);
+
+  // Backgrounds / surfaces
+  --color-bg-default:     var(--color-white);
+  --color-bg-subtle:      var(--color-neutral-50);
+  --color-bg-muted:       var(--color-neutral-200);
+
+  // Borders / dividers
+  --color-border-subtle:  var(--color-neutral-200);
+  --color-border:         var(--color-neutral-300);
+  --color-border-strong:  var(--color-neutral-500);
+}

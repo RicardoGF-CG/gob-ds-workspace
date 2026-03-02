@@ -39,7 +39,15 @@
               "-d",
               "projects/gob-ds"
             ],
-            "port": 6006
+            "port": 6006,
+            "styles": [
+              "projects/gob-ds/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/gob-ds/src"
+              ]
+            }
           }
         },
         "build-storybook": {
@@ -54,7 +62,15 @@
               "-d",
               "projects/gob-ds"
             ],
-            "outputDir": "storybook-static"
+            "outputDir": "storybook-static",
+            "styles": [
+              "projects/gob-ds/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/gob-ds/src"
+              ]
+            }
           }
         }
       }
