@@ -1,5 +1,11 @@
 # gob-ds-workspace
 
+## 0.3.0
+
+### Minor Changes
+
+- 62567d9: alert dialog component
+
 ## 0.2.1
 
 ### Patch Changes
