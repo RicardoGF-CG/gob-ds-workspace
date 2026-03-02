@@ -1,0 +1,94 @@
+.ad-overlay {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(17, 24, 39, 0.45);
+    z-index: 1000;
+    padding: 16px;
+}
+
+.ad-panel {
+    width: min(380px, 100%);
+    border-radius: var(--radius-xl, 12px);
+    background: var(--color-bg-default);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg, 0 12px 40px rgba(0, 0, 0, .12));
+    outline: none;
+}
+
+.ad-header {
+    display: grid;
+    gap: 3px;
+    margin-bottom: 8px;
+    padding: 18px;
+}
+
+.ad-title {
+    font-family: var(--font-family-sans);
+    font-weight: var(--font-weight-semibold, 600);
+    font-size: var(--font-size-xl);
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.ad-description {
+    font-family: var(--font-family-sans);
+    font-weight: var(--font-weight-regular, 400);
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    line-height: 1.45;
+}
+
+.ad-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    border-top: 1px solid var(--color-border);
+    padding: 8px 10px;
+}
+
+.ad-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    border-radius: var(--radius-lg);
+    padding: 8px 12px;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-regular);
+
+    border: 1px solid transparent;
+    cursor: pointer;
+    background: var(--color-brand-700);
+    color: #fff;
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-brand-100);
+    }
+}
+
+.ad-btn--secondary {
+    background: var(--color-bg-subtle);
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+
+    &:hover {
+        background: var(--color-neutral-200, #E5E7EB);
+    }
+}
+
+.ad-btn--destructive {
+    background: #EF4444;
+
+    &:hover {
+        background: #DC2626;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 3px #FECACA;
+    }
+}

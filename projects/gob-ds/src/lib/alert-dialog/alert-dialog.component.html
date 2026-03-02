@@ -1,0 +1,35 @@
+@if (open) {
+  <div class="ad-overlay" (click)="onOverlayClick()">
+    <div
+      #dialogPanel
+      class="ad-panel"
+      role="alertdialog"
+      aria-modal="true"
+      [attr.aria-label]="title"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="ad-header">
+        <div class="ad-title">{{ title }}</div>
+        @if (description) {
+          <div class="ad-description">{{ description }}</div>
+        }
+      </div>
+
+      <div class="ad-actions">
+        <button type="button" class="ad-btn ad-btn--secondary" (click)="onCancel()">
+          {{ cancelText }}
+        </button>
+
+        <button
+          #confirmBtn
+          type="button"
+          class="ad-btn"
+          [class.ad-btn--destructive]="variant === 'destructive'"
+          (click)="onConfirm()"
+        >
+          {{ confirmText }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
