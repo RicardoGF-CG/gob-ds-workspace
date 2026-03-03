@@ -1,59 +1,77 @@
-# GobDsWorkspace
+# GobDs - Design System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.18.
+@gob-ds/gob-ds is a modern, high-performance design system built with **Angular 21**, **SCSS**, and **Lucide Icons**. It provides a set of reusable components and a robust design token system to ensure consistency across digital products.
 
-## Development server
+## ✨ Key Features
 
-To start a local development server, run:
+- **Component Library**: Primitive and complex components (Button, Badge, Alert Dialog, etc.).
+- **Design Tokens**: Centralized tokens for colors, typography, spacing, shadows, and borders.
+- **Storybook Integration**: Interactive documentation and component testing environment.
+- **Modern Tech Stack**: Leveraging the latest Angular features and Vitest for testing.
+- **Premium Aesthetics**: Curated color palettes and smooth micro-interactions.
 
-```bash
-ng serve
-```
+## 🛠 Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Framework**: [Angular 21](https://angular.io/)
+- **Documentation**: [Storybook 10](https://storybook.js.org/)
+- **Styling**: Vanilla SCSS with a Token System
+- **Icons**: [Lucide Angular](https://lucide.dev/guide/packages/lucide-angular)
+- **Testing**: [Vitest](https://vitest.dev/)
+- **Runtime**: Node.js v24.13.1
 
-## Code scaffolding
+## 🚀 Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Prerequisites
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Ensure you have the correct Node.js version installed (defined in `.nvmrc`).
 
 ```bash
-ng build
+nvm use
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Installation
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
+### Development
 
-For end-to-end (e2e) testing, run:
+To start the component library in Storybook:
 
 ```bash
-ng e2e
+npm run storybook
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+To run the Angular application:
 
-## Additional Resources
+```bash
+npm start
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📂 Project Structure
+
+- `src/app/lib/`: Core component library.
+  - `alert-dialog/`
+  - `badge/`
+  - `button/`
+  - `checkbox/`
+  - `input/`
+  - `search/`
+- `src/tokens/`: Design system tokens (SCSS & TS).
+  - `styles/`: SCSS partials for colors, spacing, typography, etc.
+- `src/stories/`: Global Storybook configurations and documentation stories.
+
+## 📜 Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run storybook` | Runs Storybook for component development. |
+| `npm start` | Runs the Angular dev server. |
+| `npm run build` | Builds the library/application. |
+| `npm run test` | Runs unit tests using Vitest. |
+| `npm run build-storybook` | Builds a static Storybook site. |
+
+## 📄 License
+
+Private - All rights reserved.
