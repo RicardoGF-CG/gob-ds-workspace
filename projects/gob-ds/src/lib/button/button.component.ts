@@ -40,7 +40,7 @@ export class ButtonComponent {
         return classes.filter(Boolean).join(' ');
     }
 
-    // ✅ Toma clases del host (Storybook) y pásalas al <button>/<a>
+    // ✅ Takes classes from the host (Storybook) and passes them to the <button>/<a>
     get stateClasses(): string {
         const host = this.hostEl.nativeElement;
         const allowed = ['is-hover', 'is-active', 'is-focus'];
