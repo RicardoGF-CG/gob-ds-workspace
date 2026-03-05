@@ -360,7 +360,7 @@
                 "defaultValue": "{}"
             },
             {
-                "name": "Estados",
+                "name": "Status",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/search.stories.ts",
@@ -370,7 +370,7 @@
                 "defaultValue": "{\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"width:320px; display:flex; flex-direction:column; gap:12px;\">\r\n        <ds-search placeholder=\"Sin texto (default)\" />\r\n        <ds-search placeholder=\"Disabled\" [disabled]=\"true\" />\r\n      </div>\r\n    `,\r\n  }),\r\n  parameters: { layout: 'padded' },\r\n}"
             },
             {
-                "name": "Estilos",
+                "name": "Styles",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/gob-ds/src/tokens/stories/borders.stories.ts",
@@ -853,7 +853,7 @@
                     "defaultValue": "{\r\n  parameters: { layout: 'padded' },\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"\r\n        display: flex;\r\n        align-items: center;\r\n        justify-content: space-between;\r\n        padding: 16px;\r\n        border: 1px solid var(--color-border);\r\n        border-radius: 12px;\r\n        background: var(--color-bg-default);\r\n        gap: 12px;\r\n        min-width: 560px;\r\n      \">\r\n        <div style=\"flex:1; max-width:320px;\">\r\n          <ds-search placeholder=\"Buscar por nombre o RFC...\" />\r\n        </div>\r\n        <span style=\"font-size:13px; color:var(--color-text-tertiary);\">\r\n          52 resultados\r\n        </span>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
                 },
                 {
-                    "name": "Estados",
+                    "name": "Status",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/gob-ds/src/stories/components/search.stories.ts",
@@ -1225,7 +1225,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Estados",
+                "name": "Status",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

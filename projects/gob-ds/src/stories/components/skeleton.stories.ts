@@ -35,7 +35,7 @@ export const Default: Story = {
   },
 };
 
-export const Variantes: Story = {
+export const Variants: Story = {
   render: () => ({
     template: `
       <div style="display: flex; flex-direction: column; gap: 16px; width: 300px;">
@@ -75,7 +75,7 @@ export const CardSkeleton: Story = {
   }),
 };
 
-export const ListaSkeleton: Story = {
+export const ListSkeleton: Story = {
   render: () => ({
     template: `
       <div style="width: 400px; display: flex; flex-direction: column; gap: 16px;">

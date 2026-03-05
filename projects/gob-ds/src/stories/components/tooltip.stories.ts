@@ -54,7 +54,7 @@ export const Default: Story = {
   }),
 };
 
-export const Posiciones: Story = {
+export const Positions: Story = {
   render: () => ({
     template: `
       <div style="display: flex; gap: 32px; padding: 80px;">
@@ -75,7 +75,7 @@ export const Posiciones: Story = {
   }),
 };
 
-export const ConDelay: Story = {
+export const WithDelay: Story = {
   args: {
     text: 'Aparece con delay de 500ms',
     position: 'top',
@@ -99,7 +99,7 @@ export const ConDelay: Story = {
   }),
 };
 
-export const EnIconos: Story = {
+export const InIcons: Story = {
   render: () => ({
     template: `
       <div style="display: flex; gap: 16px; padding: 60px;">

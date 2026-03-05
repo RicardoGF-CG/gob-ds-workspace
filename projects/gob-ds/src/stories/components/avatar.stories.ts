@@ -27,14 +27,14 @@ const meta: Meta<AvatarComponent> = {
 export default meta;
 type Story = StoryObj<AvatarComponent>;
 
-export const ConIniciales: Story = {
+export const WithInitials: Story = {
   args: {
     name: 'Ricardo Gonzalez',
     size: 'md',
   },
 };
 
-export const ConImagen: Story = {
+export const WithImage: Story = {
   args: {
     name: 'Ana García',
     src: 'https://i.pravatar.cc/150?img=5',
@@ -42,7 +42,7 @@ export const ConImagen: Story = {
   },
 };
 
-export const Tamanos: Story = {
+export const Sizes: Story = {
   render: () => ({
     template: `
       <div style="display: flex; align-items: center; gap: 12px;">
@@ -56,7 +56,7 @@ export const Tamanos: Story = {
   }),
 };
 
-export const VariosUsuarios: Story = {
+export const MultipleUsers: Story = {
   render: () => ({
     template: `
       <div style="display: flex; align-items: center; gap: 8px;">
@@ -70,7 +70,7 @@ export const VariosUsuarios: Story = {
   }),
 };
 
-export const FallbackDeImagen: Story = {
+export const ImageFallback: Story = {
   args: {
     name: 'Error Image',
     src: 'https://invalid-url-that-will-fail.com/avatar.png',
@@ -85,7 +85,7 @@ export const FallbackDeImagen: Story = {
   },
 };
 
-export const EnLista: Story = {
+export const InList: Story = {
   parameters: { layout: 'padded' },
   render: () => ({
     template: `

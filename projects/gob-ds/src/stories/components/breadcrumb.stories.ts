@@ -28,7 +28,7 @@ export const Default: Story = {
   },
 };
 
-export const DosNiveles: Story = {
+export const TwoLevels: Story = {
   args: {
     items: [
       { label: 'Inicio', url: '#' },
@@ -37,7 +37,7 @@ export const DosNiveles: Story = {
   },
 };
 
-export const RutaLarga: Story = {
+export const LongPath: Story = {
   args: {
     items: [
       { label: 'Inicio', url: '#' },

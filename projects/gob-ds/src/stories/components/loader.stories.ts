@@ -33,14 +33,14 @@ export const Default: Story = {
   args: { size: 'md' },
 };
 
-export const ConTexto: Story = {
+export const WithText: Story = {
   args: {
     size: 'md',
     text: 'Cargando datos...',
   },
 };
 
-export const Tamanos: Story = {
+export const Sizes: Story = {
   render: () => ({
     template: `
       <div style="display: flex; align-items: center; gap: 24px;">
@@ -52,7 +52,7 @@ export const Tamanos: Story = {
   }),
 };
 
-export const SoloSpinner: Story = {
+export const OnlySpinner: Story = {
   render: () => ({
     template: `
       <div style="display: flex; align-items: center; gap: 16px;">
@@ -64,7 +64,7 @@ export const SoloSpinner: Story = {
   }),
 };
 
-export const EnBoton: Story = {
+export const InButton: Story = {
   parameters: { layout: 'centered' },
   render: () => ({
     template: `

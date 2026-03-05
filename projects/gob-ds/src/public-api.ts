@@ -11,3 +11,4 @@ export * from './lib/skeleton/skeleton.component';
 export * from './lib/avatar/avatar.component';
 export * from './lib/loader/loader.component';
 export * from './lib/tooltip/tooltip.component';
+export * from './lib/modal/modal.component';

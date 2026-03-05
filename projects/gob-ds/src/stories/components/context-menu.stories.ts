@@ -49,7 +49,7 @@ export const Default: Story = {
   }),
 };
 
-export const SinIconos: Story = {
+export const WithoutIcons: Story = {
   args: {
     items: [
       { label: 'Ver detalle' },
@@ -69,7 +69,7 @@ export const SinIconos: Story = {
   }),
 };
 
-export const ConTextoTrigger: Story = {
+export const WithTextTrigger: Story = {
   args: {
     items: [
       { label: 'Exportar CSV', icon: FileDown },
@@ -87,7 +87,7 @@ export const ConTextoTrigger: Story = {
   }),
 };
 
-export const ConItemsDeshabilitados: Story = {
+export const WithDisabledItems: Story = {
   args: {
     items: [
       { label: 'Ver detalle', icon: Eye },
@@ -107,7 +107,7 @@ export const ConItemsDeshabilitados: Story = {
   }),
 };
 
-export const AlineadoDerecha: Story = {
+export const RightAligned: Story = {
   args: {
     items: defaultItems,
     align: 'right',
@@ -124,7 +124,7 @@ export const AlineadoDerecha: Story = {
   }),
 };
 
-export const EnTabla: Story = {
+export const InTable: Story = {
   parameters: { layout: 'padded' },
   render: () => ({
     props: {
