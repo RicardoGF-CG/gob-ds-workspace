@@ -1,0 +1,32 @@
+<div class="input-field">
+
+    @if (label) {
+    <label class="input-label" [for]="textareaId">
+        {{ label }}
+        @if (required) {
+        <span class="input-required" aria-hidden="true">*</span>
+        }
+    </label>
+    }
+
+    <div [class]="wrapperClasses">
+
+        <textarea [id]="textareaId" [placeholder]="placeholder" [disabled]="disabled" [required]="required"
+            [rows]="rows" [attr.maxlength]="maxlength > 0 ? maxlength : null" [value]="value" class="input-control"
+            (input)="onInput($event)" (focus)="onFocus()" (blur)="onBlur()"></textarea>
+
+    </div>
+
+    @if (showCount && maxlength) {
+    <span class="input-count" [class.input-count--limit]="value.length >= maxlength">
+        {{ value.length }} / {{ maxlength }}
+    </span>
+    }
+
+    @if (error) {
+    <span class="input-hint input-hint--error">{{ error }}</span>
+    } @else if (hint) {
+    <span class="input-hint">{{ hint }}</span>
+    }
+
+</div>
