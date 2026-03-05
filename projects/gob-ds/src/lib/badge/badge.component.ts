@@ -5,21 +5,21 @@ export type BadgeVariant = 'success' | 'warning' | 'neutral' | 'default' | 'erro
 export type BadgeSize = 'sm' | 'md';
 
 @Component({
-    standalone: true,
-    selector: 'cg-badge',
-    imports: [CommonModule],
-    styleUrl: './badge.scss',
-    template: `
+  standalone: true,
+  selector: 'cg-badge',
+  imports: [CommonModule],
+  styleUrl: './badge.scss',
+  template: `
     <span [class]="badgeClasses">
       <ng-content />
     </span>
   `,
 })
 export class BadgeComponent {
-    @Input() variant: BadgeVariant = 'default';
-    @Input() size: BadgeSize = 'md';
+  @Input() variant: BadgeVariant = 'default';
+  @Input() size: BadgeSize = 'md';
 
-    get badgeClasses(): string {
-        return `badge badge--${this.variant} badge--${this.size}`;
-    }
+  get badgeClasses(): string {
+    return `badge badge--${this.variant} badge--${this.size}`;
+  }
 }
