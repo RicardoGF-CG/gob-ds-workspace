@@ -9,10 +9,8 @@ import {
   Output,
   SimpleChanges,
   ViewChild,
-  PLATFORM_ID,
-  inject,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 export type AlertDialogVariant = 'default' | 'destructive';
 
@@ -24,9 +22,6 @@ export type AlertDialogVariant = 'default' | 'destructive';
   styleUrl: './alert-dialog.component.scss',
 })
 export class AlertDialogComponent implements OnChanges, OnDestroy {
-  private readonly platformId = inject(PLATFORM_ID);
-  private readonly isBrowser = isPlatformBrowser(this.platformId);
-
   @Input() open = false;
   @Output() openChange = new EventEmitter<boolean>();
 
@@ -60,8 +55,6 @@ export class AlertDialogComponent implements OnChanges, OnDestroy {
   }
 
   private onOpen(): void {
-    if (!this.isBrowser) return; // No ejecutamos lógica de DOM en el servidor
-
     this.lastActiveElement = document.activeElement as HTMLElement | null;
     this.lockScroll();
 
@@ -71,8 +64,6 @@ export class AlertDialogComponent implements OnChanges, OnDestroy {
   }
 
   private onClose(): void {
-    if (!this.isBrowser) return; // No ejecutamos lógica de DOM en el servidor
-
     this.unlockScroll();
     queueMicrotask(() => {
       this.lastActiveElement?.focus?.();
@@ -80,15 +71,11 @@ export class AlertDialogComponent implements OnChanges, OnDestroy {
   }
 
   private lockScroll(): void {
-    if (this.isBrowser) {
-      document.documentElement.style.overflow = 'hidden';
-    }
+    document.documentElement.style.overflow = 'hidden';
   }
 
   private unlockScroll(): void {
-    if (this.isBrowser) {
-      document.documentElement.style.overflow = '';
-    }
+    document.documentElement.style.overflow = '';
   }
 
   requestClose(): void {
@@ -113,8 +100,7 @@ export class AlertDialogComponent implements OnChanges, OnDestroy {
 
   @HostListener('document:keydown', ['$event'])
   onKeydown(event: KeyboardEvent): void {
-    // Solo reaccionar si estamos en el navegador y el diálogo está abierto
-    if (!this.isBrowser || !this.open) return;
+    if (!this.open) return;
 
     if (event.key === 'Escape') {
       event.preventDefault();
@@ -128,8 +114,6 @@ export class AlertDialogComponent implements OnChanges, OnDestroy {
   }
 
   private trapFocus(event: KeyboardEvent): void {
-    if (!this.isBrowser) return;
-
     const panel = this.dialogPanel?.nativeElement;
     if (!panel) return;
 

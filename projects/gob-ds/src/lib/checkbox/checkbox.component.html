@@ -1,0 +1,21 @@
+<label [class]="rootClasses" [attr.aria-disabled]="disabled">
+    <!-- Box accesible -->
+    <span [class]="boxClasses" role="checkbox" tabindex="0" [attr.aria-checked]="indeterminate ? 'mixed' : checked"
+        [attr.aria-disabled]="disabled" (click)="toggle()" (keydown.space)="$event.preventDefault(); toggle()"
+        (keydown.enter)="$event.preventDefault(); toggle()" (focus)="onFocus()" (blur)="onBlur()">
+        @if (indeterminate) {
+        <lucide-icon [img]="Minus" class="cb-icon" />
+        } @else if (checked) {
+        <lucide-icon [img]="Check" class="cb-icon" />
+        }
+    </span>
+    <!-- Label + hint (click also toggles) -->
+    @if (label) {
+    <span class="cb-content" (click)="toggle()">
+        <span class="cb-label">{{ label }}</span>
+        @if (hint) {
+        <span class="cb-hint">{{ hint }}</span>
+        }
+    </span>
+    }
+</label>

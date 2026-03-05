@@ -1,7 +1,7 @@
 // ── Wrapper ───────────────────────────────────────────────────
 .search-wrapper {
-  --icon-slot: 20px; 
-  --icon-size: 16px; 
+  --icon-slot: 20px;
+  --icon-size: 16px;
 
   position: relative;
   display: flex;
@@ -27,23 +27,23 @@
 
 // ── Input ──────────────────────────────────────────────
 .search-control {
-    flex: 1;
-    height: 100%;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-family: var(--font-family-sans);
-    font-size: var(--font-size-md);
-    color: var(--color-text-primary);
-    padding-inline: 0;
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  padding-inline: 0;
 
-    &::placeholder {
-        color: var(--color-text-tertiary);
-    }
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
 
-    &:disabled {
-        cursor: not-allowed;
-    }
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 // ── Icons ────────────────────────────────────────────────────
@@ -56,7 +56,7 @@
   justify-content: center;
 
   flex: 0 0 auto;
-  line-height: 0;               
+  line-height: 0;
   color: var(--color-text-disabled);
 }
 

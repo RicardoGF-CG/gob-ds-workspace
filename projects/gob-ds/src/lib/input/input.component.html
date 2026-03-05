@@ -1,0 +1,43 @@
+<div class="input-field">
+
+    @if (label) {
+    <label class="input-label" [for]="inputId">
+        {{ label }}
+        @if (required) {
+        <span class="input-required" aria-hidden="true">*</span>
+        }
+    </label>
+    }
+
+    <div [class]="wrapperClasses">
+
+        @if (prefixIcon) {
+        <span class="input-icon input-icon--prefix">
+            <lucide-icon [img]="prefixIcon" [size]="16" />
+        </span>
+        }
+
+        <input [id]="inputId" [type]="currentType" [placeholder]="placeholder" [disabled]="disabled"
+            [required]="required" [value]="value" class="input-control" (input)="onInput($event)" (focus)="onFocus()"
+            (blur)="onBlur()" />
+
+        @if (isPassword) {
+        <button type="button" class="input-icon input-icon--suffix input-icon--button" [disabled]="disabled"
+            (click)="togglePassword()" [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+            <lucide-icon [img]="showPassword() ? EyeOff : Eye" [size]="16" />
+        </button>
+        } @else if (suffixIcon) {
+        <span class="input-icon input-icon--suffix">
+            <lucide-icon [img]="suffixIcon" [size]="16" />
+        </span>
+        }
+
+    </div>
+
+    @if (error) {
+    <span class="input-hint input-hint--error">{{ error }}</span>
+    } @else if (hint) {
+    <span class="input-hint">{{ hint }}</span>
+    }
+
+</div>
