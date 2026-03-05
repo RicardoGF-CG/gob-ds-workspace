@@ -9,7 +9,7 @@ import {
     ElementRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { LucideAngularModule, Calendar, ChevronLeft, ChevronRight, ChevronDown, X } from 'lucide-angular';
 
 export type DatepickerSize = 'sm' | 'md' | 'lg';
 export type DatepickerState = 'default' | 'error' | 'success' | 'disabled';
@@ -23,11 +23,11 @@ export interface CalendarDay {
 }
 
 @Component({
-    selector: 'app-datepicker',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    selector: 'app-datepicker',
+    imports: [CommonModule, LucideAngularModule],
     templateUrl: './datepicker.component.html',
-    styleUrls: ['./datepicker.component.scss'],
+    styleUrl: './datepicker.component.scss',
 })
 export class DatepickerComponent implements OnInit, OnChanges {
     @Input() label = '';
@@ -42,17 +42,24 @@ export class DatepickerComponent implements OnInit, OnChanges {
 
     @Output() dateChange = new EventEmitter<Date | null>();
 
-    isOpen = false;
-    selectedDate: Date | null = null;
-    currentMonth = new Date().getMonth();
-    currentYear = new Date().getFullYear();
-    calendarDays: CalendarDay[] = [];
+    // Lucide icons
+    readonly CalendarIcon = Calendar;
+    readonly ChevronLeftIcon = ChevronLeft;
+    readonly ChevronRightIcon = ChevronRight;
+    readonly ChevronDownIcon = ChevronDown;
+    readonly XIcon = X;
 
     readonly monthNames = [
         'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
         'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
     ];
     readonly dayNames = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'];
+
+    selectedDate: Date | null = null;
+    isOpen = false;
+    currentMonth = new Date().getMonth();
+    currentYear = new Date().getFullYear();
+    calendarDays: CalendarDay[] = [];
 
     constructor(private el: ElementRef) { }
 
@@ -75,8 +82,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
 
     @HostListener('document:click', ['$event'])
-    onDocumentClick(event: MouseEvent): void {
-        if (!this.el.nativeElement.contains(event.target)) {
+    onDocumentClick(e: MouseEvent): void {
+        if (!this.el.nativeElement.contains(e.target)) {
             this.isOpen = false;
         }
     }
@@ -97,17 +104,14 @@ export class DatepickerComponent implements OnInit, OnChanges {
         for (let i = startDow - 1; i >= 0; i--) {
             days.push(this.makeDay(new Date(this.currentYear, this.currentMonth - 1, prevLastDay - i), false, today));
         }
-
         const daysInMonth = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
         for (let i = 1; i <= daysInMonth; i++) {
             days.push(this.makeDay(new Date(this.currentYear, this.currentMonth, i), true, today));
         }
-
         let next = 1;
         while (days.length < 42) {
             days.push(this.makeDay(new Date(this.currentYear, this.currentMonth + 1, next++), false, today));
         }
-
         this.calendarDays = days;
     }
 
@@ -147,8 +151,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
         this.dateChange.emit(this.selectedDate);
     }
 
-    clearDate(event: MouseEvent): void {
-        event.stopPropagation();
+    clearDate(event?: MouseEvent): void {
+        event?.stopPropagation();
         this.selectedDate = null;
         this.buildCalendar();
         this.dateChange.emit(null);
