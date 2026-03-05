@@ -9,6 +9,7 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-docs"
   ],
+  "staticDirs": ["../src/assets"],
   "framework": "@storybook/angular"
 };
 export default config;

@@ -10,6 +10,11 @@
       "input": "./src/tokens/styles",
       "glob": "**/*.scss",
       "output": "./tokens/styles"
+    },
+    {
+      "input": "./src/assets",
+      "glob": "**/*",
+      "output": "./assets"
     }
   ]
 }
