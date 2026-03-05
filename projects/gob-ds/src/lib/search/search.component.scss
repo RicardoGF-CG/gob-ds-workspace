@@ -1,0 +1,102 @@
+// ── Wrapper ───────────────────────────────────────────────────
+.search-wrapper {
+  --icon-slot: 20px; 
+  --icon-size: 16px; 
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 6px;
+  background: var(--search-bg);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-lg);
+  transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+
+  &--focused {
+    background: var(--search-bg);
+    border-color: var(--color-brand-400);
+    box-shadow: 0 0 0 3px var(--color-brand-100);
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ── Input ──────────────────────────────────────────────
+.search-control {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-md);
+    color: var(--color-text-primary);
+    padding-inline: 0;
+
+    &::placeholder {
+        color: var(--color-text-tertiary);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+// ── Icons ────────────────────────────────────────────────────
+.search-icon {
+  width: var(--icon-slot);
+  height: var(--icon-slot);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+  line-height: 0;               
+  color: var(--color-text-disabled);
+}
+
+.search-icon--prefix {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.search-icon--clear {
+  width: var(--icon-slot);
+  height: var(--icon-slot);
+
+  background: transparent;
+  border: 0;
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  border-radius: 999px;
+  line-height: 0;
+  transition: color 150ms ease, background 150ms ease;
+
+  &:hover {
+    color: var(--color-text-primary);
+    background: var(--color-bg-subtle);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-brand-100);
+  }
+}
+
+.search-icon lucide-icon,
+.search-icon svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: block;
+}

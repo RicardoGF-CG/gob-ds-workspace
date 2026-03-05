@@ -1,0 +1,105 @@
+.context-menu {
+  position: relative;
+  display: inline-block;
+
+  &__trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--space-1) var(--space-1-5);
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    transition: all 150ms ease-out;
+    min-width: 32px;
+    min-height: 32px;
+
+    &:hover {
+      background: var(--color-bg-subtle);
+      color: var(--color-text-primary);
+      border-color: var(--color-border);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--color-brand-100);
+    }
+  }
+
+  &__dots {
+    font-size: var(--font-size-lg);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + var(--space-1));
+    left: 0;
+    min-width: 180px;
+    background: var(--color-bg-default);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-1);
+    z-index: 50;
+    animation: contextMenuIn 120ms ease-out;
+
+    &--right {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-2);
+    border: none;
+    background: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-md);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    text-align: left;
+    transition: background 150ms ease-out;
+
+    &:hover:not(:disabled) {
+      background: var(--color-bg-subtle);
+    }
+
+    &--danger {
+      color: var(--color-status-error);
+
+      &:hover:not(:disabled) {
+        background: var(--color-status-error-bg);
+      }
+    }
+
+    &--disabled {
+      color: var(--color-text-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  &__divider {
+    height: 1px;
+    background: var(--color-border-subtle);
+    margin: var(--space-1) 0;
+  }
+}
+
+@keyframes contextMenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -330,6 +330,16 @@
                 "defaultValue": "{}"
             },
             {
+                "name": "EnToolbar",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/search.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  parameters: { layout: 'padded' },\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"\r\n        display: flex;\r\n        align-items: center;\r\n        justify-content: space-between;\r\n        padding: 16px;\r\n        border: 1px solid var(--color-border);\r\n        border-radius: 12px;\r\n        background: var(--color-bg-default);\r\n        gap: 12px;\r\n        min-width: 560px;\r\n      \">\r\n        <div style=\"flex:1; max-width:320px;\">\r\n          <ds-search placeholder=\"Buscar por nombre o RFC...\" />\r\n        </div>\r\n        <span style=\"font-size:13px; color:var(--color-text-tertiary);\">\r\n          52 resultados\r\n        </span>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+            },
+            {
                 "name": "Escala",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -350,6 +360,16 @@
                 "defaultValue": "{}"
             },
             {
+                "name": "Estados",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/search.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"width:320px; display:flex; flex-direction:column; gap:12px;\">\r\n        <ds-search placeholder=\"Sin texto (default)\" />\r\n        <ds-search placeholder=\"Disabled\" [disabled]=\"true\" />\r\n      </div>\r\n    `,\r\n  }),\r\n  parameters: { layout: 'padded' },\r\n}"
+            },
+            {
                 "name": "Estilos",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -363,11 +383,31 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/alert-dialog.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<AlertDialogComponent>",
+                "defaultValue": "{\r\n  title: 'Components/AlertDialog',\r\n  component: AlertDialogComponent,\r\n  tags: ['autodocs'],\r\n  parameters: { layout: 'centered' },\r\n  argTypes: {\r\n    open: { control: 'boolean' },\r\n    title: { control: 'text' },\r\n    description: { control: 'text' },\r\n    variant: { control: 'radio', options: ['default', 'destructive'] },\r\n    confirmText: { control: 'text' },\r\n    cancelText: { control: 'text' },\r\n    closeOnOverlayClick: { control: 'boolean' },\r\n    disableClose: { control: 'boolean' },\r\n  },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/badge.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<BadgeComponent>",
                 "defaultValue": "{\r\n  title: 'Components/Badge',\r\n  component: BadgeComponent,\r\n  tags: ['autodocs'],\r\n  parameters: {\r\n    layout: 'centered',\r\n    docs: {\r\n      description: {\r\n        component: 'Chip de estado al estilo Tremor. Usado en tablas y listas para indicar el estado de un ítem.',\r\n      },\r\n    },\r\n  },\r\n  argTypes: {\r\n    variant: {\r\n      control: 'select',\r\n      options: ['success', 'warning', 'neutral', 'default', 'error'],\r\n      description: 'Variante de color según el estado',\r\n    },\r\n    size: {\r\n      control: 'radio',\r\n      options: ['sm', 'md'],\r\n    }\r\n  },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/search.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<SearchComponent>",
+                "defaultValue": "{\r\n  title: 'Components/Search',\r\n  component: SearchComponent,\r\n  tags: ['autodocs'],\r\n  parameters: {\r\n    layout: 'centered',\r\n    docs: {\r\n      description: {\r\n        component: 'Input de búsqueda con ícono prefix, botón de limpiar y eventos `search` y `cleared`.',\r\n      },\r\n    },\r\n  },\r\n  argTypes: {\r\n    disabled:    { control: 'boolean' },\r\n    placeholder: { control: 'text' },\r\n  },\r\n}"
             },
             {
                 "name": "meta",
@@ -428,6 +468,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/alert-dialog.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    open: true,\r\n    title: 'Are you absolutely sure?',\r\n    description: 'This action cannot be undone. This will permanently delete your account from our servers.',\r\n    variant: 'destructive',\r\n    confirmText: 'Confirm',\r\n    cancelText: 'Cancel',\r\n    closeOnOverlayClick: true,\r\n    disableClose: false,\r\n  },\r\n  render: (args) => ({\r\n    props: {\r\n      ...args,\r\n      openChange: (v: boolean) => (args.open = v),\r\n      confirm: () => console.log('confirm'),\r\n      cancel: () => console.log('cancel'),\r\n    },\r\n    template: `\r\n      <div style=\"width: 520px; display:flex; justify-content:center;\">\r\n        <ds-alert-dialog\r\n          [open]=\"open\"\r\n          (openChange)=\"openChange($event)\"\r\n          [title]=\"title\"\r\n          [description]=\"description\"\r\n          [variant]=\"variant\"\r\n          [confirmText]=\"confirmText\"\r\n          [cancelText]=\"cancelText\"\r\n          [closeOnOverlayClick]=\"closeOnOverlayClick\"\r\n          [disableClose]=\"disableClose\"\r\n          (confirm)=\"confirm()\"\r\n          (cancel)=\"cancel()\"\r\n        />\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/search.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    placeholder: 'Buscar por nombre o RFC...',\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"width: 340px;\">\r\n        <ds-search\r\n          [placeholder]=\"placeholder\"\r\n          [disabled]=\"disabled\"\r\n        />\r\n      </div>\r\n    `,\r\n  }),\r\n}"
             },
             {
                 "name": "preview",
@@ -526,8 +586,30 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<AlertDialogComponent>",
+                "file": "projects/gob-ds/src/stories/components/alert-dialog.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<BadgeComponent>",
                 "file": "projects/gob-ds/src/stories/components/badge.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<SearchComponent>",
+                "file": "projects/gob-ds/src/stories/components/search.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -759,6 +841,48 @@
                     "defaultValue": "[\r\n  {\r\n    token: '--shadow-xs',\r\n    value: '0 1px 2px 0 rgb(0 0 0 / 0.05)',\r\n    label: 'XS',\r\n    usage: 'Tooltips, badges',\r\n  },\r\n  {\r\n    token: '--shadow-sm',\r\n    value: '0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10)',\r\n    label: 'SM',\r\n    usage: 'Botones, inputs',\r\n  },\r\n  {\r\n    token: '--shadow-md',\r\n    value: '0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10)',\r\n    label: 'MD',\r\n    usage: 'Cards, dropdowns',\r\n  },\r\n  {\r\n    token: '--shadow-lg',\r\n    value: '0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10)',\r\n    label: 'LG',\r\n    usage: 'Modals, popovers',\r\n  },\r\n  {\r\n    token: '--shadow-xl',\r\n    value: '0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10)',\r\n    label: 'XL',\r\n    usage: 'Drawers, sidebars',\r\n  },\r\n  {\r\n    token: '--shadow-inner',\r\n    value: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',\r\n    label: 'Inner',\r\n    usage: 'Inputs activos, wells',\r\n  },\r\n  {\r\n    token: '--shadow-none',\r\n    value: '0 0 #0000',\r\n    label: 'None',\r\n    usage: 'Reset explícito',\r\n  },\r\n]"
                 }
             ],
+            "projects/gob-ds/src/stories/components/search.stories.ts": [
+                {
+                    "name": "EnToolbar",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/search.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  parameters: { layout: 'padded' },\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"\r\n        display: flex;\r\n        align-items: center;\r\n        justify-content: space-between;\r\n        padding: 16px;\r\n        border: 1px solid var(--color-border);\r\n        border-radius: 12px;\r\n        background: var(--color-bg-default);\r\n        gap: 12px;\r\n        min-width: 560px;\r\n      \">\r\n        <div style=\"flex:1; max-width:320px;\">\r\n          <ds-search placeholder=\"Buscar por nombre o RFC...\" />\r\n        </div>\r\n        <span style=\"font-size:13px; color:var(--color-text-tertiary);\">\r\n          52 resultados\r\n        </span>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+                },
+                {
+                    "name": "Estados",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/search.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"width:320px; display:flex; flex-direction:column; gap:12px;\">\r\n        <ds-search placeholder=\"Sin texto (default)\" />\r\n        <ds-search placeholder=\"Disabled\" [disabled]=\"true\" />\r\n      </div>\r\n    `,\r\n  }),\r\n  parameters: { layout: 'padded' },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/search.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<SearchComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/Search',\r\n  component: SearchComponent,\r\n  tags: ['autodocs'],\r\n  parameters: {\r\n    layout: 'centered',\r\n    docs: {\r\n      description: {\r\n        component: 'Input de búsqueda con ícono prefix, botón de limpiar y eventos `search` y `cleared`.',\r\n      },\r\n    },\r\n  },\r\n  argTypes: {\r\n    disabled:    { control: 'boolean' },\r\n    placeholder: { control: 'text' },\r\n  },\r\n}"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/search.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    placeholder: 'Buscar por nombre o RFC...',\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"width: 340px;\">\r\n        <ds-search\r\n          [placeholder]=\"placeholder\"\r\n          [disabled]=\"disabled\"\r\n        />\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+                }
+            ],
             "projects/gob-ds/src/tokens/stories/spacing.stories.ts": [
                 {
                     "name": "Escala",
@@ -833,6 +957,28 @@
                     "defaultValue": "[\r\n  { token: '--font-weight-regular',  value: '400', label: 'Regular' },\r\n  { token: '--font-weight-medium',   value: '500', label: 'Medium' },\r\n  { token: '--font-weight-semibold', value: '600', label: 'Semibold' },\r\n  { token: '--font-weight-bold',     value: '700', label: 'Bold' },\r\n]"
                 }
             ],
+            "projects/gob-ds/src/stories/components/alert-dialog.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/alert-dialog.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<AlertDialogComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/AlertDialog',\r\n  component: AlertDialogComponent,\r\n  tags: ['autodocs'],\r\n  parameters: { layout: 'centered' },\r\n  argTypes: {\r\n    open: { control: 'boolean' },\r\n    title: { control: 'text' },\r\n    description: { control: 'text' },\r\n    variant: { control: 'radio', options: ['default', 'destructive'] },\r\n    confirmText: { control: 'text' },\r\n    cancelText: { control: 'text' },\r\n    closeOnOverlayClick: { control: 'boolean' },\r\n    disableClose: { control: 'boolean' },\r\n  },\r\n}"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/alert-dialog.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    open: true,\r\n    title: 'Are you absolutely sure?',\r\n    description: 'This action cannot be undone. This will permanently delete your account from our servers.',\r\n    variant: 'destructive',\r\n    confirmText: 'Confirm',\r\n    cancelText: 'Cancel',\r\n    closeOnOverlayClick: true,\r\n    disableClose: false,\r\n  },\r\n  render: (args) => ({\r\n    props: {\r\n      ...args,\r\n      openChange: (v: boolean) => (args.open = v),\r\n      confirm: () => console.log('confirm'),\r\n      cancel: () => console.log('cancel'),\r\n    },\r\n    template: `\r\n      <div style=\"width: 520px; display:flex; justify-content:center;\">\r\n        <ds-alert-dialog\r\n          [open]=\"open\"\r\n          (openChange)=\"openChange($event)\"\r\n          [title]=\"title\"\r\n          [description]=\"description\"\r\n          [variant]=\"variant\"\r\n          [confirmText]=\"confirmText\"\r\n          [cancelText]=\"cancelText\"\r\n          [closeOnOverlayClick]=\"closeOnOverlayClick\"\r\n          [disableClose]=\"disableClose\"\r\n          (confirm)=\"confirm()\"\r\n          (cancel)=\"cancel()\"\r\n        />\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+                }
+            ],
             "projects/gob-ds/.storybook/preview.ts": [
                 {
                     "name": "preview",
@@ -849,6 +995,19 @@
         "groupedFunctions": {},
         "groupedEnumerations": {},
         "groupedTypeAliases": {
+            "projects/gob-ds/src/stories/components/alert-dialog.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<AlertDialogComponent>",
+                    "file": "projects/gob-ds/src/stories/components/alert-dialog.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/gob-ds/src/stories/components/badge.stories.ts": [
                 {
                     "name": "Story",
@@ -856,6 +1015,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<BadgeComponent>",
                     "file": "projects/gob-ds/src/stories/components/badge.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/gob-ds/src/stories/components/search.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<SearchComponent>",
+                    "file": "projects/gob-ds/src/stories/components/search.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -949,6 +1121,36 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/gob-ds/src/stories/components/alert-dialog.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/alert-dialog.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/alert-dialog.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/gob-ds/src/stories/components/badge.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -1000,6 +1202,56 @@
             },
             {
                 "filePath": "projects/gob-ds/src/stories/components/badge.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/search.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "EnToolbar",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/search.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Estados",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/search.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/search.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/search.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
