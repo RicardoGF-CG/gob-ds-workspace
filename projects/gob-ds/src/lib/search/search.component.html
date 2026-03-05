@@ -4,27 +4,13 @@
     <lucide-icon [img]="Search" [size]="iconSize" />
   </span>
 
-  <input
-    class="search-control"
-    type="text"
-    [placeholder]="placeholder"
-    [disabled]="disabled"
-    [value]="value"
-    (input)="onInput($event)"
-    (keydown)="onKeydown($event)"
-    (focus)="onFocus()"
-    (blur)="onBlur()"
-  />
+  <input class="search-control" type="text" [placeholder]="placeholder" [disabled]="disabled" [value]="value"
+    (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()" />
 
   @if (value && !disabled) {
-    <button
-      type="button"
-      class="search-icon search-icon--clear"
-      (click)="clear()"
-      aria-label="Limpiar búsqueda"
-    >
-      <lucide-icon [img]="X" [size]="iconSize" />
-    </button>
+  <button type="button" class="search-icon search-icon--clear" (click)="clear()" aria-label="Limpiar búsqueda">
+    <lucide-icon [img]="X" [size]="iconSize" />
+  </button>
   }
 
 </div>

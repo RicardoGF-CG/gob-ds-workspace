@@ -1,7 +1,7 @@
 // ── Wrapper ───────────────────────────────────────────────────
 .search-wrapper {
-  --icon-slot: 20px; 
-  --icon-size: 16px; 
+  --icon-slot: 20px;
+  --icon-size: 16px;
 
   position: relative;
   display: flex;
@@ -27,28 +27,28 @@
 
 // ── Input ──────────────────────────────────────────────
 .search-control {
-    flex: 1;
-    height: 100%;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-family: var(--font-family-sans);
-    font-size: var(--font-size-md);
-    color: var(--color-text-primary);
-    padding-inline: 0;
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  padding-inline: 0;
 
-    &::placeholder {
-        color: var(--color-text-tertiary);
-    }
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
 
-    &:disabled {
-        cursor: not-allowed;
-    }
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 // ── Icons ────────────────────────────────────────────────────
 .search-icon {
-  width: var(--icon-slot);
+  <<<<<<< HEAD width: var(--icon-slot);
   height: var(--icon-slot);
 
   display: inline-flex;
@@ -56,7 +56,7 @@
   justify-content: center;
 
   flex: 0 0 auto;
-  line-height: 0;               
+  line-height: 0;
   color: var(--color-text-disabled);
 }
 
@@ -92,11 +92,62 @@
     outline: none;
     box-shadow: 0 0 0 3px var(--color-brand-100);
   }
+
+  =======width: var(--icon-slot);
+  height: var(--icon-slot);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+  line-height: 0;
+  color: var(--color-text-disabled);
+}
+
+.search-icon--prefix {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.search-icon--clear {
+  width: var(--icon-slot);
+  height: var(--icon-slot);
+
+  background: transparent;
+  border: 0;
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  border-radius: 999px;
+  line-height: 0;
+  transition: color 150ms ease, background 150ms ease;
+
+  &:hover {
+    color: var(--color-text-primary);
+    background: var(--color-bg-subtle);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-brand-100);
+  }
+
+  >>>>>>>dcf10b5 (add:search component)
 }
 
 .search-icon lucide-icon,
 .search-icon svg {
-  width: var(--icon-size);
+  <<<<<<< HEAD width: var(--icon-size);
   height: var(--icon-size);
   display: block;
+  =======width: var(--icon-size);
+  height: var(--icon-size);
+  display: block;
+  >>>>>>>dcf10b5 (add:search component)
 }

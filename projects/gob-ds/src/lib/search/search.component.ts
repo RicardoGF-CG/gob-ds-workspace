@@ -20,23 +20,23 @@ export class SearchComponent implements ControlValueAccessor {
   @Input() placeholder = 'Buscar...';
   @Input() disabled = false;
 
-  @Output() search  = new EventEmitter<string>();
+  @Output() search = new EventEmitter<string>();
   @Output() cleared = new EventEmitter<void>();
 
   readonly Search = Search;
-  readonly X      = X;
+  readonly X = X;
 
-  value     = '';
+  value = '';
   isFocused = false;
 
-  private onChange  = (_: any) => {};
-  private onTouched = () => {};
+  private onChange = (_: any) => { };
+  private onTouched = () => { };
 
   get wrapperClasses(): string {
     return [
       'search-wrapper',
-      this.isFocused ? 'search-wrapper--focused'  : '',
-      this.disabled  ? 'search-wrapper--disabled' : '',
+      this.isFocused ? 'search-wrapper--focused' : '',
+      this.disabled ? 'search-wrapper--disabled' : '',
     ].filter(Boolean).join(' ');
   }
 
@@ -64,10 +64,10 @@ export class SearchComponent implements ControlValueAccessor {
   }
 
   onFocus(): void { this.isFocused = true; }
-  onBlur(): void  { this.isFocused = false; this.onTouched(); }
+  onBlur(): void { this.isFocused = false; this.onTouched(); }
 
-  writeValue(val: string): void      { this.value = val ?? ''; }
-  registerOnChange(fn: any): void    { this.onChange = fn; }
-  registerOnTouched(fn: any): void   { this.onTouched = fn; }
+  writeValue(val: string): void { this.value = val ?? ''; }
+  registerOnChange(fn: any): void { this.onChange = fn; }
+  registerOnTouched(fn: any): void { this.onTouched = fn; }
   setDisabledState(is: boolean): void { this.disabled = is; }
 }

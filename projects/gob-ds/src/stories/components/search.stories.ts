@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { SearchComponent } from '../../lib/search/search.component';
-
 const meta: Meta<SearchComponent> = {
   title: 'Components/Search',
   component: SearchComponent,
@@ -14,7 +13,7 @@ const meta: Meta<SearchComponent> = {
     },
   },
   argTypes: {
-    disabled:    { control: 'boolean' },
+    disabled: { control: 'boolean' },
     placeholder: { control: 'text' },
   },
 };
@@ -40,8 +39,8 @@ export const Playground: Story = {
   }),
 };
 
-// ── Status ────────────────────────────────────────────────────
-export const Status: Story = {
+// ── Estados ────────────────────────────────────────────────────
+export const Estados: Story = {
   render: () => ({
     template: `
       <div style="width:320px; display:flex; flex-direction:column; gap:12px;">
@@ -53,8 +52,8 @@ export const Status: Story = {
   parameters: { layout: 'padded' },
 };
 
-// ── In Context With Toolbar ────────────────────────────
-export const InsideToolbar: Story = {
+// ── En contexto (toolbar de tabla) ────────────────────────────
+export const EnToolbar: Story = {
   parameters: { layout: 'padded' },
   render: () => ({
     template: `
