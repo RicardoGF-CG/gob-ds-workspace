@@ -74,10 +74,11 @@ export const Default: Story = {
             padding: 8px 16px;
             border: 1px solid var(--color-border);
             border-radius: 8px;
-            background: var(--color-bg-default);
+            background: var(--color-neutral-50);
             color: var(--color-text-primary);
             font-size: 14px;
             cursor: pointer;
+            margin-right: 8px;
           ">Cancelar</button>
           <button style="
             padding: 8px 16px;

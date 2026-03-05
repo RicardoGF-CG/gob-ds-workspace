@@ -39,14 +39,14 @@
   &__title {
     font-family: var(--font-family-sans);
     font-weight: var(--font-weight-semibold);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     color: var(--color-text-primary);
     line-height: var(--line-height-tight);
   }
 
   &__divider {
-    height: 3px;
-    background: var(--color-brand-500);
+    height: 1px;
+    background: var(--color-border-subtle);
   }
 }
 
