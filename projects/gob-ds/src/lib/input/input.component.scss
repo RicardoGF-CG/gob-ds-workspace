@@ -1,0 +1,181 @@
+// ── Field container ───────────────────────────────────────────
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+// ── Label ─────────────────────────────────────────────────────
+.input-label {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    line-height: 1;
+}
+
+// ── Wrapper (el "cuadro" visible) ─────────────────────────────
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    box-shadow: var(--shadow-xs);
+    padding: 7.5px 11px;
+    background: var(--color-bg-default);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+    --icon-slot: 28px;
+    --icon-size: 16px;
+
+    &--focused {
+        border-color: var(--color-brand-400);
+        box-shadow: var(--shadow-xs);
+        border-width: var(--border-width-thin);
+    }
+
+    &--error {
+        border-color: var(--color-status-error);
+
+        &.input-wrapper--focused {
+            box-shadow: 0 0 0 3px var(--color-status-error-bg);
+        }
+    }
+
+    &--disabled {
+        background: var(--color-bg-subtle);
+        opacity: 1;
+        cursor: not-allowed;
+    }
+}
+
+// ── Input ───────────────────────────────────────────────────
+.input-control {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    overflow: hidden;
+    font-family: var(--font-family-sans);
+    color: var(--color-text-primary);
+    width: 100%;
+    padding: 0;
+    line-height: 1.2;
+    font-size: var(--font-size-md);
+
+    &::placeholder {
+        color: var(--color-text-disabled);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &::-ms-reveal,
+    &::-ms-clear {
+        display: none;
+    }
+}
+
+.input-wrapper--has-prefix {
+    padding-left: calc(2px + var(--icon-slot));
+}
+
+.input-wrapper--has-suffix {
+    padding-right: calc(11px + var(--icon-slot));
+}
+
+.input-wrapper--has-prefix .input-control {
+    padding-left: 0;
+}
+
+.input-wrapper--has-suffix .input-control {
+    padding-right: 0;
+}
+
+.input-required {
+    margin-left: 4px;
+    color: var(--color-status-error);
+    font-weight: var(--font-weight-medium);
+    line-height: 1;
+}
+
+// ── Icons ───────────────────────────────────────────────────
+.input-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-text-tertiary);
+
+    width: var(--icon-slot);
+    height: var(--icon-slot);
+    line-height: 0;
+
+    &--prefix {
+        left: 0;
+    }
+
+    &--suffix {
+        right: 1px;
+    }
+}
+
+.input-icon lucide-icon,
+.input-icon svg {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    display: block;
+}
+
+/* Suffix interactivo (password toggle) */
+.input-icon--button {
+    background: transparent;
+    border: 0;
+    padding: 0;
+
+    /* Hit area consistente */
+    width: var(--icon-slot);
+    height: var(--icon-slot);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-text-tertiary);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    line-height: 0;
+
+    &:hover {
+        color: var(--color-text-primary);
+        background: var(--color-bg-subtle);
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-brand-200);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
+
+// ── Hint / Error ──────────────────────────────────────────────
+.input-hint {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-secondary);
+    line-height: 1;
+
+    &--error {
+        color: var(--color-status-error-text);
+    }
+}
