@@ -1,4 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
 export type TextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
@@ -6,7 +7,7 @@ export type TextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
 @Component({
     standalone: true,
     selector: 'ds-textarea',
-    imports: [ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './textarea.component.html',
     styleUrl: './textarea.component.scss',
     providers: [
@@ -25,16 +26,16 @@ export class TextareaComponent implements ControlValueAccessor {
     @Input() disabled = false;
     @Input() required = false;
 
-    /** Número de filas visibles */
+    /** Number of visible rows */
     @Input() rows = 4;
 
-    /** Límite de caracteres (0 = sin límite) */
+    /** Character limit (0 = no limit) */
     @Input() maxlength = 0;
 
-    /** Muestra contador de caracteres (requiere maxlength) */
+    /** Shows character counter (requires maxlength) */
     @Input() showCount = false;
 
-    /** Control de redimensión */
+    /** Resize control */
     @Input() resize: TextareaResize = 'vertical';
 
     value = '';

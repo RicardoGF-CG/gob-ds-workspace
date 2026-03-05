@@ -120,11 +120,10 @@ export const Disabled: Story = {
 // ─── With Character Count ─────────────────────────────────────────────────────
 export const WithCharCount: Story = {
     args: {
-        label: 'Bio',
-        placeholder: 'Cuéntanos sobre ti...',
-        maxlength: 160,
+        placeholder: 'Escribe aquí...',
+        maxlength: 7000,
         showCount: true,
-        hint: 'Máximo 160 caracteres.',
+        resize: 'none',
     },
 };
 
