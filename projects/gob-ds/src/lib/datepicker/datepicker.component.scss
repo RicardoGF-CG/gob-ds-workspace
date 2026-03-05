@@ -31,19 +31,16 @@
 .size-sm .datepicker-input {
     padding: 7px 12px;
     font-size: 13px;
-    min-height: 34px;
 }
 
 .size-md .datepicker-input {
     padding: 10px 14px;
     font-size: 14px;
-    min-height: 40px;
 }
 
 .size-lg .datepicker-input {
     padding: 13px 16px;
     font-size: 15px;
-    min-height: 48px;
 }
 
 // ─── Label ───────────────────────────────────────────────────────────────────
@@ -64,12 +61,16 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    width: 420px;
+    height: 33.78px;
+    padding: 0 12px;
     background: var(--bg);
     border: 1.5px solid var(--border);
     border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.18s ease;
     user-select: none;
+    box-sizing: border-box;
 
     &:hover:not(.disabled) {
         border-color: #a5b4fc;
@@ -87,7 +88,6 @@
         background: #f1f5f9;
     }
 
-    // States
     &.state-error {
         border-color: var(--error);
 
@@ -95,7 +95,7 @@
             box-shadow: 0 0 0 3px var(--error-light);
         }
 
-        .input-icon {
+        .input-icon--prefix {
             color: var(--error);
         }
     }
@@ -106,18 +106,14 @@
         &.open {
             box-shadow: 0 0 0 3px var(--success-light);
         }
-
-        .input-icon {
-            color: var(--success);
-        }
     }
 }
 
 // ─── Input parts ─────────────────────────────────────────────────────────────
-.input-icon {
-    color: var(--text-muted);
-    display: flex;
+.input-icon--prefix {
+    display: inline-flex;
     align-items: center;
+    color: var(--text-muted);
     flex-shrink: 0;
 }
 
@@ -143,18 +139,6 @@
     &:hover {
         color: var(--text);
         background: var(--border);
-    }
-}
-
-.chevron-icon {
-    display: flex;
-    align-items: center;
-    color: var(--text-muted);
-    transition: transform 0.2s ease;
-    flex-shrink: 0;
-
-    &.rotated {
-        transform: rotate(180deg);
     }
 }
 

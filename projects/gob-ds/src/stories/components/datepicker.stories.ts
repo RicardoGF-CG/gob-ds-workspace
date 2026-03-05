@@ -28,7 +28,7 @@ const meta: Meta<DatepickerComponent> = {
     },
     args: {
         label: 'Fecha',
-        placeholder: 'Selecciona una fecha',
+        placeholder: 'dd/mm/aaaa',
         size: 'md',
         state: 'default',
         required: false,
@@ -40,7 +40,7 @@ export default meta;
 type Story = StoryObj<DatepickerComponent>;
 
 export const Default: Story = {
-    args: { label: 'Fecha de nacimiento', placeholder: 'DD/MM/AAAA' },
+    args: { label: 'Fecha de nacimiento', placeholder: 'dd/mm/aaaa' },
 };
 
 export const WithHelperText: Story = {
@@ -64,11 +64,11 @@ export const Disabled: Story = {
 };
 
 export const Small: Story = {
-    args: { label: 'Fecha', size: 'sm', placeholder: 'DD/MM/AAAA' },
+    args: { label: 'Fecha', size: 'sm', placeholder: 'dd/mm/aaaa' },
 };
 
 export const Large: Story = {
-    args: { label: 'Fecha', size: 'lg', placeholder: 'DD/MM/AAAA' },
+    args: { label: 'Fecha', size: 'lg', placeholder: 'dd/mm/aaaa' },
 };
 
 export const WithMinMaxDate: Story = {
@@ -84,9 +84,9 @@ export const AllSizes: Story = {
     render: () => ({
         template: `
             <div style="display:flex; flex-direction:column; gap:20px; padding:20px;">
-                <app-datepicker size="sm" label="Small (sm)"  placeholder="DD/MM/AAAA"></app-datepicker>
-                <app-datepicker size="md" label="Medium (md)" placeholder="DD/MM/AAAA"></app-datepicker>
-                <app-datepicker size="lg" label="Large (lg)"  placeholder="DD/MM/AAAA"></app-datepicker>
+                <app-datepicker size="sm" label="Small (sm)"  placeholder="dd/mm/aaaa"></app-datepicker>
+                <app-datepicker size="md" label="Medium (md)" placeholder="dd/mm/aaaa"></app-datepicker>
+                <app-datepicker size="lg" label="Large (lg)"  placeholder="dd/mm/aaaa"></app-datepicker>
             </div>
         `,
     }),

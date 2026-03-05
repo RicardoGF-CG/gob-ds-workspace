@@ -10,10 +10,6 @@
     <div class="datepicker-input" [class]="'state-' + state" [class.open]="isOpen"
         [class.disabled]="state === 'disabled'" (click)="toggleCalendar()">
 
-        <span class="input-icon">
-            <lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon>
-        </span>
-
         <span class="input-text" [class.placeholder]="!selectedDate">
             {{ selectedDate ? formatDate(selectedDate) : placeholder }}
         </span>
@@ -22,8 +18,8 @@
             <lucide-icon [img]="XIcon" [size]="14"></lucide-icon>
         </span>
 
-        <span class="chevron-icon" [class.rotated]="isOpen">
-            <lucide-icon [img]="ChevronDownIcon" [size]="14"></lucide-icon>
+        <span class="input-icon--prefix">
+            <lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon>
         </span>
 
     </div>

@@ -31,7 +31,7 @@ export interface CalendarDay {
 })
 export class DatepickerComponent implements OnInit, OnChanges {
     @Input() label = '';
-    @Input() placeholder = 'Selecciona una fecha';
+    @Input() placeholder = 'dd/mm/aaaa';
     @Input() size: DatepickerSize = 'md';
     @Input() state: DatepickerState = 'default';
     @Input() required = false;
