@@ -21,10 +21,10 @@ export class CheckboxComponent implements ControlValueAccessor {
     @Input() hint = '';
     @Input() disabled = false;
 
-    /** Soporta control externo para "mixed" */
+    /** Supports external control for "mixed" state */
     @Input() indeterminate = false;
 
-    /** ✅ Para que tus stories funcionen: [checked]="true" */
+    /** ✅ For your stories to work: [checked]="true" */
     @Input()
     get checked(): boolean {
         return this._checked;
@@ -55,11 +55,10 @@ export class CheckboxComponent implements ControlValueAccessor {
         ].filter(Boolean).join(' ');
     }
 
-    /** ✅ Un solo punto de toggle */
+
     toggle(): void {
         if (this.disabled) return;
 
-        // Si estaba indeterminado, el primer click lo vuelve "checked"
         if (this.indeterminate) {
             this.indeterminate = false;
             this._checked = true;
