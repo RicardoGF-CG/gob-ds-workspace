@@ -1,0 +1,66 @@
+@if (label) {
+<label class="select__label">
+  {{ label }}
+  @if (required) {
+  <span class="select__required">*</span>
+  }
+</label>
+}
+
+<div
+  class="select"
+  [class.select--open]="isOpen"
+  [class.select--disabled]="disabled"
+  [class.select--loading]="loading"
+  [class.select--filled]="!!value"
+>
+  <div class="select__trigger" (click)="toggleDropdown()">
+    <span class="select__display-value" [class.select__display-value--placeholder]="!value">
+      {{ displayValue }}
+    </span>
+
+    <div class="select__icons">
+      @if (loading) {
+      <lucide-icon [img]="loaderIcon" [size]="16" class="select__loader" />
+      } @else {
+      <lucide-icon [img]="chevronDownIcon" [size]="16" class="select__chevron" />
+      }
+    </div>
+  </div>
+
+  @if (isOpen) {
+  <div class="select__dropdown">
+    @if (showSearch) {
+    <div class="select__search-wrapper">
+      <lucide-icon [img]="searchIcon" [size]="14" class="select__search-icon" />
+      <input
+        #searchInput
+        type="text"
+        class="select__search-input"
+        [placeholder]="searchPlaceholder"
+        (input)="onSearch($event)"
+        [value]="searchTerm"
+      />
+    </div>
+    }
+
+    <ul class="select__options">
+      @for (opt of filteredOptions; track opt.value) {
+      <li
+        class="select__option"
+        [class.select__option--selected]="opt.value === value"
+        [class.select__option--disabled]="opt.disabled"
+        (click)="selectOption(opt)"
+      >
+        <span class="select__option-label">{{ opt.label }}</span>
+        @if (opt.value === value) {
+        <lucide-icon [img]="checkIcon" [size]="14" class="select__check-icon" />
+        }
+      </li>
+      } @empty {
+      <li class="select__no-results">No se encontraron resultados</li>
+      }
+    </ul>
+  </div>
+  }
+</div>

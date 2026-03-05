@@ -12,3 +12,11 @@ body {
   background: var(--color-bg-default);
   line-height: var(--line-height-normal);
 }
+
+lucide-icon,
+svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: block;
+  box-sizing: border-box;
+}

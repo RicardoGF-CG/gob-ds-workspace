@@ -17,6 +17,7 @@
 
   // ─── Neutral scale ─────────────────────────────
   --color-neutral-50:  #F6F7F8;
+  --color-neutral-100:  #E5E7EB;
   --color-neutral-200: #E3E9F5;
   --color-neutral-300: #C3CAD7;
   --color-neutral-500: #A4ACBA;
@@ -73,4 +74,6 @@
   --color-border-subtle:  var(--color-neutral-200);
   --color-border:         var(--color-neutral-300);
   --color-border-strong:  var(--color-neutral-500);
+
+  --input-border: var(--color-neutral-100);
 }
