@@ -14,3 +14,4 @@ export * from './lib/tooltip/tooltip.component';
 export * from './lib/modal/modal.component';
 export * from './lib/file-upload/file-upload.component';
 export * from './lib/select/select.component';
+export * from './lib/filter/filter.component';
