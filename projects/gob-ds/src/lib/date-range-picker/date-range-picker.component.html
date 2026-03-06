@@ -1,0 +1,111 @@
+<div class="drp-wrapper">
+
+    <!-- Input trigger -->
+    <div class="drp-input" [class.drp-input--open]="isOpen" [class.drp-input--disabled]="disabled">
+
+        <span class="drp-input__field" (click)="openPanel('from')">
+            <span class="drp-input__text" [class.drp-input__text--placeholder]="!dateFrom">
+                {{ dateFrom ? formatDate(dateFrom) : startPlaceholder }}
+            </span>
+        </span>
+
+        <span class="drp-input__arrow">
+            <lucide-icon [img]="ArrowRightIcon" [size]="14"></lucide-icon>
+        </span>
+
+        <span class="drp-input__field" (click)="openPanel('to')">
+            <span class="drp-input__text" [class.drp-input__text--placeholder]="!dateTo">
+                {{ dateTo ? formatDate(dateTo) : endPlaceholder }}
+            </span>
+        </span>
+
+        <span class="drp-input__icon" (click)="openPanel('from')">
+            <lucide-icon [img]="CalendarIcon" [size]="16"></lucide-icon>
+        </span>
+
+        <!-- Sliding indicator -->
+        <span class="drp-input__indicator" [class.drp-input__indicator--visible]="isOpen"
+            [class.drp-input__indicator--end]="isOpen && !selectingFrom">
+        </span>
+
+    </div>
+
+    <!-- Double calendar dropdown -->
+    <div class="drp-dropdown" *ngIf="isOpen && !disabled">
+
+        <div class="drp-calendars">
+
+            <!-- Left calendar -->
+            <div class="drp-calendar">
+                <div class="drp-calendar__header">
+                    <button type="button" class="drp-nav" (click)="prevYear(); $event.stopPropagation()">
+                        <lucide-icon [img]="ChevronsLeftIcon" [size]="14"></lucide-icon>
+                    </button>
+                    <button type="button" class="drp-nav" (click)="prevMonth(); $event.stopPropagation()">
+                        <lucide-icon [img]="ChevronLeftIcon" [size]="14"></lucide-icon>
+                    </button>
+                    <span class="drp-calendar__title">{{ monthNames[leftMonth] }} {{ leftYear }}</span>
+                    <span class="drp-nav drp-nav--spacer"></span>
+                    <span class="drp-nav drp-nav--spacer"></span>
+                </div>
+
+                <div class="drp-calendar__weekdays">
+                    <span *ngFor="let d of dayNames">{{ d }}</span>
+                </div>
+
+                <div class="drp-calendar__grid">
+                    <button *ngFor="let day of leftDays" type="button" class="drp-day"
+                        [class.drp-day--other]="!day.currentMonth" [class.drp-day--today]="day.isToday"
+                        [class.drp-day--selected]="day.isSelected" [class.drp-day--in-range]="day.inRange"
+                        [class.drp-day--range-start]="day.isRangeStart" [class.drp-day--range-end]="day.isRangeEnd"
+                        [class.drp-day--disabled]="day.isDisabled" [attr.disabled]="day.isDisabled ? true : null"
+                        (click)="selectDate(day); $event.stopPropagation()">
+                        {{ day.date.getDate() }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="drp-divider"></div>
+
+            <!-- Right calendar -->
+            <div class="drp-calendar">
+                <div class="drp-calendar__header">
+                    <span class="drp-nav drp-nav--spacer"></span>
+                    <span class="drp-nav drp-nav--spacer"></span>
+                    <span class="drp-calendar__title">{{ monthNames[rightMonth] }} {{ rightYear }}</span>
+                    <button type="button" class="drp-nav" (click)="nextMonth(); $event.stopPropagation()">
+                        <lucide-icon [img]="ChevronRightIcon" [size]="14"></lucide-icon>
+                    </button>
+                    <button type="button" class="drp-nav" (click)="nextYear(); $event.stopPropagation()">
+                        <lucide-icon [img]="ChevronsRightIcon" [size]="14"></lucide-icon>
+                    </button>
+                </div>
+
+                <div class="drp-calendar__weekdays">
+                    <span *ngFor="let d of dayNames">{{ d }}</span>
+                </div>
+
+                <div class="drp-calendar__grid">
+                    <button *ngFor="let day of rightDays" type="button" class="drp-day"
+                        [class.drp-day--other]="!day.currentMonth" [class.drp-day--today]="day.isToday"
+                        [class.drp-day--selected]="day.isSelected" [class.drp-day--in-range]="day.inRange"
+                        [class.drp-day--range-start]="day.isRangeStart" [class.drp-day--range-end]="day.isRangeEnd"
+                        [class.drp-day--disabled]="day.isDisabled" [attr.disabled]="day.isDisabled ? true : null"
+                        (click)="selectDate(day); $event.stopPropagation()">
+                        {{ day.date.getDate() }}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Hint / Error -->
+    @if (error) {
+    <span class="drp-hint drp-hint--error">{{ error }}</span>
+    } @else if (hint) {
+    <span class="drp-hint">{{ hint }}</span>
+    }
+
+</div>

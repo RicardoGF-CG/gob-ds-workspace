@@ -1,0 +1,167 @@
+:host {
+    display: block;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+// ─── Footer base ──────────────────────────────────────────────
+.footer {
+    background: #F4F6F7;
+    border-top: 1px solid #E2E6EA;
+    padding: 12px 24px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+// ─── Copyright ────────────────────────────────────────────────
+.footer__copy {
+    font-size: 12px;
+    font-weight: 400;
+    color: #373C46;
+    margin: 0;
+    text-align: center;
+    line-height: 1.4;
+}
+
+// ─── Bottom row ───────────────────────────────────────────────
+.footer__bottom {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+// ─── Certifications ───────────────────────────────────────────
+.footer__cert {
+    font-size: 12px;
+    font-weight: 400;
+    color: #373C46;
+}
+
+// ─── Policy link (app mode — inline) ─────────────────────────
+.footer__policy-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #373C46;
+    padding: 0;
+    text-align: left;
+    transition: color 0.15s;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: transparent;
+
+    &:hover {
+        color: #1a1d23;
+        text-decoration-color: #373C46;
+    }
+}
+
+// ─── Policies dropdown trigger (login mode) ───────────────────
+.footer__policies-dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    color: #373C46;
+    user-select: none;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: background 0.15s;
+
+    &:hover {
+        background: rgba(55, 60, 70, 0.08);
+    }
+
+    lucide-icon {
+        transition: transform 0.2s ease;
+
+        &.rotated {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+// ─── Dropdown base ────────────────────────────────────────────
+.footer__dropdown {
+    position: absolute;
+    left: 50%;
+    min-width: 220px;
+    background: #ffffff;
+    border: 1px solid #E2E6EA;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+    overflow: hidden;
+    z-index: 1000;
+
+    // ── Abre hacia arriba (default: footer al fondo de pantalla) ──
+    &--up {
+        bottom: calc(100% + 6px);
+        top: auto;
+        transform: translateX(-50%);
+        animation: dropUp 0.18s ease;
+
+        @keyframes dropUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+    }
+
+    // ── Abre hacia abajo (cuando no hay espacio arriba) ──
+    &--down {
+        top: calc(100% + 6px);
+        bottom: auto;
+        transform: translateX(-50%);
+        animation: dropDown 0.18s ease;
+
+        @keyframes dropDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+    }
+}
+
+// ─── Dropdown item ────────────────────────────────────────────
+.footer__dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #373C46;
+    text-align: left;
+    transition: background 0.15s;
+
+    &:hover {
+        background: #F4F6F7;
+    }
+}
