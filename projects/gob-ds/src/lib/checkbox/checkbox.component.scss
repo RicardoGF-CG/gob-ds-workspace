@@ -1,7 +1,8 @@
 // ── Root ──────────────────────────────────────────────────────
 .cb-root {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
+    vertical-align: middle;
     gap: 10px;
     cursor: pointer;
     user-select: none;
@@ -20,6 +21,7 @@
     justify-content: center;
     border-radius: var(--radius-md);
     border: 1.5px solid var(--color-border);
+    box-shadow: var(--shadow-xs);
     background: var(--color-bg-default);
     transition: background 150ms ease,
         border-color 150ms ease,

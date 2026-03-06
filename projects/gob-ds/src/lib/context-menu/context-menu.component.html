@@ -10,27 +10,32 @@
   </button>
 
   @if (isOpen) {
-    <div class="context-menu__dropdown" [class.context-menu__dropdown--right]="align === 'right'" role="menu">
-      @for (item of items; track item.label) {
-        @if (item.divider) {
-          <div class="context-menu__divider" role="separator"></div>
-        } @else {
-          <button
-            class="context-menu__item"
-            [class.context-menu__item--danger]="item.danger"
-            [class.context-menu__item--disabled]="item.disabled"
-            [disabled]="item.disabled"
-            role="menuitem"
-            type="button"
-            (click)="onItemClick(item)"
-          >
-            @if (item.icon) {
-              <lucide-icon [img]="item.icon" [size]="16" />
-            }
-            {{ item.label }}
-          </button>
+  <div
+    class="context-menu__dropdown"
+    [class.context-menu__dropdown--right]="align === 'right'"
+    [ngStyle]="dropdownStyles"
+    role="menu"
+  >
+    <div class="context-menu__dropdown-inner">
+      @for (item of items; track item.label) { @if (item.divider) {
+      <div class="context-menu__divider" role="separator"></div>
+      } @else {
+      <button
+        type="button"
+        class="context-menu__item"
+        [class.context-menu__item--danger]="item.danger"
+        [class.context-menu__item--disabled]="item.disabled"
+        (click)="onItemClick(item)"
+        [disabled]="item.disabled"
+        role="menuitem"
+      >
+        @if (item.icon) {
+        <lucide-icon [img]="item.icon" [size]="16" class="context-menu__icon" />
         }
-      }
+        <span class="context-menu__label">{{ item.label }}</span>
+      </button>
+      } }
     </div>
+  </div>
   }
 </div>

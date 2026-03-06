@@ -1,0 +1,41 @@
+<div class="filter" [class.filter--active]="active" [class.filter--open]="isOpen">
+  <!-- Trigger Pill -->
+  <div class="filter__trigger" (click)="toggle()">
+    <div class="filter__trigger-main">
+      @if (active) {
+      <lucide-icon [img]="xIcon" [size]="14" class="filter__clear-icon" (click)="onClear($event)" />
+      } @else {
+      <lucide-icon [img]="plusIcon" [size]="14" class="filter__plus-icon" />
+      }
+      <span class="filter__label">{{ label }}</span>
+    </div>
+
+    @if (active && activeLabel) {
+    <div class="filter__separator"></div>
+    <div class="filter__active-value">
+      <span class="filter__active-label">{{ activeLabel }}</span>
+      <lucide-icon [img]="chevronDownIcon" [size]="14" class="filter__chevron" />
+    </div>
+    } @else {
+    <lucide-icon [img]="chevronDownIcon" [size]="14" class="filter__chevron" />
+    }
+  </div>
+
+  <!-- Context Menu (Dropdown) -->
+  @if (isOpen) {
+  <div class="filter__menu">
+    <div class="filter__menu-header">
+      <h3 class="filter__menu-title">Filter by {{ label }}</h3>
+    </div>
+
+    <div class="filter__menu-content">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="filter__menu-footer">
+      <button class="filter__btn filter__btn--primary" (click)="onApply()">Aplicar</button>
+      <button class="filter__btn filter__btn--outline" (click)="onReset()">Reiniciar</button>
+    </div>
+  </div>
+  }
+</div>

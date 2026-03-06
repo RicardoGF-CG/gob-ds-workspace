@@ -1,0 +1,75 @@
+@if (label) {
+<label class="multi-select__label">
+  {{ label }}
+  @if (required) {
+  <span class="multi-select__required">*</span>
+  }
+</label>
+}
+
+<div
+  class="multi-select"
+  [class.multi-select--open]="isOpen"
+  [class.multi-select--disabled]="disabled"
+  [class.multi-select--loading]="loading"
+  [class.multi-select--filled]="value && value.length > 0"
+>
+  <div class="multi-select__trigger" (click)="toggleDropdown()">
+    <div class="multi-select__selection">
+      @if (value && value.length > 0) { @for (opt of selectedOptions; track opt.value) {
+      <div class="multi-select__chip">
+        <span class="multi-select__chip-label">{{ opt.label }}</span>
+        <button class="multi-select__chip-remove" (click)="removeOption($event, opt.value)">
+          <lucide-icon [img]="xIcon" [size]="12" />
+        </button>
+      </div>
+      } } @else {
+      <span class="multi-select__placeholder">{{ placeholder }}</span>
+      }
+    </div>
+
+    <div class="multi-select__icons">
+      @if (loading) {
+      <lucide-icon [img]="loaderIcon" [size]="16" class="multi-select__loader" />
+      } @else {
+      <lucide-icon [img]="chevronDownIcon" [size]="16" class="multi-select__chevron" />
+      }
+    </div>
+  </div>
+
+  @if (isOpen) {
+  <div class="multi-select__dropdown">
+    @if (showSearch) {
+    <div class="multi-select__search-wrapper">
+      <lucide-icon [img]="searchIcon" [size]="14" class="multi-select__search-icon" />
+      <input
+        #searchInput
+        type="text"
+        class="multi-select__search-input"
+        [placeholder]="searchPlaceholder"
+        (input)="onSearch($event)"
+        [value]="searchTerm"
+      />
+    </div>
+    }
+
+    <ul class="multi-select__options">
+      @for (opt of filteredOptions; track opt.value) {
+      <li
+        class="multi-select__option"
+        [class.multi-select__option--selected]="isSelected(opt)"
+        [class.multi-select__option--disabled]="opt.disabled"
+        (click)="selectOption(opt)"
+      >
+        <span class="multi-select__option-label">{{ opt.label }}</span>
+        @if (isSelected(opt)) {
+        <lucide-icon [img]="checkIcon" [size]="14" class="multi-select__check-icon" />
+        }
+      </li>
+      } @empty {
+      <li class="multi-select__no-results">No se encontraron resultados</li>
+      }
+    </ul>
+  </div>
+  }
+</div>

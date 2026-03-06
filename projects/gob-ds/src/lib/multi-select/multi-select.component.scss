@@ -1,4 +1,4 @@
-.select {
+.multi-select {
   position: relative;
   width: 100%;
   font-family: var(--font-family-sans);
@@ -21,8 +21,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-2);
-    min-height: 36px;
-    padding: var(--space-2) var(--space-4);
+    padding: var(--space-0-5) var(--space-2);
     border: 1px solid var(--input-border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xs);
@@ -30,7 +29,7 @@
     cursor: pointer;
     transition: all 150ms ease-out;
 
-    &:hover:not(.select--disabled *) {
+    &:hover:not(.multi-select--disabled *) {
       border-color: var(--color-brand-400);
       background: var(--color-bg-subtle);
     }
@@ -45,22 +44,59 @@
     opacity: 0.6;
     pointer-events: none;
 
-    .select__trigger {
+    .multi-select__trigger {
       background: var(--color-bg-subtle);
       cursor: not-allowed;
     }
   }
 
-  &__display-value {
-    color: var(--color-text-primary);
-    font-size: var(--font-size-md);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &__selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    flex: 1;
+    align-items: center;
+    padding: var(--space-1) 0;
+  }
 
-    &--placeholder {
-      color: var(--color-text-tertiary);
+  &__chip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-0-5) var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+    animation: fadeIn 150ms ease-out;
+
+    &-label {
+      white-space: nowrap;
     }
+
+    &-remove {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      padding: 0;
+      color: var(--color-text-tertiary);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all 100ms ease;
+
+      &:hover {
+        color: var(--color-text-primary);
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  &__placeholder {
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-md);
   }
 
   &__icons {
@@ -68,6 +104,7 @@
     align-items: center;
     color: var(--color-text-tertiary);
     flex-shrink: 0;
+    gap: var(--space-2);
   }
 
   &__chevron {
@@ -115,7 +152,7 @@
     border: none;
     background: transparent;
     font-family: inherit;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
     color: var(--color-text-primary);
     outline: none;
     padding: var(--space-1) 0;
@@ -144,6 +181,7 @@
     transition: all 150ms ease-out;
     color: var(--color-text-primary);
     font-size: var(--font-size-md);
+    margin-bottom: var(--space-1);
 
     &:hover:not(&--disabled) {
       background: var(--color-bg-subtle);

@@ -39,8 +39,8 @@ export const Playground: Story = {
   }),
 };
 
-// ── Estados ────────────────────────────────────────────────────
-export const Estados: Story = {
+// ── States ────────────────────────────────────────────────────
+export const States: Story = {
   render: () => ({
     template: `
       <div style="width:320px; display:flex; flex-direction:column; gap:12px;">
@@ -52,8 +52,8 @@ export const Estados: Story = {
   parameters: { layout: 'padded' },
 };
 
-// ── En contexto (toolbar de tabla) ────────────────────────────
-export const EnToolbar: Story = {
+// ── Table toolbar ────────────────────────────
+export const TableToolbar: Story = {
   parameters: { layout: 'padded' },
   render: () => ({
     template: `

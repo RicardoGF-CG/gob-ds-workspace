@@ -1,0 +1,25 @@
+<div class="tabs" [class.tabs--full-width]="fullWidth" role="tablist">
+  @for (tab of tabs; track tab.id) {
+  <button
+    [class]="getTabClasses(tab)"
+    [attr.aria-selected]="activeTabId === tab.id"
+    [disabled]="tab.disabled"
+    (click)="selectTab(tab)"
+    role="tab"
+  >
+    <span class="tabs__label">{{ tab.label }}</span>
+
+    @if (tab.status === 'completed') {
+    <lucide-icon
+      [img]="checkIcon"
+      [size]="16"
+      class="tabs__status-icon tabs__status-icon--success"
+    />
+    } @else if (tab.status === 'error') {
+    <lucide-icon [img]="errorIcon" [size]="16" class="tabs__status-icon tabs__status-icon--error" />
+    }
+
+    <div class="tabs__indicator"></div>
+  </button>
+  }
+</div>

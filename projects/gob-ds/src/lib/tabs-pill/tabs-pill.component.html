@@ -1,0 +1,16 @@
+<div class="tabs-pill" role="tablist" [attr.aria-label]="ariaLabel">
+  @for (tab of tabs; track tab.id) {
+  <button
+    type="button"
+    role="tab"
+    class="tabs-pill__item"
+    [class.tabs-pill__item--active]="activeTabId === tab.id"
+    [class.tabs-pill__item--disabled]="tab.disabled"
+    [attr.aria-selected]="activeTabId === tab.id"
+    [disabled]="tab.disabled"
+    (click)="selectTab(tab)"
+  >
+    {{ tab.label }}
+  </button>
+  }
+</div>

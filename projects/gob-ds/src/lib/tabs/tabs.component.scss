@@ -1,0 +1,105 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-8);
+  width: fit-content;
+
+  &--full-width {
+    width: 100%;
+    
+    .tabs__item {
+      flex: 1;
+    }
+  }
+
+  &__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-2) 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-tertiary);
+    transition: all 150ms ease-out;
+    outline: none;
+
+    &:hover:not(&--disabled):not(&--active) {
+      color: var(--color-text-secondary);
+    }
+
+    &--active {
+      color: var(--color-brand-700);
+      
+      .tabs__indicator {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    &--disabled {
+      color: var(--color-text-tertiary);
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Completed state */
+    &--completed {
+      // Keep color as tertiary if not active
+      &.tabs__item--active {
+        color: var(--color-brand-700);
+      }
+    }
+
+    /* Error state */
+    &--error {
+      // Keep color as tertiary if not active
+      &.tabs__item--active {
+        color: var(--color-brand-700);
+      }
+    }
+    
+    &--active-completed, &--active-error {
+       color: var(--color-brand-700);
+    }
+  }
+
+  &__label {
+    white-space: nowrap;
+  }
+
+  &__status-icon {
+    flex-shrink: 0;
+
+    &--success {
+      color: var(--color-status-success);
+    }
+
+    &--error {
+      color: var(--color-status-error);
+    }
+  }
+
+  &__indicator {
+    position: absolute;
+    bottom: -1px; /* Align with border-bottom of container */
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--color-brand-700);
+    opacity: 0;
+    transform: scaleX(0);
+    transition: all 200ms ease-in-out;
+    border-radius: 3px 3px 0 0;
+  }
+  
+    &--active-completed, &--active-error {
+       color: var(--color-brand-700);
+    }
+}
