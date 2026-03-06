@@ -1,0 +1,89 @@
+<nav class="navbar">
+  <div class="navbar__container">
+    <!-- Left Side -->
+    <div class="navbar__left">
+      @if (logoSrc) {
+      <div class="navbar__logo">
+        <img [src]="logoSrc" alt="Logo" class="navbar__logo-img" />
+      </div>
+      }
+
+      <div class="navbar__menu navbar__menu--desktop">
+        @for (item of leftMenuItems; track item.id || item.label) {
+        <a class="navbar__link" (click)="onItemClick(item)">
+          @if (item.icon) {
+          <lucide-icon [img]="item.icon" [size]="18" />
+          } @if (item.label) {
+          <span>{{ item.label }}</span>
+          }
+        </a>
+        }
+      </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="navbar__right">
+      <div class="navbar__menu navbar__menu--desktop">
+        @for (item of rightMenuItems; track item.id || item.label) {
+        <button
+          class="navbar__action-btn"
+          (click)="onItemClick(item)"
+          [attr.aria-label]="item.label"
+        >
+          @if (item.icon) {
+          <lucide-icon [img]="item.icon" [size]="20" />
+          } @else if (item.label) {
+          <span>{{ item.label }}</span>
+          }
+        </button>
+        }
+      </div>
+
+      <div class="navbar__user">
+        <ds-avatar [name]="userName" [src]="userAvatar" size="sm" />
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button class="navbar__hamburger" (click)="toggleMobileMenu()" aria-label="Toggle menu">
+        <lucide-icon [img]="isMobileMenuOpen ? X : Menu" [size]="24" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  @if (isMobileMenuOpen) {
+  <div class="navbar__drawer-overlay" (click)="closeMobileMenu()"></div>
+  <div class="navbar__drawer" [class.navbar__drawer--open]="isMobileMenuOpen">
+    <div class="navbar__drawer-header">
+      <p class="navbar__drawer-system-name">{{ systemName || 'Sistema' }}</p>
+      <button class="close-btn" (click)="closeMobileMenu()" aria-label="Close menu">
+        <lucide-icon [img]="X" [size]="24" />
+      </button>
+    </div>
+
+    <div class="navbar__drawer-content">
+      <div class="navbar__drawer-section">
+        @for (item of leftMenuItems; track item.id || item.label) {
+        <a class="navbar__drawer-link" (click)="onItemClick(item)">
+          @if (item.icon) {
+          <lucide-icon [img]="item.icon" [size]="20" />
+          }
+          <span>{{ item.label }}</span>
+        </a>
+        }
+      </div>
+
+      <div class="navbar__drawer-section">
+        @for (item of rightMenuItems; track item.id || item.label) {
+        <a class="navbar__drawer-link" (click)="onItemClick(item)">
+          @if (item.icon) {
+          <lucide-icon [img]="item.icon" [size]="20" />
+          }
+          <span>{{ item.label }}</span>
+        </a>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</nav>

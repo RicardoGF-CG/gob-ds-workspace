@@ -19,3 +19,5 @@ export * from './lib/tabs/tabs.component';
 export * from './lib/tabs-pill/tabs-pill.component';
 export * from './lib/filter/filter.component';
 export * from './lib/table/table.component';
+export * from './lib/navbar/navbar.component';
+export * from './lib/navigator/navigator.component';
