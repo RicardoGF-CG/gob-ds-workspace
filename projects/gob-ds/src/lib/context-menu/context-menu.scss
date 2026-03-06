@@ -35,22 +35,22 @@
   }
 
   &__dropdown {
-    position: absolute;
-    top: calc(100% + var(--space-1));
-    left: 0;
     min-width: 180px;
+    z-index: 1000;
+    pointer-events: auto;
+
+
+  }
+
+  &__dropdown-inner {
     background: var(--color-bg-default);
     border: var(--border-width-thin) solid var(--color-border-subtle);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     padding: var(--space-1);
-    z-index: 50;
     animation: contextMenuIn 120ms ease-out;
-
-    &--right {
-      left: auto;
-      right: 0;
-    }
+    display: flex;
+    flex-direction: column;
   }
 
   &__item {

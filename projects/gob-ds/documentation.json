@@ -1,6 +1,82 @@
 {
     "pipes": [],
-    "interfaces": [],
+    "interfaces": [
+        {
+            "name": "ServerRow",
+            "id": "interface-ServerRow-74fb4412e12e2103d1acc0858e2b8f493de69e1e70a9cd7a9a9da0564970bbbe2f9411d56d2b1504768566359aece1252a6605b3b07334bcdac90cf35b6d21b9",
+            "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import type { Meta, StoryObj } from '@storybook/angular';\nimport { TableComponent, TableColumn } from '../../lib/table/table.component';\nimport { LucideAngularModule, Ellipsis } from 'lucide-angular';\nimport { BadgeComponent } from '../../lib/badge/badge.component';\n\n// ── Sample data ──────────────────────────────────────────────\ninterface ServerRow {\n  owner: string;\n  status: string;\n  region: string;\n  stability: number;\n  costs: number;\n  lastEdited: string;\n}\n\nconst REGIONS = ['US-West 1', 'US-East 1', 'US-East 2', 'EU-West 1', 'EU-North 1', 'EU-Central 1', 'US-West 2'];\n\nfunction generateData(count: number): ServerRow[] {\n  const names = [\n    'John Doe', 'Jane Smith', 'Alejandro Garcia', 'Maria Rossi',\n    'Liam O\\'Sullivan', 'Yuki Tanaka', 'Fatima Al-Farsi', 'Olga Ivanova',\n    'Pierre Dubois', 'Sara Johansson', 'Ahmed Hassan', 'Carlos Sanchez',\n    'Hannah Kim', 'Robert White', 'James Taylor', 'William Harris',\n    'Alexander Young', 'Emily Brown', 'Michael Chen', 'Sofia Martinez',\n    'Daniel Lee', 'Olivia Johnson', 'Lucas Mueller', 'Isabella Rossi',\n    'Noah Wilson', 'Emma Davis', 'Ethan Clark', 'Mia Anderson',\n    'Oliver Thomas', 'Charlotte Moore', 'Benjamin Jackson', 'Amelia Martin',\n    'Jack Thompson', 'Harper White', 'Henry Garcia', 'Evelyn Martinez',\n    'Sebastian Brown', 'Abigail Wilson', 'Aiden Taylor', 'Ella Thomas',\n    'Matthew Anderson', 'Scarlett Jackson', 'Samuel Martin', 'Grace Lee',\n    'David Harris', 'Chloe Clark', 'Joseph Young', 'Zoey King',\n    'Leo Wright', 'Lily Scott', 'Ryan Green', 'Nora Adams',\n  ];\n\n  return Array.from({ length: count }, (_, i) => ({\n    owner: names[i % names.length],\n    status: 'Live',\n    region: REGIONS[i % REGIONS.length],\n    stability: Math.floor(Math.random() * 95) + 5,\n    costs: Math.round((Math.random() * 6000 + 4000) * 100) / 100,\n    lastEdited: new Date(2021 + Math.floor(Math.random() * 3), Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),\n  }));\n}\n\nconst sampleData = generateData(52);\nconst page1Data = sampleData.slice(0, 20);\n\nconst columns: TableColumn<ServerRow>[] = [\n  { key: 'owner', label: 'Owner', sortable: true },\n  { key: 'status', label: 'Status' },\n  { key: 'region', label: 'Region' },\n  { key: 'stability', label: 'Stability' },\n  { key: 'costs', label: 'Costs', sortable: true, align: 'right' },\n  { key: 'lastEdited', label: 'Last edited' },\n];\n\n// ── Meta ─────────────────────────────────────────────────────\nconst meta: Meta<TableComponent> = {\n  title: 'Components/Table',\n  component: TableComponent,\n  tags: ['autodocs'],\n  parameters: {\n    layout: 'padded',\n    docs: {\n      description: {\n        component: `\nA flexible data table component with sorting, row selection, pagination, and multiple states.\n\n| Prop | Type | Default | Description |\n|------|------|---------|-------------|\n| columns | TableColumn[] | [] | Column definitions |\n| data | T[] | [] | Row data |\n| selectable | boolean | false | Enable row selection with checkboxes |\n| loading | boolean | false | Show skeleton loading state |\n| error | boolean | false | Show error state |\n| paginated | boolean | false | Enable pagination |\n| pageSize | number | 20 | Rows per page |\n| totalItems | number | 0 | Total number of items |\n| currentPage | number | 1 | Current page |\n| sortKey | string | null | Currently sorted column key |\n| sortDirection | 'asc'/'desc'/null | null | Sort direction |\n        `,\n      },\n    },\n  },\n};\n\nexport default meta;\ntype Story = StoryObj<TableComponent>;\n\n// ── Default ──────────────────────────────────────────────────\nexport const Default: Story = {\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table [columns]=\"columns\" [data]=\"data\" />\n    `,\n  }),\n};\n\n// ── With Selection ───────────────────────────────────────────\nexport const WithSelection: Story = {\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n      />\n    `,\n  }),\n};\n\n// ── With Pagination ──────────────────────────────────────────\nexport const WithPagination: Story = {\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n};\n\n// ── With Selection + Pagination ──────────────────────────────\nexport const FullFeatured: Story = {\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n};\n\n// ── Loading (Skeleton) ───────────────────────────────────────\nexport const Loading: Story = {\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [loading]=\"true\"\n        [skeletonRows]=\"8\"\n      />\n    `,\n  }),\n};\n\n// ── Empty State ──────────────────────────────────────────────\nexport const Empty: Story = {\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        emptyMessage=\"No servers found.\"\n      />\n    `,\n  }),\n};\n\n// ── Error State ──────────────────────────────────────────────\nexport const Error: Story = {\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [error]=\"true\"\n        errorMessage=\"Failed to load server data. Please try again.\"\n      />\n    `,\n  }),\n};\n\n// ── With Custom Cell Template (Actions) ──────────────────────\nexport const WithActions: Story = {\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    moduleMetadata: {\n      imports: [LucideAngularModule, BadgeComponent],\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"1\"\n        [totalItems]=\"52\"\n      >\n        <ng-template #actions let-row>\n          <button style=\"\n            background: none;\n            border: none;\n            cursor: pointer;\n            padding: 4px;\n            color: var(--color-text-secondary);\n            display: inline-flex;\n          \">\n            ...\n          </button>\n        </ng-template>\n      </ds-table>\n    `,\n  }),\n};\n",
+            "properties": [
+                {
+                    "name": "costs",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "lastEdited",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "owner",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "region",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "stability",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "status",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 172,
+            "methods": [],
+            "extends": []
+        }
+    ],
     "injectables": [],
     "guards": [],
     "interceptors": [],
@@ -1481,6 +1557,16 @@
                 "defaultValue": "{\r\n    render: () => ({\r\n        template: `\r\n            <div style=\"display:flex; flex-direction:column; gap:24px; max-width:480px; padding:24px;\">\r\n                <ds-textarea label=\"Default\"   placeholder=\"Estado normal\"></ds-textarea>\r\n                <ds-textarea label=\"Con hint\"  placeholder=\"Con texto de ayuda\" hint=\"Texto de ayuda visible aquí.\"></ds-textarea>\r\n                <ds-textarea label=\"Error\"     placeholder=\"Con error\" error=\"Este campo es requerido.\"></ds-textarea>\r\n                <ds-textarea label=\"Disabled\"  placeholder=\"Deshabilitado\" [disabled]=\"true\" hint=\"Campo no disponible.\"></ds-textarea>\r\n            </div>\r\n        `,\r\n    }),\r\n}"
             },
             {
+                "name": "AllVariants",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"display: flex; flex-direction: column; gap: 40px;\">\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Default (Inactive)</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'default' }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n        \r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Active</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'default' }]\" [activeTabId]=\"1\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Completed</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'completed' }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Active Completed</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'completed' }]\" [activeTabId]=\"1\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Error</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'error' }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Error Active</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'error' }]\" [activeTabId]=\"1\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Disabled</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', disabled: true }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+            },
+            {
                 "name": "AsLink",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1539,6 +1625,16 @@
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "[\r\n  {\r\n    name: 'Primarios',\r\n    tokens: [\r\n      { name: '--color-blue-50',  value: '#EFF6FF', textDark: true },\r\n      { name: '--color-blue-100', value: '#DBEAFE', textDark: true },\r\n      { name: '--color-blue-500', value: '#3B82F6' },\r\n      { name: '--color-blue-600', value: '#2563EB' },\r\n      { name: '--color-blue-700', value: '#1D4ED8' },\r\n    ],\r\n  },\r\n  {\r\n    name: 'Grises',\r\n    tokens: [\r\n      { name: '--color-gray-50',  value: '#F9FAFB', textDark: true },\r\n      { name: '--color-gray-100', value: '#F3F4F6', textDark: true },\r\n      { name: '--color-gray-200', value: '#E5E7EB', textDark: true },\r\n      { name: '--color-gray-400', value: '#9CA3AF', textDark: true },\r\n      { name: '--color-gray-600', value: '#4B5563' },\r\n      { name: '--color-gray-800', value: '#1F2937' },\r\n      { name: '--color-gray-900', value: '#111827' },\r\n    ],\r\n  },\r\n  {\r\n    name: 'Semánticos',\r\n    tokens: [\r\n      { name: '--color-danger',  value: '#EF4444' },\r\n      { name: '--color-success', value: '#22C55E' },\r\n      { name: '--color-warning', value: '#FACC15', textDark: true },\r\n    ],\r\n  },\r\n]"
+            },
+            {
+                "name": "columns",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "TableColumn[]",
+                "defaultValue": "[\n  { key: 'owner', label: 'Owner', sortable: true },\n  { key: 'status', label: 'Status' },\n  { key: 'region', label: 'Region' },\n  { key: 'stability', label: 'Stability' },\n  { key: 'costs', label: 'Costs', sortable: true, align: 'right' },\n  { key: 'lastEdited', label: 'Last edited' },\n]"
             },
             {
                 "name": "CombinedFilters",
@@ -1654,6 +1750,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    label: 'Etiquetas',\r\n    placeholder: 'Selecciona etiquetas',\r\n    options: options,\r\n    value: ['a10', 'c12'],\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/select.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1669,6 +1775,36 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    variant: 'text',\r\n    width: '200px',\r\n    height: '16px',\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table [columns]=\"columns\" [data]=\"data\" />\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    tabs: tabs,\r\n    activeTabId: 'overview',\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    tabs: [\r\n      { id: 1, label: 'Resumen', status: 'default' },\r\n      { id: 2, label: 'Configuración', status: 'default' },\r\n      { id: 3, label: 'Usuarios', status: 'default' },\r\n    ],\r\n    activeTabId: 1,\r\n  },\r\n}"
             },
             {
                 "name": "Default",
@@ -1709,6 +1845,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n    args: { label: 'Fecha bloqueada', state: 'disabled', helperText: 'Este campo no está disponible' },\r\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    label: 'Campo deshabilitado',\r\n    disabled: true,\r\n    options: options,\r\n    value: ['a10'],\r\n  },\r\n}"
             },
             {
                 "name": "Disabled",
@@ -1761,6 +1907,26 @@
                 "defaultValue": "{}"
             },
             {
+                "name": "Empty",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    label: 'Filtro por Categoría',\r\n    placeholder: 'Seleccionar categorías...',\r\n    options: options,\r\n    value: [],\r\n  },\r\n}"
+            },
+            {
+                "name": "Empty",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        emptyMessage=\"No servers found.\"\n      />\n    `,\n  }),\n}"
+            },
+            {
                 "name": "EnLogin",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1769,6 +1935,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  render: () => ({\r\n    template: `\r\n      <ds-checkbox label=\"Mantener sesión iniciada\" [checked]=\"true\" />\r\n    `,\r\n  }),\r\n}"
+            },
+            {
+                "name": "Error",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [error]=\"true\"\n        errorMessage=\"Failed to load server data. Please try again.\"\n      />\n    `,\n  }),\n}"
             },
             {
                 "name": "ErrorState",
@@ -1839,6 +2015,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{}"
+            },
+            {
+                "name": "FullFeatured",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n}"
             },
             {
                 "name": "FullWidth",
@@ -1931,6 +2117,16 @@
                 "defaultValue": "{\r\n    args: { label: 'Fecha', size: 'lg', placeholder: 'dd/mm/aaaa' },\r\n}"
             },
             {
+                "name": "LargeLabels",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    tabs: [\r\n      { id: 1, label: 'Panel de Control' },\r\n      { id: 2, label: 'Estadísticas Avanzadas' },\r\n      { id: 3, label: 'Configuración Global' },\r\n    ],\r\n    activeTabId: 1,\r\n  },\r\n}"
+            },
+            {
                 "name": "ListSkeleton",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1944,11 +2140,31 @@
                 "name": "Loading",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    label: 'Cargando datos...',\r\n    loading: true,\r\n    options: options,\r\n  },\r\n}"
+            },
+            {
+                "name": "Loading",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/select.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    label: 'Cargando datos...',\r\n    loading: true,\r\n    options: options,\r\n  },\r\n}"
+            },
+            {
+                "name": "Loading",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [loading]=\"true\"\n        [skeletonRows]=\"8\"\n      />\n    `,\n  }),\n}"
             },
             {
                 "name": "LoadingMatrix",
@@ -2114,6 +2330,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<MultiSelectComponent>",
+                "defaultValue": "{\r\n  title: 'Components/MultiSelect',\r\n  component: MultiSelectComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    label: { control: 'text' },\r\n    placeholder: { control: 'text' },\r\n    disabled: { control: 'boolean' },\r\n    loading: { control: 'boolean' },\r\n    showSearch: { control: 'boolean' },\r\n    required: { control: 'boolean' },\r\n  },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/search.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2139,6 +2365,36 @@
                 "deprecationMessage": "",
                 "type": "Meta<SkeletonComponent>",
                 "defaultValue": "{\r\n  title: 'Components/Skeleton',\r\n  component: SkeletonComponent,\r\n  tags: ['autodocs'],\r\n  parameters: {\r\n    layout: 'padded',\r\n    docs: {\r\n      description: {\r\n        component: 'Placeholder animado para indicar carga de contenido. Soporta variantes: texto, circular, rectangular y redondeado.',\r\n      },\r\n    },\r\n  },\r\n  argTypes: {\r\n    variant: {\r\n      control: 'select',\r\n      options: ['text', 'circular', 'rectangular', 'rounded'],\r\n      description: 'Forma del skeleton',\r\n    },\r\n    width: { control: 'text', description: 'Ancho del skeleton' },\r\n    height: { control: 'text', description: 'Alto del skeleton' },\r\n  },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<TableComponent>",
+                "defaultValue": "{\n  title: 'Components/Table',\n  component: TableComponent,\n  tags: ['autodocs'],\n  parameters: {\n    layout: 'padded',\n    docs: {\n      description: {\n        component: `\nA flexible data table component with sorting, row selection, pagination, and multiple states.\n\n| Prop | Type | Default | Description |\n|------|------|---------|-------------|\n| columns | TableColumn[] | [] | Column definitions |\n| data | T[] | [] | Row data |\n| selectable | boolean | false | Enable row selection with checkboxes |\n| loading | boolean | false | Show skeleton loading state |\n| error | boolean | false | Show error state |\n| paginated | boolean | false | Enable pagination |\n| pageSize | number | 20 | Rows per page |\n| totalItems | number | 0 | Total number of items |\n| currentPage | number | 1 | Current page |\n| sortKey | string | null | Currently sorted column key |\n| sortDirection | 'asc'/'desc'/null | null | Sort direction |\n        `,\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<TabsPillComponent>",
+                "defaultValue": "{\r\n  title: 'Components/TabsPill',\r\n  component: TabsPillComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    activeTabId: { control: 'text' },\r\n  },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<TabsComponent>",
+                "defaultValue": "{\r\n  title: 'Components/Tabs',\r\n  component: TabsComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    fullWidth: { control: 'boolean' },\r\n    activeTabId: { control: 'number' },\r\n  },\r\n}"
             },
             {
                 "name": "meta",
@@ -2254,11 +2510,31 @@
                 "name": "options",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MultiSelectOption[]",
+                "defaultValue": "[\r\n  { label: 'a10', value: 'a10' },\r\n  { label: 'c12', value: 'c12' },\r\n  { label: 'b5', value: 'b5' },\r\n  { label: 'd20', value: 'd20' },\r\n  { label: 'e8', value: 'e8' },\r\n]"
+            },
+            {
+                "name": "options",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/select.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "SelectOption[]",
                 "defaultValue": "[\r\n  { label: 'Opción 1', value: 1 },\r\n  { label: 'Opción 2', value: 2 },\r\n  { label: 'Opción 3', value: 3, disabled: true },\r\n  { label: 'Opción 4', value: 4 },\r\n  { label: 'Opción 5', value: 5 },\r\n]"
+            },
+            {
+                "name": "page1Data",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "sampleData.slice(0, 20)"
             },
             {
                 "name": "Paleta",
@@ -2351,6 +2627,16 @@
                 "defaultValue": "[\r\n  { token: '--radius-none', value: '0',       px: '0px',     label: 'None',  usage: 'Tablas, layouts' },\r\n  { token: '--radius-sm',   value: '0.125rem', px: '2px',    label: 'SM',    usage: 'Badges, tags pequeños' },\r\n  { token: '--radius-md',   value: '0.375rem', px: '6px',    label: 'MD',    usage: 'Inputs, botones' },\r\n  { token: '--radius-lg',   value: '0.5rem',   px: '8px',    label: 'LG',    usage: 'Cards, panels' },\r\n  { token: '--radius-xl',   value: '0.75rem',  px: '12px',   label: 'XL',    usage: 'Modals, drawers' },\r\n  { token: '--radius-2xl',  value: '1rem',     px: '16px',   label: '2XL',   usage: 'Contenedores grandes' },\r\n  { token: '--radius-full', value: '9999px',   px: '9999px', label: 'Full',  usage: 'Pills, avatares, toggles' },\r\n]"
             },
             {
+                "name": "REGIONS",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "['US-West 1', 'US-East 1', 'US-East 2', 'EU-West 1', 'EU-North 1', 'EU-Central 1', 'US-West 2']"
+            },
+            {
                 "name": "Required",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2399,6 +2685,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    items: defaultItems,\r\n    align: 'right',\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"display: flex; justify-content: flex-end; width: 300px;\">\r\n        <ds-context-menu [items]=\"items\" align=\"right\">\r\n          &#8943;\r\n        </ds-context-menu>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+            },
+            {
+                "name": "sampleData",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "generateData(52)"
             },
             {
                 "name": "shadowScale",
@@ -2541,6 +2837,26 @@
                 "defaultValue": "{\r\n  parameters: { layout: 'padded' },\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"\r\n        display: flex;\r\n        align-items: center;\r\n        justify-content: space-between;\r\n        padding: 16px;\r\n        border: 1px solid var(--color-border);\r\n        border-radius: 12px;\r\n        background: var(--color-bg-default);\r\n        gap: 12px;\r\n        min-width: 560px;\r\n      \">\r\n        <div style=\"flex:1; max-width:320px;\">\r\n          <ds-search placeholder=\"Buscar por nombre o RFC...\" />\r\n        </div>\r\n        <span style=\"font-size:13px; color:var(--color-text-tertiary);\">\r\n          52 resultados\r\n        </span>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "tabs",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "TabsPillItem[]",
+                "defaultValue": "[\r\n  { id: 'overview', label: 'Overview' },\r\n  { id: 'analytics', label: 'Analytics' },\r\n  { id: 'reports', label: 'Reports' },\r\n  { id: 'settings', label: 'Settings' },\r\n]"
+            },
+            {
+                "name": "tabs",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "TabItem[]",
+                "defaultValue": "[\r\n  { id: 1, label: 'Tablero de iniciativas', status: 'default' },\r\n  { id: 2, label: 'Tablero de iniciativas', status: 'completed' },\r\n  { id: 3, label: 'Tablero de iniciativas', status: 'error' },\r\n  { id: 4, label: 'Tablero de iniciativas', disabled: true },\r\n]"
+            },
+            {
                 "name": "Toolbar",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2621,6 +2937,16 @@
                 "defaultValue": "{\r\n  args: {\r\n    label: 'Subir documento PDF',\r\n    accept: '.pdf',\r\n    multiple: false,\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"width: 500px;\">\r\n        <ds-file-upload\r\n          [label]=\"label\"\r\n          [iconSrc]=\"iconSrc\"\r\n          [accept]=\"accept\"\r\n          [multiple]=\"multiple\"\r\n        />\r\n      </div>\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "WithActions",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    moduleMetadata: {\n      imports: [LucideAngularModule, BadgeComponent],\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"1\"\n        [totalItems]=\"52\"\n      >\n        <ng-template #actions let-row>\n          <button style=\"\n            background: none;\n            border: none;\n            cursor: pointer;\n            padding: 4px;\n            color: var(--color-text-secondary);\n            display: inline-flex;\n          \">\n            ...\n          </button>\n        </ng-template>\n      </ds-table>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "WithCharCount",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2659,6 +2985,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    text: 'Aparece con delay de 500ms',\r\n    position: 'top',\r\n    delay: 500,\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"padding: 60px;\">\r\n        <ds-tooltip [text]=\"text\" [position]=\"position\" [delay]=\"delay\">\r\n          <button style=\"\r\n            padding: 8px 16px;\r\n            border: 1px solid var(--color-border);\r\n            border-radius: 6px;\r\n            background: var(--color-bg-default);\r\n            cursor: pointer;\r\n          \">Hover (con delay)</button>\r\n        </ds-tooltip>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+            },
+            {
+                "name": "WithDisabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    tabs: [\r\n      { id: 1, label: 'Activo' },\r\n      { id: 2, label: 'Deshabilitado', disabled: true },\r\n      { id: 3, label: 'Siguiente' },\r\n    ],\r\n    activeTabId: 1,\r\n  },\r\n}"
             },
             {
                 "name": "WithDisabledItems",
@@ -2751,6 +3087,26 @@
                 "defaultValue": "{\r\n  args: {\r\n    items: [\r\n      { label: 'Ver detalle' },\r\n      { label: 'Editar' },\r\n      { label: 'Duplicar' },\r\n      { label: '', divider: true },\r\n      { label: 'Eliminar', danger: true },\r\n    ],\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <ds-context-menu [items]=\"items\">\r\n        &#8943;\r\n      </ds-context-menu>\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "WithPagination",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n}"
+            },
+            {
+                "name": "WithSearch",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    label: 'Búsqueda de opciones',\r\n    showSearch: true,\r\n    options: options,\r\n  },\r\n}"
+            },
+            {
                 "name": "WithSearch",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2769,6 +3125,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  render: () => ({\r\n    moduleMetadata: { imports: [StorySelectFilterComponent] },\r\n    template: `<story-select-filter />`,\r\n  }),\r\n}"
+            },
+            {
+                "name": "WithSelection",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n      />\n    `,\n  }),\n}"
             },
             {
                 "name": "WithText",
@@ -2801,7 +3167,37 @@
                 "defaultValue": "'style=\"max-width:480px; padding:24px;\"'"
             }
         ],
-        "functions": [],
+        "functions": [
+            {
+                "name": "generateData",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "count",
+                        "type": "number",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "returnType": "ServerRow[]",
+                "jsdoctags": [
+                    {
+                        "name": "count",
+                        "type": "number",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        ],
         "typealiases": [
             {
                 "name": "Story",
@@ -2950,6 +3346,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<MultiSelectComponent>",
+                "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<SearchComponent>",
                 "file": "projects/gob-ds/src/stories/components/search.stories.ts",
                 "deprecated": false,
@@ -2974,6 +3381,39 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<SkeletonComponent>",
                 "file": "projects/gob-ds/src/stories/components/skeleton.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<TableComponent>",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<TabsPillComponent>",
+                "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<TabsComponent>",
+                "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -3365,6 +3805,48 @@
                     "defaultValue": "{\r\n    args: {\r\n        label: 'Fecha de reserva',\r\n        helperText: 'Solo puedes reservar dentro de los próximos 30 días',\r\n        minDate: new Date(),\r\n        maxDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),\r\n    },\r\n}"
                 }
             ],
+            "projects/gob-ds/src/stories/components/tabs.stories.ts": [
+                {
+                    "name": "AllVariants",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"display: flex; flex-direction: column; gap: 40px;\">\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Default (Inactive)</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'default' }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n        \r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Active</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'default' }]\" [activeTabId]=\"1\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Completed</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'completed' }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Active Completed</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'completed' }]\" [activeTabId]=\"1\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Error</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'error' }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Error Active</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'error' }]\" [activeTabId]=\"1\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Disabled</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', disabled: true }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    tabs: [\r\n      { id: 1, label: 'Resumen', status: 'default' },\r\n      { id: 2, label: 'Configuración', status: 'default' },\r\n      { id: 3, label: 'Usuarios', status: 'default' },\r\n    ],\r\n    activeTabId: 1,\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<TabsComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/Tabs',\r\n  component: TabsComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    fullWidth: { control: 'boolean' },\r\n    activeTabId: { control: 'number' },\r\n  },\r\n}"
+                },
+                {
+                    "name": "tabs",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TabItem[]",
+                    "defaultValue": "[\r\n  { id: 1, label: 'Tablero de iniciativas', status: 'default' },\r\n  { id: 2, label: 'Tablero de iniciativas', status: 'completed' },\r\n  { id: 3, label: 'Tablero de iniciativas', status: 'error' },\r\n  { id: 4, label: 'Tablero de iniciativas', disabled: true },\r\n]"
+                }
+            ],
             "projects/gob-ds/src/stories/components/button.stories.ts": [
                 {
                     "name": "AsLink",
@@ -3673,6 +4155,138 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{}"
+                }
+            ],
+            "projects/gob-ds/src/stories/components/table.stories.ts": [
+                {
+                    "name": "columns",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TableColumn[]",
+                    "defaultValue": "[\n  { key: 'owner', label: 'Owner', sortable: true },\n  { key: 'status', label: 'Status' },\n  { key: 'region', label: 'Region' },\n  { key: 'stability', label: 'Stability' },\n  { key: 'costs', label: 'Costs', sortable: true, align: 'right' },\n  { key: 'lastEdited', label: 'Last edited' },\n]"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table [columns]=\"columns\" [data]=\"data\" />\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Empty",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        emptyMessage=\"No servers found.\"\n      />\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Error",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [error]=\"true\"\n        errorMessage=\"Failed to load server data. Please try again.\"\n      />\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "FullFeatured",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Loading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [loading]=\"true\"\n        [skeletonRows]=\"8\"\n      />\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<TableComponent>",
+                    "defaultValue": "{\n  title: 'Components/Table',\n  component: TableComponent,\n  tags: ['autodocs'],\n  parameters: {\n    layout: 'padded',\n    docs: {\n      description: {\n        component: `\nA flexible data table component with sorting, row selection, pagination, and multiple states.\n\n| Prop | Type | Default | Description |\n|------|------|---------|-------------|\n| columns | TableColumn[] | [] | Column definitions |\n| data | T[] | [] | Row data |\n| selectable | boolean | false | Enable row selection with checkboxes |\n| loading | boolean | false | Show skeleton loading state |\n| error | boolean | false | Show error state |\n| paginated | boolean | false | Enable pagination |\n| pageSize | number | 20 | Rows per page |\n| totalItems | number | 0 | Total number of items |\n| currentPage | number | 1 | Current page |\n| sortKey | string | null | Currently sorted column key |\n| sortDirection | 'asc'/'desc'/null | null | Sort direction |\n        `,\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "page1Data",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "sampleData.slice(0, 20)"
+                },
+                {
+                    "name": "REGIONS",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "['US-West 1', 'US-East 1', 'US-East 2', 'EU-West 1', 'EU-North 1', 'EU-Central 1', 'US-West 2']"
+                },
+                {
+                    "name": "sampleData",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "generateData(52)"
+                },
+                {
+                    "name": "WithActions",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    moduleMetadata: {\n      imports: [LucideAngularModule, BadgeComponent],\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"1\"\n        [totalItems]=\"52\"\n      >\n        <ng-template #actions let-row>\n          <button style=\"\n            background: none;\n            border: none;\n            cursor: pointer;\n            padding: 4px;\n            color: var(--color-text-secondary);\n            display: inline-flex;\n          \">\n            ...\n          </button>\n        </ng-template>\n      </ds-table>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "WithPagination",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "WithSelection",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n      />\n    `,\n  }),\n}"
                 }
             ],
             "projects/gob-ds/src/stories/components/filter.stories.ts": [
@@ -4089,6 +4703,78 @@
                     "defaultValue": "{\r\n  args: {\r\n    size: 'md',\r\n    text: 'Cargando datos...',\r\n  },\r\n}"
                 }
             ],
+            "projects/gob-ds/src/stories/components/multi-select.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    label: 'Etiquetas',\r\n    placeholder: 'Selecciona etiquetas',\r\n    options: options,\r\n    value: ['a10', 'c12'],\r\n  },\r\n}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    label: 'Campo deshabilitado',\r\n    disabled: true,\r\n    options: options,\r\n    value: ['a10'],\r\n  },\r\n}"
+                },
+                {
+                    "name": "Empty",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    label: 'Filtro por Categoría',\r\n    placeholder: 'Seleccionar categorías...',\r\n    options: options,\r\n    value: [],\r\n  },\r\n}"
+                },
+                {
+                    "name": "Loading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    label: 'Cargando datos...',\r\n    loading: true,\r\n    options: options,\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<MultiSelectComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/MultiSelect',\r\n  component: MultiSelectComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    label: { control: 'text' },\r\n    placeholder: { control: 'text' },\r\n    disabled: { control: 'boolean' },\r\n    loading: { control: 'boolean' },\r\n    showSearch: { control: 'boolean' },\r\n    required: { control: 'boolean' },\r\n  },\r\n}"
+                },
+                {
+                    "name": "options",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MultiSelectOption[]",
+                    "defaultValue": "[\r\n  { label: 'a10', value: 'a10' },\r\n  { label: 'c12', value: 'c12' },\r\n  { label: 'b5', value: 'b5' },\r\n  { label: 'd20', value: 'd20' },\r\n  { label: 'e8', value: 'e8' },\r\n]"
+                },
+                {
+                    "name": "WithSearch",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    label: 'Búsqueda de opciones',\r\n    showSearch: true,\r\n    options: options,\r\n  },\r\n}"
+                }
+            ],
             "projects/gob-ds/src/stories/components/select.stories.ts": [
                 {
                     "name": "Default",
@@ -4169,6 +4855,58 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\r\n  args: {\r\n    label: 'Búsqueda interna',\r\n    showSearch: true,\r\n    options: options,\r\n  },\r\n}"
+                }
+            ],
+            "projects/gob-ds/src/stories/components/tabs-pill.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    tabs: tabs,\r\n    activeTabId: 'overview',\r\n  },\r\n}"
+                },
+                {
+                    "name": "LargeLabels",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    tabs: [\r\n      { id: 1, label: 'Panel de Control' },\r\n      { id: 2, label: 'Estadísticas Avanzadas' },\r\n      { id: 3, label: 'Configuración Global' },\r\n    ],\r\n    activeTabId: 1,\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<TabsPillComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/TabsPill',\r\n  component: TabsPillComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    activeTabId: { control: 'text' },\r\n  },\r\n}"
+                },
+                {
+                    "name": "tabs",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TabsPillItem[]",
+                    "defaultValue": "[\r\n  { id: 'overview', label: 'Overview' },\r\n  { id: 'analytics', label: 'Analytics' },\r\n  { id: 'reports', label: 'Reports' },\r\n  { id: 'settings', label: 'Settings' },\r\n]"
+                },
+                {
+                    "name": "WithDisabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    tabs: [\r\n      { id: 1, label: 'Activo' },\r\n      { id: 2, label: 'Deshabilitado', disabled: true },\r\n      { id: 3, label: 'Siguiente' },\r\n    ],\r\n    activeTabId: 1,\r\n  },\r\n}"
                 }
             ],
             "projects/gob-ds/src/stories/components/tooltip.stories.ts": [
@@ -4478,7 +5216,39 @@
                 }
             ]
         },
-        "groupedFunctions": {},
+        "groupedFunctions": {
+            "projects/gob-ds/src/stories/components/table.stories.ts": [
+                {
+                    "name": "generateData",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "count",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "returnType": "ServerRow[]",
+                    "jsdoctags": [
+                        {
+                            "name": "count",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
         "groupedEnumerations": {},
         "groupedTypeAliases": {
             "projects/gob-ds/src/stories/components/alert-dialog.stories.ts": [
@@ -4650,6 +5420,19 @@
                     "kind": 184
                 }
             ],
+            "projects/gob-ds/src/stories/components/multi-select.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<MultiSelectComponent>",
+                    "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/gob-ds/src/stories/components/search.stories.ts": [
                 {
                     "name": "Story",
@@ -4683,6 +5466,45 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<SkeletonComponent>",
                     "file": "projects/gob-ds/src/stories/components/skeleton.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/gob-ds/src/stories/components/table.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<TableComponent>",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/gob-ds/src/stories/components/tabs-pill.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<TabsPillComponent>",
+                    "file": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/gob-ds/src/stories/components/tabs.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<TabsComponent>",
+                    "file": "projects/gob-ds/src/stories/components/tabs.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -5818,6 +6640,86 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Empty",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Loading",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "options",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithSearch",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/gob-ds/src/stories/components/search.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -6009,6 +6911,275 @@
             },
             {
                 "filePath": "projects/gob-ds/src/stories/components/skeleton.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ServerRow",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "generateData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "columns",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Empty",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Error",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "FullFeatured",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Loading",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "page1Data",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "REGIONS",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "sampleData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithActions",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithPagination",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithSelection",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LargeLabels",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "tabs",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithDisabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs-pill.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AllVariants",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "tabs",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/tabs.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",

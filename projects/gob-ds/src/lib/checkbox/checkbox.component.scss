@@ -1,7 +1,8 @@
 // ── Root ──────────────────────────────────────────────────────
 .cb-root {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
+    vertical-align: middle;
     gap: 10px;
     cursor: pointer;
     user-select: none;

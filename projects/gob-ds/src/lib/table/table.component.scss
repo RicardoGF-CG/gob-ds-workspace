@@ -1,0 +1,250 @@
+// ── Wrapper ──────────────────────────────────────────────────
+.tbl-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+  background: var(--color-bg-default);
+}
+
+// ── Table ────────────────────────────────────────────────────
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+}
+
+// ── Head ─────────────────────────────────────────────────────
+.tbl__head {
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+  background-color: var(--color-primary);
+}
+
+.tbl__th {
+  padding: var(--space-2) var(--space-4);
+  text-align: left;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-white);
+  white-space: nowrap;
+  user-select: none;
+  background: var(--color-brand-500);
+
+  &--sortable {
+    cursor: pointer;
+    transition: color 150ms ease;
+
+    &:hover {
+      color: var(--color-neutral-100);
+    }
+  }
+
+  &--active {
+    color: var(--color-neutral-100);
+  }
+
+  &--checkbox {
+    width: 36px;
+    padding-left: var(--space-4);
+    padding-right: var(--space-2);
+    text-align: center;
+    vertical-align: middle;
+    box-sizing: border-box;
+  }
+
+  &--actions {
+    width: 64px;
+    text-align: center;
+  }
+}
+
+.tbl__th-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+// ── Sort icon ────────────────────────────────────────────────
+.tbl__sort-icon {
+  color: var(--color-neutral-100);
+  transition: color 150ms ease;
+
+  &--active {
+    color: var(--color-neutral-100);
+  }
+}
+
+// ── Body ─────────────────────────────────────────────────────
+.tbl__body {
+  .tbl__row {
+    border-bottom: var(--border-width-thin) solid var(--color-border);
+    transition: background 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover:not(.tbl__row--state):not(.tbl__row--skeleton) {
+      background: var(--color-bg-subtle);
+    }
+
+    &--selected {
+      background: var(--color-brand-50);
+
+      &:hover {
+        background: var(--color-brand-100);
+      }
+    }
+  }
+}
+
+.tbl__td {
+  padding: 0px var(--space-4);
+  vertical-align: middle;
+  line-height: var(--line-height-normal);
+  height: 40px;
+
+  &--checkbox {
+    width: 48px;
+    padding-left: var(--space-4);
+    padding-right: var(--space-2);
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  &--actions {
+    width: 64px;
+    text-align: center;
+  }
+
+  &--state {
+    padding: var(--space-12) var(--space-4);
+    line-height: var(--line-height-normal);
+  }
+}
+
+// ── States (empty / error) ───────────────────────────────────
+.tbl__state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.tbl__state-icon {
+  &--empty {
+    color: var(--color-text-tertiary);
+  }
+  &--error {
+    color: var(--color-status-error);
+  }
+}
+
+.tbl__state-text {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}
+
+// ── Skeleton rows ────────────────────────────────────────────
+.tbl__row--skeleton {
+  pointer-events: none;
+}
+
+// ── Pagination ───────────────────────────────────────────────
+.tbl-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.tbl-pagination__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.tbl-pagination__range {
+  white-space: nowrap;
+
+  strong {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+}
+
+.tbl-pagination__left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.tbl-pagination__info {
+  white-space: nowrap;
+}
+
+.tbl-pagination__page-size {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.tbl-pagination__page-size-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.tbl-pagination__page-size-select {
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-sans);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-brand-100);
+    border-color: var(--color-brand-500);
+  }
+}
+
+.tbl-pagination__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.tbl-pagination__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg-subtle);
+    border-color: var(--color-border-strong);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}

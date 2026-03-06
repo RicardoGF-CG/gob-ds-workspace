@@ -1,0 +1,214 @@
+<div class="tbl-wrapper">
+  <table class="tbl">
+    <!-- ── Header ──────────────────────────────────────── -->
+    <thead class="tbl__head">
+      <tr class="tbl__row tbl__row--header">
+        @if (selectable) {
+        <th class="tbl__th tbl__th--checkbox">
+          <ds-checkbox
+            [checked]="isAllSelected"
+            [indeterminate]="isIndeterminate"
+            (click)="toggleAll()"
+          />
+        </th>
+        } @for (col of columns; track col.key) {
+        <th
+          class="tbl__th"
+          [class.tbl__th--sortable]="col.sortable"
+          [class.tbl__th--active]="sortKey === col.key && sortDirection"
+          [style.width]="col.width ?? null"
+          [style.text-align]="col.align ?? 'left'"
+          (click)="onSort(col)"
+        >
+          <span class="tbl__th-content">
+            {{ col.label }}
+            @if (col.sortable) {
+            <lucide-icon
+              [img]="getSortIcon(col)"
+              class="tbl__sort-icon"
+              [class.tbl__sort-icon--active]="sortKey === col.key && sortDirection"
+              [size]="14"
+            />
+            }
+          </span>
+        </th>
+        } @if (actionsTemplate || rowActions.length > 0) {
+        <th class="tbl__th tbl__th--actions">Actions</th>
+        }
+      </tr>
+    </thead>
+
+    <tbody class="tbl__body">
+      <!-- ── Loading skeleton ──────────────────────────── -->
+      @if (loading) { @for (_ of skeletonRowsArray; track $index) {
+      <tr class="tbl__row tbl__row--skeleton">
+        @if (selectable) {
+        <td class="tbl__td tbl__td--checkbox">
+          <ds-skeleton variant="rectangular" width="20px" height="20px" />
+        </td>
+        } @for (col of columns; track col.key) {
+        <td class="tbl__td" [style.text-align]="col.align ?? 'left'">
+          <ds-skeleton variant="text" width="70%" height="14px" />
+        </td>
+        } @if (actionsTemplate) {
+        <td class="tbl__td tbl__td--actions">
+          <ds-skeleton variant="rectangular" width="24px" height="24px" />
+        </td>
+        }
+      </tr>
+      } }
+
+      <!-- ── Error state ───────────────────────────────── -->
+      @else if (error) {
+      <tr class="tbl__row tbl__row--state">
+        <td class="tbl__td tbl__td--state" [attr.colspan]="visibleColumns">
+          @if (errorTemplate) {
+          <ng-container [ngTemplateOutlet]="errorTemplate" />
+          } @else {
+          <div class="tbl__state">
+            <lucide-icon
+              [strokeWidth]="1"
+              [img]="AlertCircle"
+              [size]="32"
+              class="tbl__state-icon tbl__state-icon--error"
+            />
+            <span class="tbl__state-text">{{ errorMessage }}</span>
+          </div>
+          }
+        </td>
+      </tr>
+      }
+
+      <!-- ── Empty state ───────────────────────────────── -->
+      @else if (data.length === 0) {
+      <tr class="tbl__row tbl__row--state">
+        <td class="tbl__td tbl__td--state" [attr.colspan]="visibleColumns">
+          @if (emptyTemplate) {
+          <ng-container [ngTemplateOutlet]="emptyTemplate" />
+          } @else {
+          <div class="tbl__state">
+            <lucide-icon
+              [strokeWidth]="1"
+              [img]="Inbox"
+              [size]="32"
+              class="tbl__state-icon tbl__state-icon--empty"
+            />
+            <span class="tbl__state-text">{{ emptyMessage }}</span>
+          </div>
+          }
+        </td>
+      </tr>
+      }
+
+      <!-- ── Data rows ─────────────────────────────────── -->
+      @else { @for (row of sortedData; track $index) {
+      <tr class="tbl__row" [class.tbl__row--selected]="selectable && isRowSelected(row)">
+        @if (selectable) {
+        <td class="tbl__td tbl__td--checkbox">
+          <ds-checkbox [checked]="isRowSelected(row)" (click)="toggleRow(row)" />
+        </td>
+        } @for (col of columns; track col.key) {
+        <td class="tbl__td" [style.text-align]="col.align ?? 'left'">
+          @if (col.cellTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="col.cellTemplate"
+            [ngTemplateOutletContext]="{ $implicit: row, column: col }"
+          />
+          } @else {
+          {{ getCellValue(row, col.key) }}
+          }
+        </td>
+        } @if (actionsTemplate || rowActions.length > 0) {
+        <td class="tbl__td tbl__td--actions">
+          @if (actionsTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="actionsTemplate"
+            [ngTemplateOutletContext]="{ $implicit: row }"
+          />
+          } @else if (rowActions.length > 0) {
+          <ds-context-menu
+            [items]="rowActions"
+            align="right"
+            (itemClick)="onRowActionClick($event, row)"
+          >
+            <lucide-icon [img]="Ellipsis" [size]="14" />
+          </ds-context-menu>
+          }
+        </td>
+        }
+      </tr>
+      } }
+    </tbody>
+  </table>
+</div>
+
+<!-- ── Pagination ───────────────────────────────────────── -->
+@if (paginated && !loading && !error && data.length > 0) {
+<div class="tbl-pagination">
+  <div class="tbl-pagination__left">
+    @if (selectable) {
+    <span class="tbl-pagination__info">
+      {{ selectedRows.length }} of {{ totalItems }} filas(s) seleccionada(s).
+    </span>
+    }
+
+    <div class="tbl-pagination__page-size">
+      <label class="tbl-pagination__page-size-label" for="pageSizeSelect"
+        >Registros por página</label
+      >
+      <select
+        id="pageSizeSelect"
+        class="tbl-pagination__page-size-select"
+        [value]="pageSize"
+        (change)="onPageSizeChange($event)"
+      >
+        @for (opt of pageSizeOptions; track opt) {
+        <option [value]="opt" [selected]="opt === pageSize">{{ opt }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="tbl-pagination__right">
+    <span class="tbl-pagination__range">
+      Mostrando <strong>{{ paginationStart }}-{{ paginationEnd }}</strong> de
+      <strong>{{ totalItems }}</strong>
+    </span>
+
+    <div class="tbl-pagination__controls">
+      <button
+        class="tbl-pagination__btn"
+        [disabled]="currentPage === 1"
+        (click)="goToPage(1)"
+        aria-label="First page"
+      >
+        <lucide-icon [img]="ChevronsLeft" [size]="16" />
+      </button>
+      <button
+        class="tbl-pagination__btn"
+        [disabled]="currentPage === 1"
+        (click)="goToPage(currentPage - 1)"
+        aria-label="Previous page"
+      >
+        <lucide-icon [img]="ChevronLeft" [size]="16" />
+      </button>
+      <button
+        class="tbl-pagination__btn"
+        [disabled]="currentPage === totalPages"
+        (click)="goToPage(currentPage + 1)"
+        aria-label="Next page"
+      >
+        <lucide-icon [img]="ChevronRight" [size]="16" />
+      </button>
+      <button
+        class="tbl-pagination__btn"
+        [disabled]="currentPage === totalPages"
+        (click)="goToPage(totalPages)"
+        aria-label="Last page"
+      >
+        <lucide-icon [img]="ChevronsRight" [size]="16" />
+      </button>
+    </div>
+  </div>
+</div>
+}

@@ -18,3 +18,4 @@ export * from './lib/multi-select/multi-select.component';
 export * from './lib/tabs/tabs.component';
 export * from './lib/tabs-pill/tabs-pill.component';
 export * from './lib/filter/filter.component';
+export * from './lib/table/table.component';
