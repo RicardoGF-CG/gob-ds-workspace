@@ -15,4 +15,5 @@ export * from './lib/modal/modal.component';
 export * from './lib/file-upload/file-upload.component';
 export * from './lib/select/select.component';
 export * from './lib/multi-select/multi-select.component';
+export * from './lib/tabs/tabs.component';
 export * from './lib/filter/filter.component';
