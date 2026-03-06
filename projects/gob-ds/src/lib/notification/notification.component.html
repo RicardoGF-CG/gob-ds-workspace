@@ -1,0 +1,39 @@
+<!-- Toast -->
+@if (variant === 'toast' && visible) {
+<div class="notification notification--toast" [class]="'notification--' + type">
+
+    <span class="notification__icon">
+        <lucide-icon [img]="typeIcon" [size]="16"></lucide-icon>
+    </span>
+
+    <div class="notification__content">
+        <span class="notification__title" *ngIf="title">{{ title }}</span>
+        <p class="notification__message" *ngIf="message">{{ message }}</p>
+    </div>
+
+    <button *ngIf="dismissible" type="button" class="notification__close" (click)="dismiss()">
+        <lucide-icon [img]="XIcon" [size]="14"></lucide-icon>
+    </button>
+
+</div>
+}
+
+<!-- Banner -->
+@if (variant === 'banner' && visible) {
+<div class="notification notification--banner" [class]="'notification--' + type">
+
+    <span class="notification__icon">
+        <lucide-icon [img]="typeIcon" [size]="16"></lucide-icon>
+    </span>
+
+    <div class="notification__content">
+        <span class="notification__title" *ngIf="title">{{ title }}</span>
+        <p class="notification__message" *ngIf="message">{{ message }}</p>
+    </div>
+
+    <button *ngIf="dismissible" type="button" class="notification__close" (click)="dismiss()">
+        <lucide-icon [img]="XIcon" [size]="16"></lucide-icon>
+    </button>
+
+</div>
+}

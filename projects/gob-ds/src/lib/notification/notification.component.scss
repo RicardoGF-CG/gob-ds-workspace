@@ -1,0 +1,189 @@
+:host {
+    display: block;
+}
+
+// ─── Base ─────────────────────────────────────────────────────
+.notification {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-default);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    font-family: var(--font-family-sans);
+    width: 417px;
+    min-height: 44px;
+    box-sizing: border-box;
+    animation: slideIn 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+// ─── Icon circle ──────────────────────────────────────────────
+.notification__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    color: #fff;
+    margin-top: 1px;
+}
+
+// ─── Content ──────────────────────────────────────────────────
+.notification__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.notification__title {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    line-height: 1.4;
+}
+
+.notification__message {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+// ─── Close ────────────────────────────────────────────────────
+.notification__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    border-radius: var(--radius-md);
+    color: var(--color-text-tertiary);
+    flex-shrink: 0;
+    align-self: flex-start;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover {
+        background: var(--color-bg-subtle);
+        color: var(--color-text-primary);
+    }
+}
+
+// ─── Variants — solo el círculo cambia de color ───────────────
+.notification--info .notification__icon {
+    background: var(--color-brand-400);
+}
+
+.notification--success .notification__icon {
+    background: #60CAAA;
+}
+
+.notification--warning .notification__icon {
+    background: #FACC15;
+    color: var(--color-text-primary);
+}
+
+.notification--error .notification__icon {
+    background: #E9594B;
+}
+
+.notification--default .notification__icon {
+    background: var(--color-neutral-300);
+    color: var(--color-text-primary);
+}
+
+// ─── Toast (emergente) ────────────────────────────────────────
+.notification--toast {
+    position: relative;
+    width: 417px;
+    min-height: 44px;
+    animation: slideInRight 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+// ─── Banner ───────────────────────────────────────────────────
+.notification--banner {
+    position: relative;
+    width: 787px;
+    min-height: unset; // ← sin altura mínima fija
+    height: auto; // ← crece con el contenido
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    padding: 20px 24px;
+    flex-direction: column;
+    gap: 8px;
+    animation: slideInUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .notification__icon {
+        display: none;
+    }
+
+    .notification__content {
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+    }
+
+    .notification__title {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text-primary);
+    }
+
+    .notification__message {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+        white-space: normal;
+    }
+
+    .notification__close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+    }
+}
