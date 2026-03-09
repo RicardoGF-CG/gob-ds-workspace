@@ -1,26 +1,158 @@
 :host {
     display: block;
     width: 100%;
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-family-sans);
 }
 
 // ─── Topbar ───────────────────────────────────────────────────
 .topbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    width: 1440px;
+    height: 38px;
+    background: var(--color-brand-600);
+    box-sizing: border-box;
+    padding: 0 var(--space-4);
+}
+
+// ─── Columna izquierda ────────────────────────────────────────
+.topbar__left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    min-width: 0;
+    overflow: hidden;
+}
+
+// ─── Columna centro ───────────────────────────────────────────
+.topbar__center {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1440px;
-    height: 38px;
-    background: #003F6E;
-    box-sizing: border-box;
+    padding: 0 var(--space-3);
+    min-width: 0;
 }
 
-// ─── Title ────────────────────────────────────────────────────
 .topbar__title {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: #ffffff;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-inverse);
     text-align: center;
-    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+// ─── Columna derecha ──────────────────────────────────────────
+.topbar__right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    min-width: 0;
+    overflow: hidden;
+}
+
+// ─── Estilos base para contenido proyectado ───────────────────
+// Aplica automáticamente a cualquier elemento HTML que el usuario
+// meta en topbar-left o topbar-right sin necesidad de estilos inline
+
+.topbar__left,
+.topbar__right {
+    ::ng-deep {
+
+        // Textos
+        span,
+        p,
+        label,
+        small {
+            font-family: var(--font-family-sans);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-regular);
+            color: var(--color-text-inverse);
+            opacity: 0.85;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        // Links
+        a {
+            font-family: var(--font-family-sans);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-regular);
+            color: var(--color-text-inverse);
+            opacity: 0.85;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: opacity 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+
+            &:hover {
+                opacity: 1;
+                text-decoration: underline;
+                text-underline-offset: 3px;
+            }
+
+            &:visited {
+                color: var(--color-text-inverse);
+            }
+        }
+
+        // Imágenes
+        img {
+            height: 24px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        // Íconos lucide
+        lucide-icon,
+        svg {
+            color: var(--color-text-inverse);
+            opacity: 0.85;
+            flex-shrink: 0;
+        }
+
+        // Botones
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-family-sans);
+            font-size: var(--font-size-sm);
+            color: var(--color-text-inverse);
+            opacity: 0.85;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            transition: opacity 0.15s ease;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        // Badges / pills
+        .badge,
+        [class*="badge"],
+        [class*="pill"] {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            padding: 1px var(--space-2);
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--color-text-inverse);
+            white-space: nowrap;
+        }
+    }
 }

@@ -1,3 +1,18 @@
 <header class="topbar">
-    <span class="topbar__title">{{ title }}</span>
+
+    <!-- Col izquierda — cualquier HTML -->
+    <div class="topbar__left">
+        <ng-content select="[topbar-left]"></ng-content>
+    </div>
+
+    <!-- Col centro — título -->
+    <div class="topbar__center">
+        <span class="topbar__title">{{ title }}</span>
+    </div>
+
+    <!-- Col derecha — cualquier HTML -->
+    <div class="topbar__right">
+        <ng-content select="[topbar-right]"></ng-content>
+    </div>
+
 </header>

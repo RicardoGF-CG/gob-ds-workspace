@@ -1,6 +1,6 @@
 <!-- Toast -->
 @if (variant === 'toast' && visible) {
-<div class="notification notification--toast" [class]="'notification--' + type">
+<div class="notification notification--toast" [ngClass]="'notification--' + type">
 
     <span class="notification__icon">
         <lucide-icon [img]="typeIcon" [size]="16"></lucide-icon>
@@ -20,7 +20,7 @@
 
 <!-- Banner -->
 @if (variant === 'banner' && visible) {
-<div class="notification notification--banner" [class]="'notification--' + type">
+<div class="notification notification--banner" [ngClass]="'notification--' + type">
 
     <span class="notification__icon">
         <lucide-icon [img]="typeIcon" [size]="16"></lucide-icon>
