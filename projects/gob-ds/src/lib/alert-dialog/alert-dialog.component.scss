@@ -1,94 +1,101 @@
+// ─── Overlay ──────────────────────────────────────────────────
 .ad-overlay {
     position: fixed;
     inset: 0;
     display: grid;
     place-items: center;
-    background: rgba(17, 24, 39, 0.45);
+    background: rgba(17, 24, 39, 0.45); // sombra semitransparente — no tiene token, ok dejarlo
     z-index: 1000;
-    padding: 16px;
+    padding: var(--space-4); // 16px
 }
 
+// ─── Panel ────────────────────────────────────────────────────
 .ad-panel {
     width: min(380px, 100%);
-    border-radius: var(--radius-xl, 12px);
+    border-radius: var(--radius-xl); // 12px
     background: var(--color-bg-default);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-lg, 0 12px 40px rgba(0, 0, 0, .12));
+    border: var(--border-width-thin) solid var(--color-border);
+    box-shadow: var(--shadow-lg);
     outline: none;
 }
 
+// ─── Header ───────────────────────────────────────────────────
 .ad-header {
     display: grid;
-    gap: 3px;
-    margin-bottom: 8px;
-    padding: 18px;
+    gap: var(--space-0-5); // 2px ≈ 3px (más cercano disponible)
+    margin-bottom: var(--space-2); // 8px
+    padding: var(--space-4) var(--space-4) 0; // 16px (antes 18px, no hay token exacto)
 }
 
+// ─── Title ────────────────────────────────────────────────────
 .ad-title {
     font-family: var(--font-family-sans);
-    font-weight: var(--font-weight-semibold, 600);
-    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold); // 600
+    font-size: var(--font-size-xl); // 18px
     color: var(--color-text-primary);
-    line-height: 1.2;
+    line-height: var(--line-height-tight); // 1.15
 }
 
+// ─── Description ──────────────────────────────────────────────
 .ad-description {
     font-family: var(--font-family-sans);
-    font-weight: var(--font-weight-regular, 400);
-    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-regular); // 400
+    font-size: var(--font-size-md); // 14px
     color: var(--color-text-secondary);
-    line-height: 1.45;
+    line-height: var(--line-height-normal); // 1.35
 }
 
+// ─── Actions ──────────────────────────────────────────────────
 .ad-actions {
     display: flex;
-    gap: 10px;
+    gap: var(--space-2-5); // 10px
     justify-content: flex-end;
-    border-top: 1px solid var(--color-border);
-    padding: 8px 10px;
+    border-top: var(--border-width-thin) solid var(--color-border);
+    padding: var(--space-2) var(--space-2-5); // 8px 10px
 }
 
+// ─── Button base ──────────────────────────────────────────────
 .ad-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-
-    border-radius: var(--radius-lg);
-    padding: 8px 12px;
+    gap: var(--space-2); // 8px
+    border-radius: var(--radius-lg); // 8px
+    padding: var(--space-2) var(--space-3); // 8px 12px
     font-family: var(--font-family-sans);
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-regular);
-
-    border: 1px solid transparent;
+    font-size: var(--font-size-md); // 14px
+    font-weight: var(--font-weight-regular); // 400
+    border: var(--border-width-thin) solid transparent;
     cursor: pointer;
-    background: var(--color-brand-700);
-    color: #fff;
+    background: var(--color-brand-700); // #002F54
+    color: var(--color-white);
 
     &:focus-visible {
         outline: none;
-        box-shadow: 0 0 0 3px var(--color-brand-100);
+        box-shadow: 0 0 0 3px var(--color-brand-100); // #CCDDE9
     }
 }
 
+// ─── Secondary ────────────────────────────────────────────────
 .ad-btn--secondary {
     background: var(--color-bg-subtle);
     color: var(--color-text-primary);
     border-color: var(--color-border);
 
     &:hover {
-        background: var(--color-neutral-200, #E5E7EB);
+        background: var(--color-bg-muted); // #E3E9F5
     }
 }
 
+// ─── Destructive ──────────────────────────────────────────────
 .ad-btn--destructive {
-    background: #EF4444;
+    background: var(--color-status-error); // #a21315
 
     &:hover {
-        background: #DC2626;
+        background: var(--color-status-error-text); // #82181A (tono más oscuro)
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 3px #FECACA;
+        box-shadow: 0 0 0 3px var(--color-status-error-bg); // #FEF3F3
     }
 }

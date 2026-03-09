@@ -1,0 +1,181 @@
+:host {
+    display: block;
+}
+
+// ─── Base ─────────────────────────────────────────────────────
+.notification {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3); // 12px
+    padding: var(--space-4) var(--space-5); // 16px 20px
+    border-radius: var(--radius-lg); // 8px
+    background: var(--color-bg-default);
+    border: var(--border-width-thin) solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    font-family: var(--font-family-sans);
+    width: 417px;
+    min-height: 44px;
+    box-sizing: border-box;
+    animation: slideIn 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+// ─── Icon circle ──────────────────────────────────────────────
+.notification__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+    color: var(--color-white);
+    margin-top: 1px;
+}
+
+// ─── Content ──────────────────────────────────────────────────
+.notification__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1); // 4px
+    min-width: 0;
+}
+
+.notification__title {
+    font-size: var(--font-size-md); // 14px
+    font-weight: var(--font-weight-semibold); // 600
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight); // 1.15
+}
+
+.notification__message {
+    font-size: var(--font-size-sm); // 12px
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-secondary); // #6B7280
+    line-height: var(--line-height-normal); // 1.35
+    margin: 0;
+}
+
+// ─── Close ────────────────────────────────────────────────────
+.notification__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    border-radius: var(--radius-md); // 6px
+    color: var(--color-text-tertiary); // #878E9D
+    flex-shrink: 0;
+    align-self: flex-start;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+        background: var(--color-bg-subtle);
+        color: var(--color-text-primary);
+    }
+}
+
+// ─── Variants ────────────────────────────────────────────────
+.notification--info .notification__icon {
+    background: var(--color-brand-400); // #3377A9
+}
+
+.notification--success .notification__icon {
+    background: var(--color-status-success); // #0d7d61
+}
+
+.notification--warning .notification__icon {
+    background: var(--color-status-warning-text); // #733E0A (oscuro sobre amarillo)
+    color: var(--color-white);
+}
+
+.notification--error .notification__icon {
+    background: var(--color-status-error); // #a21315
+}
+
+.notification--default .notification__icon {
+    background: var(--color-neutral-300); // #C3CAD7
+    color: var(--color-text-primary);
+}
+
+// ─── Toast ────────────────────────────────────────────────────
+.notification--toast {
+    position: relative;
+    width: 417px;
+    min-height: 44px;
+    animation: slideInRight 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+// ─── Banner ───────────────────────────────────────────────────
+.notification--banner {
+    position: relative;
+    width: 787px;
+    min-height: unset;
+    height: auto;
+    border-radius: var(--radius-lg);
+    border: var(--border-width-thin) solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-5) var(--space-6); // 20px 24px
+    flex-direction: column;
+    gap: var(--space-2); // 8px
+    animation: slideInUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .notification__icon {
+        display: none;
+    }
+
+    .notification__content {
+        flex-direction: column;
+        gap: var(--space-2);
+        flex: 1;
+    }
+
+    .notification__message {
+        line-height: var(--line-height-loose); // 1.6
+        white-space: normal;
+    }
+
+    .notification__close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+    }
+}

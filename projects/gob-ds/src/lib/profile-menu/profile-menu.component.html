@@ -1,0 +1,25 @@
+<div class="profile-menu">
+
+    <!-- Trigger -->
+    <button type="button" class="profile-menu__trigger" (click)="toggle()" [class.profile-menu__trigger--open]="isOpen">
+        <span class="profile-menu__avatar">{{ initials }}</span>
+    </button>
+
+    <!-- Dropdown -->
+    <div class="profile-menu__dropdown" *ngIf="isOpen">
+
+        <div class="profile-menu__user">
+            <span class="profile-menu__name">{{ name }}</span>
+            <span class="profile-menu__role">{{ role }}</span>
+        </div>
+
+        <div class="profile-menu__divider"></div>
+
+        <button type="button" class="profile-menu__item profile-menu__item--danger" (click)="onLogout()">
+            <lucide-icon [img]="LogOutIcon" [size]="16"></lucide-icon>
+            <span>Cerrar Sesión</span>
+        </button>
+
+    </div>
+
+</div>

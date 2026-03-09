@@ -1,0 +1,42 @@
+<footer class="footer" [class.footer--expanded]="mode === 'app'">
+
+    <!-- Copyright -->
+    <p class="footer__copy">
+        © {{ year }} Sistema de Evaluación Individual del Desempeño - Todos los derechos reservados
+    </p>
+
+    <!-- Bottom row -->
+    <div class="footer__bottom">
+
+        <!-- Certifications -->
+        <span class="footer__cert">ISO 9001:2015</span>
+        <span class="footer__cert">ISO 37001:2016</span>
+
+        <!-- Políticas: login = dropdown / app = links inline -->
+        <ng-container *ngIf="mode === 'login'; else appPolicies">
+            <div class="footer__policies-dropdown" [class.footer__policies-dropdown--open]="policiesOpen"
+                (click)="togglePolicies($event)">
+
+                <span>Políticas</span>
+                <lucide-icon [img]="ChevronDownIcon" [size]="13" [class.rotated]="policiesOpen"></lucide-icon>
+
+                <div class="footer__dropdown" *ngIf="policiesOpen" [class.footer__dropdown--up]="dropdownOpenUp"
+                    [class.footer__dropdown--down]="!dropdownOpenUp">
+                    <button *ngFor="let p of policies" type="button" class="footer__dropdown-item"
+                        (click)="onPolicyClick(p); $event.stopPropagation()">
+                        {{ p.label }}
+                    </button>
+                </div>
+
+            </div>
+        </ng-container>
+
+        <ng-template #appPolicies>
+            <button *ngFor="let p of policies" type="button" class="footer__policy-link" (click)="onPolicyClick(p)">
+                {{ p.label }}
+            </button>
+        </ng-template>
+
+    </div>
+
+</footer>

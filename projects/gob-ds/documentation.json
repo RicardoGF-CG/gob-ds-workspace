@@ -3,12 +3,12 @@
     "interfaces": [
         {
             "name": "ServerRow",
-            "id": "interface-ServerRow-74fb4412e12e2103d1acc0858e2b8f493de69e1e70a9cd7a9a9da0564970bbbe2f9411d56d2b1504768566359aece1252a6605b3b07334bcdac90cf35b6d21b9",
+            "id": "interface-ServerRow-e9ad9a22906f46d57a03b20fe8839c97f9883b73d16f665b6b73de85a2442535b593d4c54b50e9e75d8b0dffb528ae3242806471919f7154ecfe1d4069b4e784",
             "file": "projects/gob-ds/src/stories/components/table.stories.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import type { Meta, StoryObj } from '@storybook/angular';\nimport { TableComponent, TableColumn } from '../../lib/table/table.component';\nimport { LucideAngularModule, Ellipsis } from 'lucide-angular';\nimport { BadgeComponent } from '../../lib/badge/badge.component';\n\n// ── Sample data ──────────────────────────────────────────────\ninterface ServerRow {\n  owner: string;\n  status: string;\n  region: string;\n  stability: number;\n  costs: number;\n  lastEdited: string;\n}\n\nconst REGIONS = ['US-West 1', 'US-East 1', 'US-East 2', 'EU-West 1', 'EU-North 1', 'EU-Central 1', 'US-West 2'];\n\nfunction generateData(count: number): ServerRow[] {\n  const names = [\n    'John Doe', 'Jane Smith', 'Alejandro Garcia', 'Maria Rossi',\n    'Liam O\\'Sullivan', 'Yuki Tanaka', 'Fatima Al-Farsi', 'Olga Ivanova',\n    'Pierre Dubois', 'Sara Johansson', 'Ahmed Hassan', 'Carlos Sanchez',\n    'Hannah Kim', 'Robert White', 'James Taylor', 'William Harris',\n    'Alexander Young', 'Emily Brown', 'Michael Chen', 'Sofia Martinez',\n    'Daniel Lee', 'Olivia Johnson', 'Lucas Mueller', 'Isabella Rossi',\n    'Noah Wilson', 'Emma Davis', 'Ethan Clark', 'Mia Anderson',\n    'Oliver Thomas', 'Charlotte Moore', 'Benjamin Jackson', 'Amelia Martin',\n    'Jack Thompson', 'Harper White', 'Henry Garcia', 'Evelyn Martinez',\n    'Sebastian Brown', 'Abigail Wilson', 'Aiden Taylor', 'Ella Thomas',\n    'Matthew Anderson', 'Scarlett Jackson', 'Samuel Martin', 'Grace Lee',\n    'David Harris', 'Chloe Clark', 'Joseph Young', 'Zoey King',\n    'Leo Wright', 'Lily Scott', 'Ryan Green', 'Nora Adams',\n  ];\n\n  return Array.from({ length: count }, (_, i) => ({\n    owner: names[i % names.length],\n    status: 'Live',\n    region: REGIONS[i % REGIONS.length],\n    stability: Math.floor(Math.random() * 95) + 5,\n    costs: Math.round((Math.random() * 6000 + 4000) * 100) / 100,\n    lastEdited: new Date(2021 + Math.floor(Math.random() * 3), Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),\n  }));\n}\n\nconst sampleData = generateData(52);\nconst page1Data = sampleData.slice(0, 20);\n\nconst columns: TableColumn<ServerRow>[] = [\n  { key: 'owner', label: 'Owner', sortable: true },\n  { key: 'status', label: 'Status' },\n  { key: 'region', label: 'Region' },\n  { key: 'stability', label: 'Stability' },\n  { key: 'costs', label: 'Costs', sortable: true, align: 'right' },\n  { key: 'lastEdited', label: 'Last edited' },\n];\n\n// ── Meta ─────────────────────────────────────────────────────\nconst meta: Meta<TableComponent> = {\n  title: 'Components/Table',\n  component: TableComponent,\n  tags: ['autodocs'],\n  parameters: {\n    layout: 'padded',\n    docs: {\n      description: {\n        component: `\nA flexible data table component with sorting, row selection, pagination, and multiple states.\n\n| Prop | Type | Default | Description |\n|------|------|---------|-------------|\n| columns | TableColumn[] | [] | Column definitions |\n| data | T[] | [] | Row data |\n| selectable | boolean | false | Enable row selection with checkboxes |\n| loading | boolean | false | Show skeleton loading state |\n| error | boolean | false | Show error state |\n| paginated | boolean | false | Enable pagination |\n| pageSize | number | 20 | Rows per page |\n| totalItems | number | 0 | Total number of items |\n| currentPage | number | 1 | Current page |\n| sortKey | string | null | Currently sorted column key |\n| sortDirection | 'asc'/'desc'/null | null | Sort direction |\n        `,\n      },\n    },\n  },\n};\n\nexport default meta;\ntype Story = StoryObj<TableComponent>;\n\n// ── Default ──────────────────────────────────────────────────\nexport const Default: Story = {\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table [columns]=\"columns\" [data]=\"data\" />\n    `,\n  }),\n};\n\n// ── With Selection ───────────────────────────────────────────\nexport const WithSelection: Story = {\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n      />\n    `,\n  }),\n};\n\n// ── With Pagination ──────────────────────────────────────────\nexport const WithPagination: Story = {\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n};\n\n// ── With Selection + Pagination ──────────────────────────────\nexport const FullFeatured: Story = {\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n};\n\n// ── Loading (Skeleton) ───────────────────────────────────────\nexport const Loading: Story = {\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [loading]=\"true\"\n        [skeletonRows]=\"8\"\n      />\n    `,\n  }),\n};\n\n// ── Empty State ──────────────────────────────────────────────\nexport const Empty: Story = {\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        emptyMessage=\"No servers found.\"\n      />\n    `,\n  }),\n};\n\n// ── Error State ──────────────────────────────────────────────\nexport const Error: Story = {\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [error]=\"true\"\n        errorMessage=\"Failed to load server data. Please try again.\"\n      />\n    `,\n  }),\n};\n\n// ── With Custom Cell Template (Actions) ──────────────────────\nexport const WithActions: Story = {\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    moduleMetadata: {\n      imports: [LucideAngularModule, BadgeComponent],\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"1\"\n        [totalItems]=\"52\"\n      >\n        <ng-template #actions let-row>\n          <button style=\"\n            background: none;\n            border: none;\n            cursor: pointer;\n            padding: 4px;\n            color: var(--color-text-secondary);\n            display: inline-flex;\n          \">\n            ...\n          </button>\n        </ng-template>\n      </ds-table>\n    `,\n  }),\n};\n",
+            "sourceCode": "import type { Meta, StoryObj } from '@storybook/angular';\r\nimport { TableComponent, TableColumn } from '../../lib/table/table.component';\r\nimport { LucideAngularModule, Ellipsis, Edit2, Trash2, Eye } from 'lucide-angular';\r\nimport { BadgeComponent } from '../../lib/badge/badge.component';\r\n\r\n// ── Sample data ──────────────────────────────────────────────\r\ninterface ServerRow {\r\n  owner: string;\r\n  status: string;\r\n  region: string;\r\n  stability: number;\r\n  costs: number;\r\n  lastEdited: string;\r\n}\r\n\r\nconst REGIONS = ['US-West 1', 'US-East 1', 'US-East 2', 'EU-West 1', 'EU-North 1', 'EU-Central 1', 'US-West 2'];\r\n\r\nfunction generateData(count: number): ServerRow[] {\r\n  const names = [\r\n    'John Doe', 'Jane Smith', 'Alejandro Garcia', 'Maria Rossi',\r\n    'Liam O\\'Sullivan', 'Yuki Tanaka', 'Fatima Al-Farsi', 'Olga Ivanova',\r\n    'Pierre Dubois', 'Sara Johansson', 'Ahmed Hassan', 'Carlos Sanchez',\r\n    'Hannah Kim', 'Robert White', 'James Taylor', 'William Harris',\r\n    'Alexander Young', 'Emily Brown', 'Michael Chen', 'Sofia Martinez',\r\n    'Daniel Lee', 'Olivia Johnson', 'Lucas Mueller', 'Isabella Rossi',\r\n    'Noah Wilson', 'Emma Davis', 'Ethan Clark', 'Mia Anderson',\r\n    'Oliver Thomas', 'Charlotte Moore', 'Benjamin Jackson', 'Amelia Martin',\r\n    'Jack Thompson', 'Harper White', 'Henry Garcia', 'Evelyn Martinez',\r\n    'Sebastian Brown', 'Abigail Wilson', 'Aiden Taylor', 'Ella Thomas',\r\n    'Matthew Anderson', 'Scarlett Jackson', 'Samuel Martin', 'Grace Lee',\r\n    'David Harris', 'Chloe Clark', 'Joseph Young', 'Zoey King',\r\n    'Leo Wright', 'Lily Scott', 'Ryan Green', 'Nora Adams',\r\n  ];\r\n\r\n  return Array.from({ length: count }, (_, i) => ({\r\n    owner: names[i % names.length],\r\n    status: 'Live',\r\n    region: REGIONS[i % REGIONS.length],\r\n    stability: Math.floor(Math.random() * 95) + 5,\r\n    costs: Math.round((Math.random() * 6000 + 4000) * 100) / 100,\r\n    lastEdited: new Date(2021 + Math.floor(Math.random() * 3), Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),\r\n  }));\r\n}\r\n\r\nconst sampleData = generateData(52);\r\nconst page1Data = sampleData.slice(0, 20);\r\n\r\nconst columns: TableColumn<ServerRow>[] = [\r\n  { key: 'owner', label: 'Owner', sortable: true },\r\n  { key: 'status', label: 'Status' },\r\n  { key: 'region', label: 'Region' },\r\n  { key: 'stability', label: 'Stability', sortable: true },\r\n  { key: 'costs', label: 'Costs', sortable: true },\r\n  { key: 'lastEdited', label: 'Last edited' },\r\n];\r\n\r\n// ── Meta ─────────────────────────────────────────────────────\r\nconst meta: Meta<TableComponent> = {\r\n  title: 'Components/Table',\r\n  component: TableComponent,\r\n  tags: ['autodocs'],\r\n  parameters: {\r\n    layout: 'padded',\r\n    docs: {\r\n      description: {\r\n        component: `\r\nA flexible data table component with sorting, row selection, pagination, and multiple states.\r\n\r\n| Prop | Type | Default | Description |\r\n|------|------|---------|-------------|\r\n| columns | TableColumn[] | [] | Column definitions |\r\n| data | T[] | [] | Row data |\r\n| selectable | boolean | false | Enable row selection with checkboxes |\r\n| loading | boolean | false | Show skeleton loading state |\r\n| error | boolean | false | Show error state |\r\n| paginated | boolean | false | Enable pagination |\r\n| pageSize | number | 20 | Rows per page |\r\n| totalItems | number | 0 | Total number of items |\r\n| currentPage | number | 1 | Current page |\r\n| sortKey | string | null | Currently sorted column key |\r\n| sortDirection | 'asc'/'desc'/null | null | Sort direction |\r\n        `,\r\n      },\r\n    },\r\n  },\r\n  argTypes: {\r\n    selectable: {\r\n      control: 'boolean',\r\n      description: 'Enable row selection with checkboxes',\r\n    },\r\n    loading: {\r\n      control: 'boolean',\r\n      description: 'Show skeleton loading state',\r\n    },\r\n    error: {\r\n      control: 'boolean',\r\n      description: 'Show error state',\r\n    },\r\n    paginated: {\r\n      control: 'boolean',\r\n      description: 'Enable pagination',\r\n    },\r\n    pageSize: {\r\n      control: { type: 'number', min: 5, max: 50, step: 5 },\r\n      description: 'Rows per page',\r\n    },\r\n    errorMessage: {\r\n      control: 'text',\r\n      description: 'Error message to display',\r\n    },\r\n    emptyMessage: {\r\n      control: 'text',\r\n      description: 'Empty state message',\r\n    },\r\n    skeletonRows: {\r\n      control: { type: 'number', min: 1, max: 20 },\r\n      description: 'Number of skeleton rows when loading',\r\n    },\r\n  },\r\n};\r\n\r\nexport default meta;\r\ntype Story = StoryObj<TableComponent>;\r\n\r\n// ── Default ──────────────────────────────────────────────────\r\nexport const Default: Story = {\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n};\r\n\r\n// ── Interactive Controls ─────────────────────────────────────\r\nexport const Playground: Story = {\r\n  args: {\r\n    selectable: false,\r\n    loading: false,\r\n    error: false,\r\n    paginated: true,\r\n    pageSize: 20,\r\n    skeletonRows: 8,\r\n    errorMessage: 'An error occurred while loading data.',\r\n    emptyMessage: 'No data available.',\r\n  },\r\n  render: (args) => ({\r\n    props: {\r\n      ...args,\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"selectable\"\r\n        [loading]=\"loading\"\r\n        [error]=\"error\"\r\n        [paginated]=\"paginated\"\r\n        [pageSize]=\"pageSize\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        [skeletonRows]=\"skeletonRows\"\r\n        [errorMessage]=\"errorMessage\"\r\n        [emptyMessage]=\"emptyMessage\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n};\r\n\r\n// ── With Selection ───────────────────────────────────────────\r\nexport const WithSelection: Story = {\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      data: page1Data,\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"data\"\r\n        [selectable]=\"true\"\r\n      />\r\n    `,\r\n  }),\r\n};\r\n\r\n// ── With Pagination ──────────────────────────────────────────\r\nexport const WithPagination: Story = {\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n};\r\n\r\n// ── With Selection + Pagination ──────────────────────────────\r\nexport const FullFeatured: Story = {\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n};\r\n\r\n// ── Loading (Skeleton) ───────────────────────────────────────\r\nexport const Loading: Story = {\r\n  render: () => ({\r\n    props: { columns },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"[]\"\r\n        [loading]=\"true\"\r\n        [skeletonRows]=\"8\"\r\n      />\r\n    `,\r\n  }),\r\n};\r\n\r\n// ── Empty State ──────────────────────────────────────────────\r\nexport const Empty: Story = {\r\n  render: () => ({\r\n    props: { columns },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"[]\"\r\n        emptyMessage=\"No items found.\"\r\n      />\r\n    `,\r\n  }),\r\n};\r\n\r\n// ── Error State ──────────────────────────────────────────────\r\nexport const Error: Story = {\r\n  render: () => ({\r\n    props: { columns },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"[]\"\r\n        [error]=\"true\"\r\n        errorMessage=\"Failed to load server data. Please try again.\"\r\n      />\r\n    `,\r\n  }),\r\n};\r\n\r\n// ── With Custom Cell Template (Actions) ──────────────────────\r\nexport const WithActions: Story = {\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      data: page1Data,\r\n      actions: [\r\n        { label: 'View details', icon: Eye },\r\n        { label: 'Edit server', icon: Edit2 },\r\n        { divider: true },\r\n        { label: 'Delete', icon: Trash2, danger: true },\r\n      ],\r\n      onAction(event: any) {\r\n        console.log('Action clicked:', event.item.label, 'for row:', event.row.owner);\r\n      },\r\n    },\r\n    moduleMetadata: {\r\n      imports: [LucideAngularModule, BadgeComponent],\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"data\"\r\n        [rowActions]=\"actions\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"1\"\r\n        [totalItems]=\"52\"\r\n        (rowActionClick)=\"onAction($event)\"\r\n      />\r\n    `,\r\n  }),\r\n};\r\n",
             "properties": [
                 {
                     "name": "costs",
@@ -1557,6 +1557,16 @@
                 "defaultValue": "{\r\n    render: () => ({\r\n        template: `\r\n            <div style=\"display:flex; flex-direction:column; gap:24px; max-width:480px; padding:24px;\">\r\n                <ds-textarea label=\"Default\"   placeholder=\"Estado normal\"></ds-textarea>\r\n                <ds-textarea label=\"Con hint\"  placeholder=\"Con texto de ayuda\" hint=\"Texto de ayuda visible aquí.\"></ds-textarea>\r\n                <ds-textarea label=\"Error\"     placeholder=\"Con error\" error=\"Este campo es requerido.\"></ds-textarea>\r\n                <ds-textarea label=\"Disabled\"  placeholder=\"Deshabilitado\" [disabled]=\"true\" hint=\"Campo no disponible.\"></ds-textarea>\r\n            </div>\r\n        `,\r\n    }),\r\n}"
             },
             {
+                "name": "AllTypes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    render: () => ({\r\n        template: `\r\n            <div style=\"display:flex; flex-direction:column; gap:10px; padding:24px;\">\r\n                <app-notification type=\"info\"    title=\"Notification bottomRight\" message=\"Hello, Ant Design!\"></app-notification>\r\n                <app-notification type=\"success\" title=\"Notification bottomRight\" message=\"Hello, Ant Design!\"></app-notification>\r\n                <app-notification type=\"warning\" title=\"Notification bottomRight\" message=\"Hello, Ant Design!\"></app-notification>\r\n                <app-notification type=\"error\"   title=\"Notification bottomRight\" message=\"Hello, Ant Design!\"></app-notification>\r\n            </div>\r\n        `,\r\n    }),\r\n}"
+            },
+            {
                 "name": "AllVariants",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1567,6 +1577,16 @@
                 "defaultValue": "{\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"display: flex; flex-direction: column; gap: 40px;\">\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Default (Inactive)</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'default' }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n        \r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Active</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'default' }]\" [activeTabId]=\"1\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Completed</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'completed' }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Active Completed</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'completed' }]\" [activeTabId]=\"1\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Error</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'error' }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Error Active</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', status: 'error' }]\" [activeTabId]=\"1\"></ds-tabs>\r\n        </div>\r\n\r\n        <div>\r\n          <p style=\"margin-bottom: 8px; color: #666; font-size: 12px;\">Disabled</p>\r\n          <ds-tabs [tabs]=\"[{ id: 1, label: 'Tablero de iniciativas', disabled: true }]\" [activeTabId]=\"0\"></ds-tabs>\r\n        </div>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "App",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    name: 'App (pantallas internas)',\r\n    args: {\r\n        mode: 'app',\r\n        policies: defaultPolicies,\r\n    },\r\n    parameters: {\r\n        docs: {\r\n            description: {\r\n                story: 'Footer en pantallas internas. Las políticas se despliegan como links individuales.',\r\n            },\r\n        },\r\n    },\r\n}"
+            },
+            {
                 "name": "AsLink",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1575,6 +1595,46 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"display:flex; flex-wrap:wrap; gap:12px; align-items:center;\">\r\n        <ds-button asTag=\"a\" variant=\"primary\">Anchor Primary</ds-button>\r\n        <ds-button asTag=\"a\" variant=\"outline\">Anchor Outline</ds-button>\r\n        <ds-button asTag=\"a\" variant=\"link\">Anchor Link</ds-button>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+            },
+            {
+                "name": "BannerError",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        variant: 'banner',\r\n        type: 'error',\r\n        title: 'Error',\r\n        message: 'No se pudieron cargar las preferencias de cookies.',\r\n    },\r\n}"
+            },
+            {
+                "name": "BannerInfo",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        variant: 'banner',\r\n        type: 'info',\r\n        title: 'Cookies',\r\n        message: 'Usamos cookies para mejorar tu experiencia. Puedes cerrar este mensaje cuando quieras.',\r\n    },\r\n}"
+            },
+            {
+                "name": "BannerSuccess",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        variant: 'banner',\r\n        type: 'success',\r\n        title: 'Preferencias guardadas',\r\n        message: 'Tus preferencias de cookies han sido guardadas.',\r\n    },\r\n}"
+            },
+            {
+                "name": "BannerWarning",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        variant: 'banner',\r\n        type: 'warning',\r\n        title: 'Advertencia',\r\n        message: 'Este sitio usa cookies de terceros.',\r\n    },\r\n}"
             },
             {
                 "name": "Big",
@@ -1634,7 +1694,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "TableColumn[]",
-                "defaultValue": "[\n  { key: 'owner', label: 'Owner', sortable: true },\n  { key: 'status', label: 'Status' },\n  { key: 'region', label: 'Region' },\n  { key: 'stability', label: 'Stability' },\n  { key: 'costs', label: 'Costs', sortable: true, align: 'right' },\n  { key: 'lastEdited', label: 'Last edited' },\n]"
+                "defaultValue": "[\r\n  { key: 'owner', label: 'Owner', sortable: true },\r\n  { key: 'status', label: 'Status' },\r\n  { key: 'region', label: 'Region' },\r\n  { key: 'stability', label: 'Stability', sortable: true },\r\n  { key: 'costs', label: 'Costs', sortable: true },\r\n  { key: 'lastEdited', label: 'Last edited' },\r\n]"
             },
             {
                 "name": "CombinedFilters",
@@ -1760,6 +1820,46 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    logoSrc: logoUrl,\r\n    userName: 'Ricardo Garcia',\r\n    systemName: 'Banco Integrado de Proyectos',\r\n    leftMenuItems: leftItems,\r\n    rightMenuItems: rightItems,\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/navigator.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    items: [\r\n      { label: 'Inicio', url: '#' },\r\n      { label: 'Reportes', url: '#' },\r\n      { label: 'Detalle' },\r\n    ],\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        type: 'info',\r\n        title: 'Notification bottomRight',\r\n        message: 'Hello, Ant Design!',\r\n    },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <div style=\"display: flex; justify-content: flex-end; padding: 16px 24px; background: #FFFFFF; min-height: 60px; align-items: center;\">\r\n                <app-profile-menu [name]=\"name\" [role]=\"role\" (logout)=\"logout($event)\"></app-profile-menu>\r\n            </div>\r\n            <div style=\"padding: 200px 24px 24px; background: #F5F7F9; min-height: 300px;\"></div>\r\n        `,\r\n    }),\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/select.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -1784,7 +1884,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table [columns]=\"columns\" [data]=\"data\" />\n    `,\n  }),\n}"
+                "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
                 "name": "Default",
@@ -1827,6 +1927,26 @@
                 "defaultValue": "{\r\n  args: {\r\n    text: 'Este es un tooltip',\r\n    position: 'top',\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"padding: 60px;\">\r\n        <ds-tooltip [text]=\"text\" [position]=\"position\">\r\n          <button style=\"\r\n            padding: 8px 16px;\r\n            border: 1px solid var(--color-border);\r\n            border-radius: 6px;\r\n            background: var(--color-bg-default);\r\n            cursor: pointer;\r\n            font-size: 14px;\r\n          \">Hover me</button>\r\n        </ds-tooltip>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{}"
+            },
+            {
                 "name": "defaultItems",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1835,6 +1955,16 @@
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "[\r\n  { label: 'Ver detalle' },\r\n  { label: 'Editar', icon: Pencil },\r\n  { label: 'Duplicar', icon: Copy },\r\n  { label: '', divider: true },\r\n  { label: 'Eliminar', icon: Trash2, danger: true },\r\n]"
+            },
+            {
+                "name": "defaultPolicies",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "PolicyItem[]",
+                "defaultValue": "[\r\n    { label: 'Políticas de la Calidad y Gestión Ética', id: 'calidad' },\r\n    {\r\n        label: 'Política de Igualdad Laboral y No Discriminación para la Administración Pública del Estado de Guanajuato',\r\n        id: 'igualdad',\r\n    },\r\n]"
             },
             {
                 "name": "Disabled",
@@ -1875,6 +2005,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n    args: {\r\n        label: 'Descripción',\r\n        placeholder: 'Campo deshabilitado',\r\n        disabled: true,\r\n        hint: 'No puedes editar este campo.',\r\n    },\r\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: { disabled: true },\r\n}"
             },
             {
                 "name": "DisabledOptions",
@@ -1924,7 +2064,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        emptyMessage=\"No servers found.\"\n      />\n    `,\n  }),\n}"
+                "defaultValue": "{\r\n  render: () => ({\r\n    props: { columns },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"[]\"\r\n        emptyMessage=\"No items found.\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
                 "name": "EnLogin",
@@ -1944,7 +2084,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [error]=\"true\"\n        errorMessage=\"Failed to load server data. Please try again.\"\n      />\n    `,\n  }),\n}"
+                "defaultValue": "{\r\n  render: () => ({\r\n    props: { columns },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"[]\"\r\n        [error]=\"true\"\r\n        errorMessage=\"Failed to load server data. Please try again.\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
                 "name": "ErrorState",
@@ -1960,11 +2100,31 @@
                 "name": "ErrorState",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: { type: 'error', title: 'Notification bottomRight', message: 'Hello, Ant Design!' },\r\n}"
+            },
+            {
+                "name": "ErrorState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/textarea.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n    args: {\r\n        label: 'Descripción',\r\n        placeholder: 'Escribe aquí...',\r\n        error: 'Este campo no puede estar vacío.',\r\n    },\r\n}"
+            },
+            {
+                "name": "ErrorState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: { error: 'El rango de fechas no es válido.' },\r\n}"
             },
             {
                 "name": "Escala",
@@ -2024,7 +2184,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n}"
+                "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
                 "name": "FullWidth",
@@ -2045,6 +2205,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  parameters: { layout: 'padded' },\r\n  render: () => ({\r\n    template: `\r\n      <fieldset style=\"border:1px solid var(--color-border); border-radius:8px; padding:20px; display:flex; flex-direction:column; gap:14px; min-width:280px;\">\r\n        <legend style=\"font-size:13px; font-weight:600; color:var(--color-text-secondary); padding:0 6px;\">\r\n          Permisos de acceso\r\n        </legend>\r\n        <ds-checkbox label=\"Ver reportes\"         hint=\"Acceso de solo lectura a todos los reportes.\" [checked]=\"true\" />\r\n        <ds-checkbox label=\"Editar registros\"     hint=\"Puede modificar datos existentes.\" />\r\n        <ds-checkbox label=\"Eliminar registros\"   hint=\"Acción irreversible.\" [disabled]=\"true\" />\r\n        <ds-checkbox label=\"Administrar usuarios\" hint=\"Requiere aprobación del administrador.\" [indeterminate]=\"true\" />\r\n      </fieldset>\r\n    `,\r\n  }),\r\n}"
+            },
+            {
+                "name": "Guest",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    logoSrc: logoUrl,\r\n    userName: 'Guest',\r\n    leftMenuItems: [{ label: 'Inicio', icon: Home }],\r\n    rightMenuItems: [{ label: 'Ayuda', icon: HelpCircle }],\r\n  },\r\n}"
             },
             {
                 "name": "IconOnly",
@@ -2075,6 +2245,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  parameters: { layout: 'centered' },\r\n  render: () => ({\r\n    template: `\r\n      <button style=\"\r\n        display: inline-flex;\r\n        align-items: center;\r\n        gap: 8px;\r\n        padding: 8px 16px;\r\n        background: var(--color-brand-500);\r\n        color: white;\r\n        border: none;\r\n        border-radius: 6px;\r\n        font-size: 14px;\r\n        cursor: not-allowed;\r\n        opacity: 0.8;\r\n      \">\r\n        <ds-loader size=\"sm\" />\r\n        Procesando...\r\n      </button>\r\n    `,\r\n  }),\r\n}"
+            },
+            {
+                "name": "InfoState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: { type: 'info', title: 'Notification bottomRight', message: 'Hello, Ant Design!' },\r\n}"
             },
             {
                 "name": "InIcons",
@@ -2127,6 +2307,16 @@
                 "defaultValue": "{\r\n  args: {\r\n    tabs: [\r\n      { id: 1, label: 'Panel de Control' },\r\n      { id: 2, label: 'Estadísticas Avanzadas' },\r\n      { id: 3, label: 'Configuración Global' },\r\n    ],\r\n    activeTabId: 1,\r\n  },\r\n}"
             },
             {
+                "name": "leftItems",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "NavbarMenuItem[]",
+                "defaultValue": "[\r\n  { id: '1', label: 'Inicio' },\r\n  { id: '2', label: 'Reportes' },\r\n]"
+            },
+            {
                 "name": "ListSkeleton",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2164,7 +2354,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [loading]=\"true\"\n        [skeletonRows]=\"8\"\n      />\n    `,\n  }),\n}"
+                "defaultValue": "{\r\n  render: () => ({\r\n    props: { columns },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"[]\"\r\n        [loading]=\"true\"\r\n        [skeletonRows]=\"8\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
                 "name": "LoadingMatrix",
@@ -2177,6 +2367,16 @@
                 "defaultValue": "{\r\n  parameters: { layout: 'padded' },\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"display:grid; gap:12px;\">\r\n        <div style=\"display:flex; flex-wrap:wrap; gap:12px; align-items:center;\">\r\n          <ds-button variant=\"primary\" [loading]=\"true\">Primary</ds-button>\r\n          <ds-button variant=\"secondary\" [loading]=\"true\">Secondary</ds-button>\r\n          <ds-button variant=\"outline\" [loading]=\"true\">Outline</ds-button>\r\n          <ds-button variant=\"ghost\" [loading]=\"true\">Ghost</ds-button>\r\n          <ds-button variant=\"destructive\" [loading]=\"true\">Destructive</ds-button>\r\n          <ds-button variant=\"link\" [loading]=\"true\">Link</ds-button>\r\n        </div>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "Login",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    name: 'Login',\r\n    args: {\r\n        mode: 'login',\r\n        policies: defaultPolicies,\r\n    },\r\n    parameters: {\r\n        docs: {\r\n            description: {\r\n                story: 'Footer en la pantalla de login. Las políticas se muestran como un dropdown.',\r\n            },\r\n        },\r\n    },\r\n}"
+            },
+            {
                 "name": "LoginForm",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2185,6 +2385,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n    render: () => ({\r\n        template: `\r\n      <div style=\"width: 360px; display: flex; flex-direction: column; gap: 16px;\">\r\n        <ds-input label=\"RFC\"        placeholder=\"VECJ880326XXX\" />\r\n        <ds-input label=\"Contraseña\" type=\"password\" placeholder=\"\" />\r\n      </div>\r\n    `,\r\n    }),\r\n    parameters: { layout: 'centered' },\r\n}"
+            },
+            {
+                "name": "logoUrl",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "'images/base-logo.png'"
+            },
+            {
+                "name": "LongName",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    render: (args) => ({\r\n        props: { ...args, name: 'María Fernanda López', role: 'Coordinadora de Proyectos' },\r\n        template: `\r\n            <div style=\"display: flex; justify-content: flex-end; padding: 16px 24px; background: #FFFFFF; min-height: 60px; align-items: center;\">\r\n                <app-profile-menu [name]=\"name\" [role]=\"role\" (logout)=\"logout($event)\"></app-profile-menu>\r\n            </div>\r\n            <div style=\"padding: 200px 24px 24px; background: #F5F7F9; min-height: 300px;\"></div>\r\n        `,\r\n    }),\r\n}"
             },
             {
                 "name": "LongPath",
@@ -2300,6 +2520,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<FooterComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Footer',\r\n    component: FooterComponent,\r\n    decorators: [\r\n        applicationConfig({\r\n            providers: [\r\n                importProvidersFrom(\r\n                    CommonModule,\r\n                    LucideAngularModule.pick({ ChevronDown })\r\n                ),\r\n            ],\r\n        }),\r\n    ],\r\n    argTypes: {\r\n        mode: {\r\n            control: 'radio',\r\n            options: ['login', 'app'],\r\n            description: 'Define el modo de visualización del footer',\r\n            table: {\r\n                defaultValue: { summary: 'login' },\r\n            },\r\n        },\r\n        policies: {\r\n            control: 'object',\r\n            description: 'Lista de políticas a mostrar',\r\n        },\r\n        policyClick: {\r\n            action: 'policyClick',\r\n            description: 'Emite el PolicyItem al hacer click en una política',\r\n        },\r\n    },\r\n    args: {\r\n        mode: 'login',\r\n        policies: defaultPolicies,\r\n    },\r\n    parameters: {\r\n        layout: 'fullscreen',\r\n        docs: {\r\n            description: {\r\n                component: `\r\nEl componente \\`FooterComponent\\` tiene dos modos:\r\n\r\n- **\\`login\\`** — Muestra las políticas agrupadas en un dropdown (pantalla de inicio de sesión).\r\n- **\\`app\\`** — Muestra las políticas como links inline separados (pantallas internas).\r\n\r\n\\`\\`\\`html\r\n<!-- Login -->\r\n<app-footer mode=\"login\" />\r\n\r\n<!-- App -->\r\n<app-footer mode=\"app\" />\r\n\\`\\`\\`\r\n                `,\r\n            },\r\n        },\r\n    },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2340,6 +2570,46 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NavbarComponent>",
+                "defaultValue": "{\r\n  title: 'Components/Navbar',\r\n  component: NavbarComponent,\r\n  tags: ['autodocs'],\r\n  parameters: {\r\n    layout: 'fullscreen',\r\n  },\r\n  argTypes: {\r\n    logoSrc: { control: 'text' },\r\n    userName: { control: 'text' },\r\n    userAvatar: { control: 'text' },\r\n    systemName: { control: 'text' },\r\n  },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/navigator.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NavigatorComponent>",
+                "defaultValue": "{\r\n  title: 'Components/Navigator',\r\n  component: NavigatorComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    items: { control: 'object' },\r\n  },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NotificationComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Notification',\r\n    component: NotificationComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        type: {\r\n            control: { type: 'select' },\r\n            options: ['default', 'info', 'success', 'warning', 'error'],\r\n            description: 'Tipo de notificación',\r\n        },\r\n        variant: {\r\n            control: { type: 'select' },\r\n            options: ['toast', 'banner'],\r\n            description: 'Estilo: emergente o banner',\r\n        },\r\n        title: { control: 'text', description: 'Título' },\r\n        message: { control: 'text', description: 'Descripción' },\r\n        dismissible: { control: 'boolean', description: 'Muestra botón de cierre' },\r\n        dismissed: { action: 'dismissed' },\r\n    },\r\n    args: {\r\n        type: 'info',\r\n        variant: 'toast',\r\n        title: 'Notification bottomRight',\r\n        message: 'Hello, Ant Design!',\r\n        dismissible: true,\r\n    },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<ProfileMenuComponent>",
+                "defaultValue": "{\r\n    title: 'Components/ProfileMenu',\r\n    component: ProfileMenuComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({ imports: [ProfileMenuComponent] }),\r\n    ],\r\n    parameters: {\r\n        layout: 'fullscreen',\r\n    },\r\n    argTypes: {\r\n        name: { control: 'text', description: 'Nombre completo del usuario' },\r\n        role: { control: 'text', description: 'Rol o cargo del usuario' },\r\n        logout: { action: 'logout' },\r\n    },\r\n    args: {\r\n        name: 'Ricardo Gonzalez',\r\n        role: 'Administrador',\r\n    },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/search.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2374,7 +2644,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<TableComponent>",
-                "defaultValue": "{\n  title: 'Components/Table',\n  component: TableComponent,\n  tags: ['autodocs'],\n  parameters: {\n    layout: 'padded',\n    docs: {\n      description: {\n        component: `\nA flexible data table component with sorting, row selection, pagination, and multiple states.\n\n| Prop | Type | Default | Description |\n|------|------|---------|-------------|\n| columns | TableColumn[] | [] | Column definitions |\n| data | T[] | [] | Row data |\n| selectable | boolean | false | Enable row selection with checkboxes |\n| loading | boolean | false | Show skeleton loading state |\n| error | boolean | false | Show error state |\n| paginated | boolean | false | Enable pagination |\n| pageSize | number | 20 | Rows per page |\n| totalItems | number | 0 | Total number of items |\n| currentPage | number | 1 | Current page |\n| sortKey | string | null | Currently sorted column key |\n| sortDirection | 'asc'/'desc'/null | null | Sort direction |\n        `,\n      },\n    },\n  },\n}"
+                "defaultValue": "{\r\n  title: 'Components/Table',\r\n  component: TableComponent,\r\n  tags: ['autodocs'],\r\n  parameters: {\r\n    layout: 'padded',\r\n    docs: {\r\n      description: {\r\n        component: `\r\nA flexible data table component with sorting, row selection, pagination, and multiple states.\r\n\r\n| Prop | Type | Default | Description |\r\n|------|------|---------|-------------|\r\n| columns | TableColumn[] | [] | Column definitions |\r\n| data | T[] | [] | Row data |\r\n| selectable | boolean | false | Enable row selection with checkboxes |\r\n| loading | boolean | false | Show skeleton loading state |\r\n| error | boolean | false | Show error state |\r\n| paginated | boolean | false | Enable pagination |\r\n| pageSize | number | 20 | Rows per page |\r\n| totalItems | number | 0 | Total number of items |\r\n| currentPage | number | 1 | Current page |\r\n| sortKey | string | null | Currently sorted column key |\r\n| sortDirection | 'asc'/'desc'/null | null | Sort direction |\r\n        `,\r\n      },\r\n    },\r\n  },\r\n  argTypes: {\r\n    selectable: {\r\n      control: 'boolean',\r\n      description: 'Enable row selection with checkboxes',\r\n    },\r\n    loading: {\r\n      control: 'boolean',\r\n      description: 'Show skeleton loading state',\r\n    },\r\n    error: {\r\n      control: 'boolean',\r\n      description: 'Show error state',\r\n    },\r\n    paginated: {\r\n      control: 'boolean',\r\n      description: 'Enable pagination',\r\n    },\r\n    pageSize: {\r\n      control: { type: 'number', min: 5, max: 50, step: 5 },\r\n      description: 'Rows per page',\r\n    },\r\n    errorMessage: {\r\n      control: 'text',\r\n      description: 'Error message to display',\r\n    },\r\n    emptyMessage: {\r\n      control: 'text',\r\n      description: 'Empty state message',\r\n    },\r\n    skeletonRows: {\r\n      control: { type: 'number', min: 1, max: 20 },\r\n      description: 'Number of skeleton rows when loading',\r\n    },\r\n  },\r\n}"
             },
             {
                 "name": "meta",
@@ -2420,6 +2690,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<TopbarComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Topbar',\r\n    component: TopbarComponent,\r\n    tags: ['autodocs'],\r\n    parameters: { layout: 'fullscreen' },\r\n    decorators: [\r\n        moduleMetadata({ imports: [TopbarComponent] }),\r\n    ],\r\n    argTypes: {\r\n        title: {\r\n            control: 'text',\r\n            description: 'Título centrado (columna del medio)',\r\n        },\r\n        leftText: {\r\n            control: 'text',\r\n            description: 'Texto libre en la columna izquierda',\r\n        },\r\n        leftIcon: {\r\n            control: 'select',\r\n            options: ['none', 'info', 'shield'],\r\n            mapping: {\r\n                none: null,\r\n                info: Info,\r\n                shield: Shield,\r\n            },\r\n            description: 'Ícono en la columna izquierda',\r\n        },\r\n    },\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n        leftText: '',\r\n        leftIcon: null,\r\n    },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/tokens/stories/borders.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2435,6 +2715,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<ColorsDocComponent>",
                 "defaultValue": "{\r\n  title: 'Tokens/Colors',\r\n  component: ColorsDocComponent,\r\n  parameters: {\r\n    layout: 'fullscreen',\r\n    docs: {\r\n      description: {\r\n        component: 'Paleta de colores del sistema de diseño.',\r\n      },\r\n    },\r\n  },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<DateRangePickerComponent>",
+                "defaultValue": "{\r\n    title: 'Components/DateRangePicker',\r\n    component: DateRangePickerComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        startPlaceholder: { control: 'text', description: 'Placeholder fecha inicio' },\r\n        endPlaceholder: { control: 'text', description: 'Placeholder fecha fin' },\r\n        hint: { control: 'text', description: 'Texto de ayuda' },\r\n        error: { control: 'text', description: 'Mensaje de error' },\r\n        required: { control: 'boolean', description: 'Campo requerido' },\r\n        disabled: { control: 'boolean', description: 'Campo deshabilitado' },\r\n        rangeChange: { action: 'rangeChange' },\r\n    },\r\n    args: {\r\n        startPlaceholder: 'Start date',\r\n        endPlaceholder: 'End date',\r\n        hint: '',\r\n        error: '',\r\n        required: false,\r\n        disabled: false,\r\n    },\r\n}"
             },
             {
                 "name": "meta",
@@ -2465,6 +2755,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<TypographyDocComponent>",
                 "defaultValue": "{\r\n  title: 'Tokens/Typography',\r\n  component: TypographyDocComponent,\r\n  parameters: { layout: 'fullscreen' },\r\n}"
+            },
+            {
+                "name": "MobileView",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    ...Default.args,\r\n  },\r\n  parameters: {\r\n    viewport: {\r\n      defaultViewport: 'mobile1',\r\n    },\r\n  },\r\n}"
             },
             {
                 "name": "MultipleUsers",
@@ -2580,6 +2880,16 @@
                 "name": "Playground",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    name: 'Playground',\r\n    args: {\r\n        mode: 'login',\r\n        policies: defaultPolicies,\r\n    },\r\n    parameters: {\r\n        docs: {\r\n            description: {\r\n                story: 'Usa los controles del panel para alternar entre modos y editar las políticas.',\r\n            },\r\n        },\r\n    },\r\n}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2595,6 +2905,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    placeholder: 'Buscar por nombre o RFC...',\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"width: 340px;\">\r\n        <ds-search\r\n          [placeholder]=\"placeholder\"\r\n          [disabled]=\"disabled\"\r\n        />\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    selectable: false,\r\n    loading: false,\r\n    error: false,\r\n    paginated: true,\r\n    pageSize: 20,\r\n    skeletonRows: 8,\r\n    errorMessage: 'An error occurred while loading data.',\r\n    emptyMessage: 'No data available.',\r\n  },\r\n  render: (args) => ({\r\n    props: {\r\n      ...args,\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"selectable\"\r\n        [loading]=\"loading\"\r\n        [error]=\"error\"\r\n        [paginated]=\"paginated\"\r\n        [pageSize]=\"pageSize\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        [skeletonRows]=\"skeletonRows\"\r\n        [errorMessage]=\"errorMessage\"\r\n        [emptyMessage]=\"emptyMessage\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n        leftText: 'v2.1.0',\r\n        leftIcon: null,\r\n    },\r\n}"
             },
             {
                 "name": "Positions",
@@ -2614,7 +2944,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
+                "defaultValue": "{\r\n  parameters: {\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n}"
             },
             {
                 "name": "radiusScale",
@@ -2687,6 +3017,16 @@
                 "defaultValue": "{\r\n  args: {\r\n    items: defaultItems,\r\n    align: 'right',\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"display: flex; justify-content: flex-end; width: 300px;\">\r\n        <ds-context-menu [items]=\"items\" align=\"right\">\r\n          &#8943;\r\n        </ds-context-menu>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "rightItems",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "NavbarMenuItem[]",
+                "defaultValue": "[\r\n  { id: '3', label: 'Notificaciones', icon: Bell },\r\n  { id: '4', label: 'Configuración', icon: Settings },\r\n  { id: '5', label: 'Ayuda', icon: HelpCircle },\r\n]"
+            },
+            {
                 "name": "sampleData",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2705,6 +3045,16 @@
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "[\r\n  {\r\n    token: '--shadow-xs',\r\n    value: '0 1px 2px 0 rgb(0 0 0 / 0.05)',\r\n    label: 'XS',\r\n    usage: 'Tooltips, badges',\r\n  },\r\n  {\r\n    token: '--shadow-sm',\r\n    value: '0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10)',\r\n    label: 'SM',\r\n    usage: 'Botones, inputs',\r\n  },\r\n  {\r\n    token: '--shadow-md',\r\n    value: '0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10)',\r\n    label: 'MD',\r\n    usage: 'Cards, dropdowns',\r\n  },\r\n  {\r\n    token: '--shadow-lg',\r\n    value: '0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10)',\r\n    label: 'LG',\r\n    usage: 'Modals, popovers',\r\n  },\r\n  {\r\n    token: '--shadow-xl',\r\n    value: '0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10)',\r\n    label: 'XL',\r\n    usage: 'Drawers, sidebars',\r\n  },\r\n  {\r\n    token: '--shadow-inner',\r\n    value: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',\r\n    label: 'Inner',\r\n    usage: 'Inputs activos, wells',\r\n  },\r\n  {\r\n    token: '--shadow-none',\r\n    value: '0 0 #0000',\r\n    label: 'None',\r\n    usage: 'Reset explícito',\r\n  },\r\n]"
+            },
+            {
+                "name": "SinPoliticas",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    name: 'Sin políticas',\r\n    args: {\r\n        mode: 'login',\r\n        policies: [],\r\n    },\r\n    parameters: {\r\n        docs: {\r\n            description: {\r\n                story: 'Footer sin ninguna política configurada.',\r\n            },\r\n        },\r\n    },\r\n}"
             },
             {
                 "name": "Sizes",
@@ -2817,6 +3167,16 @@
                 "defaultValue": "{\r\n    args: { label: 'Fecha de confirmación', state: 'success', helperText: 'Fecha confirmada correctamente' },\r\n}"
             },
             {
+                "name": "SuccessState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: { type: 'success', title: 'Notification bottomRight', message: 'Hello, Ant Design!' },\r\n}"
+            },
+            {
                 "name": "Table",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2917,6 +3277,16 @@
                 "defaultValue": "{\r\n  render: () => ({\r\n    template: `\r\n      <div style=\"display: flex; flex-direction: column; gap: 16px; width: 300px;\">\r\n        <ds-skeleton variant=\"text\" width=\"100%\" height=\"16px\" />\r\n        <ds-skeleton variant=\"text\" width=\"75%\" height=\"16px\" />\r\n        <ds-skeleton variant=\"text\" width=\"50%\" height=\"16px\" />\r\n        <ds-skeleton variant=\"circular\" width=\"48px\" height=\"48px\" />\r\n        <ds-skeleton variant=\"rectangular\" width=\"100%\" height=\"120px\" />\r\n        <ds-skeleton variant=\"rounded\" width=\"100%\" height=\"60px\" />\r\n      </div>\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "WarningState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: { type: 'warning', title: 'Notification bottomRight', message: 'Hello, Ant Design!' },\r\n}"
+            },
+            {
                 "name": "weights",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2944,7 +3314,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    moduleMetadata: {\n      imports: [LucideAngularModule, BadgeComponent],\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"1\"\n        [totalItems]=\"52\"\n      >\n        <ng-template #actions let-row>\n          <button style=\"\n            background: none;\n            border: none;\n            cursor: pointer;\n            padding: 4px;\n            color: var(--color-text-secondary);\n            display: inline-flex;\n          \">\n            ...\n          </button>\n        </ng-template>\n      </ds-table>\n    `,\n  }),\n}"
+                "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      data: page1Data,\r\n      actions: [\r\n        { label: 'View details', icon: Eye },\r\n        { label: 'Edit server', icon: Edit2 },\r\n        { divider: true },\r\n        { label: 'Delete', icon: Trash2, danger: true },\r\n      ],\r\n      onAction(event: any) {\r\n        console.log('Action clicked:', event.item.label, 'for row:', event.row.owner);\r\n      },\r\n    },\r\n    moduleMetadata: {\r\n      imports: [LucideAngularModule, BadgeComponent],\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"data\"\r\n        [rowActions]=\"actions\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"1\"\r\n        [totalItems]=\"52\"\r\n        (rowActionClick)=\"onAction($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
                 "name": "WithCharCount",
@@ -3037,6 +3407,16 @@
                 "defaultValue": "{\r\n    args: {\r\n        label: 'Comentarios',\r\n        placeholder: 'Añade tus comentarios...',\r\n        hint: 'Tu comentario será visible para el equipo.',\r\n    },\r\n}"
             },
             {
+                "name": "WithHint",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: { hint: 'Selecciona el rango de fechas.' },\r\n}"
+            },
+            {
                 "name": "WithIcons",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -3067,6 +3447,36 @@
                 "defaultValue": "{\r\n  args: {\r\n    name: 'Ricardo Gonzalez',\r\n    size: 'md',\r\n  },\r\n}"
             },
             {
+                "name": "WithLeftIcon",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        leftIcon: Info,\r\n        leftText: 'Información',\r\n    },\r\n}"
+            },
+            {
+                "name": "WithLeftIconAndText",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        leftIcon: Shield,\r\n        leftText: 'Administración Pública',\r\n    },\r\n}"
+            },
+            {
+                "name": "WithLeftText",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        leftText: 'v2.1.0',\r\n    },\r\n}"
+            },
+            {
                 "name": "WithMinMaxDate",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -3075,6 +3485,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n    args: {\r\n        label: 'Fecha de reserva',\r\n        helperText: 'Solo puedes reservar dentro de los próximos 30 días',\r\n        minDate: new Date(),\r\n        maxDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),\r\n    },\r\n}"
+            },
+            {
+                "name": "WithMinMaxDate",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        hint: 'Solo los próximos 30 días.',\r\n        minDate: new Date(),\r\n        maxDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),\r\n    },\r\n}"
             },
             {
                 "name": "WithoutIcons",
@@ -3094,7 +3514,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n}"
+                "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
                 "name": "WithSearch",
@@ -3134,7 +3554,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n      />\n    `,\n  }),\n}"
+                "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      data: page1Data,\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"data\"\r\n        [selectable]=\"true\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
                 "name": "WithText",
@@ -3313,6 +3733,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<FooterComponent>",
+                "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<InputComponent>",
                 "file": "projects/gob-ds/src/stories/components/input.stories.ts",
                 "deprecated": false,
@@ -3348,6 +3779,50 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<MultiSelectComponent>",
                 "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<NavbarComponent>",
+                "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<NavigatorComponent>",
+                "file": "projects/gob-ds/src/stories/components/navigator.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<NotificationComponent>",
+                "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<ProfileMenuComponent>",
+                "file": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -3445,6 +3920,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<TopbarComponent>",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<BordersDocComponent>",
                 "file": "projects/gob-ds/src/tokens/stories/borders.stories.ts",
                 "deprecated": false,
@@ -3458,6 +3944,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<ColorsDocComponent>",
                 "file": "projects/gob-ds/src/tokens/stories/colors.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<DateRangePickerComponent>",
+                "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -3805,6 +4302,118 @@
                     "defaultValue": "{\r\n    args: {\r\n        label: 'Fecha de reserva',\r\n        helperText: 'Solo puedes reservar dentro de los próximos 30 días',\r\n        minDate: new Date(),\r\n        maxDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),\r\n    },\r\n}"
                 }
             ],
+            "projects/gob-ds/src/stories/components/notification.stories.ts": [
+                {
+                    "name": "AllTypes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    render: () => ({\r\n        template: `\r\n            <div style=\"display:flex; flex-direction:column; gap:10px; padding:24px;\">\r\n                <app-notification type=\"info\"    title=\"Notification bottomRight\" message=\"Hello, Ant Design!\"></app-notification>\r\n                <app-notification type=\"success\" title=\"Notification bottomRight\" message=\"Hello, Ant Design!\"></app-notification>\r\n                <app-notification type=\"warning\" title=\"Notification bottomRight\" message=\"Hello, Ant Design!\"></app-notification>\r\n                <app-notification type=\"error\"   title=\"Notification bottomRight\" message=\"Hello, Ant Design!\"></app-notification>\r\n            </div>\r\n        `,\r\n    }),\r\n}"
+                },
+                {
+                    "name": "BannerError",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        variant: 'banner',\r\n        type: 'error',\r\n        title: 'Error',\r\n        message: 'No se pudieron cargar las preferencias de cookies.',\r\n    },\r\n}"
+                },
+                {
+                    "name": "BannerInfo",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        variant: 'banner',\r\n        type: 'info',\r\n        title: 'Cookies',\r\n        message: 'Usamos cookies para mejorar tu experiencia. Puedes cerrar este mensaje cuando quieras.',\r\n    },\r\n}"
+                },
+                {
+                    "name": "BannerSuccess",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        variant: 'banner',\r\n        type: 'success',\r\n        title: 'Preferencias guardadas',\r\n        message: 'Tus preferencias de cookies han sido guardadas.',\r\n    },\r\n}"
+                },
+                {
+                    "name": "BannerWarning",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        variant: 'banner',\r\n        type: 'warning',\r\n        title: 'Advertencia',\r\n        message: 'Este sitio usa cookies de terceros.',\r\n    },\r\n}"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        type: 'info',\r\n        title: 'Notification bottomRight',\r\n        message: 'Hello, Ant Design!',\r\n    },\r\n}"
+                },
+                {
+                    "name": "ErrorState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: { type: 'error', title: 'Notification bottomRight', message: 'Hello, Ant Design!' },\r\n}"
+                },
+                {
+                    "name": "InfoState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: { type: 'info', title: 'Notification bottomRight', message: 'Hello, Ant Design!' },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NotificationComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Notification',\r\n    component: NotificationComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        type: {\r\n            control: { type: 'select' },\r\n            options: ['default', 'info', 'success', 'warning', 'error'],\r\n            description: 'Tipo de notificación',\r\n        },\r\n        variant: {\r\n            control: { type: 'select' },\r\n            options: ['toast', 'banner'],\r\n            description: 'Estilo: emergente o banner',\r\n        },\r\n        title: { control: 'text', description: 'Título' },\r\n        message: { control: 'text', description: 'Descripción' },\r\n        dismissible: { control: 'boolean', description: 'Muestra botón de cierre' },\r\n        dismissed: { action: 'dismissed' },\r\n    },\r\n    args: {\r\n        type: 'info',\r\n        variant: 'toast',\r\n        title: 'Notification bottomRight',\r\n        message: 'Hello, Ant Design!',\r\n        dismissible: true,\r\n    },\r\n}"
+                },
+                {
+                    "name": "SuccessState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: { type: 'success', title: 'Notification bottomRight', message: 'Hello, Ant Design!' },\r\n}"
+                },
+                {
+                    "name": "WarningState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: { type: 'warning', title: 'Notification bottomRight', message: 'Hello, Ant Design!' },\r\n}"
+                }
+            ],
             "projects/gob-ds/src/stories/components/tabs.stories.ts": [
                 {
                     "name": "AllVariants",
@@ -3845,6 +4454,68 @@
                     "deprecationMessage": "",
                     "type": "TabItem[]",
                     "defaultValue": "[\r\n  { id: 1, label: 'Tablero de iniciativas', status: 'default' },\r\n  { id: 2, label: 'Tablero de iniciativas', status: 'completed' },\r\n  { id: 3, label: 'Tablero de iniciativas', status: 'error' },\r\n  { id: 4, label: 'Tablero de iniciativas', disabled: true },\r\n]"
+                }
+            ],
+            "projects/gob-ds/src/stories/components/footer.stories.ts": [
+                {
+                    "name": "App",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    name: 'App (pantallas internas)',\r\n    args: {\r\n        mode: 'app',\r\n        policies: defaultPolicies,\r\n    },\r\n    parameters: {\r\n        docs: {\r\n            description: {\r\n                story: 'Footer en pantallas internas. Las políticas se despliegan como links individuales.',\r\n            },\r\n        },\r\n    },\r\n}"
+                },
+                {
+                    "name": "defaultPolicies",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "PolicyItem[]",
+                    "defaultValue": "[\r\n    { label: 'Políticas de la Calidad y Gestión Ética', id: 'calidad' },\r\n    {\r\n        label: 'Política de Igualdad Laboral y No Discriminación para la Administración Pública del Estado de Guanajuato',\r\n        id: 'igualdad',\r\n    },\r\n]"
+                },
+                {
+                    "name": "Login",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    name: 'Login',\r\n    args: {\r\n        mode: 'login',\r\n        policies: defaultPolicies,\r\n    },\r\n    parameters: {\r\n        docs: {\r\n            description: {\r\n                story: 'Footer en la pantalla de login. Las políticas se muestran como un dropdown.',\r\n            },\r\n        },\r\n    },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<FooterComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Footer',\r\n    component: FooterComponent,\r\n    decorators: [\r\n        applicationConfig({\r\n            providers: [\r\n                importProvidersFrom(\r\n                    CommonModule,\r\n                    LucideAngularModule.pick({ ChevronDown })\r\n                ),\r\n            ],\r\n        }),\r\n    ],\r\n    argTypes: {\r\n        mode: {\r\n            control: 'radio',\r\n            options: ['login', 'app'],\r\n            description: 'Define el modo de visualización del footer',\r\n            table: {\r\n                defaultValue: { summary: 'login' },\r\n            },\r\n        },\r\n        policies: {\r\n            control: 'object',\r\n            description: 'Lista de políticas a mostrar',\r\n        },\r\n        policyClick: {\r\n            action: 'policyClick',\r\n            description: 'Emite el PolicyItem al hacer click en una política',\r\n        },\r\n    },\r\n    args: {\r\n        mode: 'login',\r\n        policies: defaultPolicies,\r\n    },\r\n    parameters: {\r\n        layout: 'fullscreen',\r\n        docs: {\r\n            description: {\r\n                component: `\r\nEl componente \\`FooterComponent\\` tiene dos modos:\r\n\r\n- **\\`login\\`** — Muestra las políticas agrupadas en un dropdown (pantalla de inicio de sesión).\r\n- **\\`app\\`** — Muestra las políticas como links inline separados (pantallas internas).\r\n\r\n\\`\\`\\`html\r\n<!-- Login -->\r\n<app-footer mode=\"login\" />\r\n\r\n<!-- App -->\r\n<app-footer mode=\"app\" />\r\n\\`\\`\\`\r\n                `,\r\n            },\r\n        },\r\n    },\r\n}"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    name: 'Playground',\r\n    args: {\r\n        mode: 'login',\r\n        policies: defaultPolicies,\r\n    },\r\n    parameters: {\r\n        docs: {\r\n            description: {\r\n                story: 'Usa los controles del panel para alternar entre modos y editar las políticas.',\r\n            },\r\n        },\r\n    },\r\n}"
+                },
+                {
+                    "name": "SinPoliticas",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    name: 'Sin políticas',\r\n    args: {\r\n        mode: 'login',\r\n        policies: [],\r\n    },\r\n    parameters: {\r\n        docs: {\r\n            description: {\r\n                story: 'Footer sin ninguna política configurada.',\r\n            },\r\n        },\r\n    },\r\n}"
                 }
             ],
             "projects/gob-ds/src/stories/components/button.stories.ts": [
@@ -4166,7 +4837,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "TableColumn[]",
-                    "defaultValue": "[\n  { key: 'owner', label: 'Owner', sortable: true },\n  { key: 'status', label: 'Status' },\n  { key: 'region', label: 'Region' },\n  { key: 'stability', label: 'Stability' },\n  { key: 'costs', label: 'Costs', sortable: true, align: 'right' },\n  { key: 'lastEdited', label: 'Last edited' },\n]"
+                    "defaultValue": "[\r\n  { key: 'owner', label: 'Owner', sortable: true },\r\n  { key: 'status', label: 'Status' },\r\n  { key: 'region', label: 'Region' },\r\n  { key: 'stability', label: 'Stability', sortable: true },\r\n  { key: 'costs', label: 'Costs', sortable: true },\r\n  { key: 'lastEdited', label: 'Last edited' },\r\n]"
                 },
                 {
                     "name": "Default",
@@ -4176,7 +4847,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table [columns]=\"columns\" [data]=\"data\" />\n    `,\n  }),\n}"
+                    "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
                 },
                 {
                     "name": "Empty",
@@ -4186,7 +4857,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        emptyMessage=\"No servers found.\"\n      />\n    `,\n  }),\n}"
+                    "defaultValue": "{\r\n  render: () => ({\r\n    props: { columns },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"[]\"\r\n        emptyMessage=\"No items found.\"\r\n      />\r\n    `,\r\n  }),\r\n}"
                 },
                 {
                     "name": "Error",
@@ -4196,7 +4867,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [error]=\"true\"\n        errorMessage=\"Failed to load server data. Please try again.\"\n      />\n    `,\n  }),\n}"
+                    "defaultValue": "{\r\n  render: () => ({\r\n    props: { columns },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"[]\"\r\n        [error]=\"true\"\r\n        errorMessage=\"Failed to load server data. Please try again.\"\r\n      />\r\n    `,\r\n  }),\r\n}"
                 },
                 {
                     "name": "FullFeatured",
@@ -4206,7 +4877,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n}"
+                    "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
                 },
                 {
                     "name": "Loading",
@@ -4216,7 +4887,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    props: { columns },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"[]\"\n        [loading]=\"true\"\n        [skeletonRows]=\"8\"\n      />\n    `,\n  }),\n}"
+                    "defaultValue": "{\r\n  render: () => ({\r\n    props: { columns },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"[]\"\r\n        [loading]=\"true\"\r\n        [skeletonRows]=\"8\"\r\n      />\r\n    `,\r\n  }),\r\n}"
                 },
                 {
                     "name": "meta",
@@ -4226,7 +4897,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<TableComponent>",
-                    "defaultValue": "{\n  title: 'Components/Table',\n  component: TableComponent,\n  tags: ['autodocs'],\n  parameters: {\n    layout: 'padded',\n    docs: {\n      description: {\n        component: `\nA flexible data table component with sorting, row selection, pagination, and multiple states.\n\n| Prop | Type | Default | Description |\n|------|------|---------|-------------|\n| columns | TableColumn[] | [] | Column definitions |\n| data | T[] | [] | Row data |\n| selectable | boolean | false | Enable row selection with checkboxes |\n| loading | boolean | false | Show skeleton loading state |\n| error | boolean | false | Show error state |\n| paginated | boolean | false | Enable pagination |\n| pageSize | number | 20 | Rows per page |\n| totalItems | number | 0 | Total number of items |\n| currentPage | number | 1 | Current page |\n| sortKey | string | null | Currently sorted column key |\n| sortDirection | 'asc'/'desc'/null | null | Sort direction |\n        `,\n      },\n    },\n  },\n}"
+                    "defaultValue": "{\r\n  title: 'Components/Table',\r\n  component: TableComponent,\r\n  tags: ['autodocs'],\r\n  parameters: {\r\n    layout: 'padded',\r\n    docs: {\r\n      description: {\r\n        component: `\r\nA flexible data table component with sorting, row selection, pagination, and multiple states.\r\n\r\n| Prop | Type | Default | Description |\r\n|------|------|---------|-------------|\r\n| columns | TableColumn[] | [] | Column definitions |\r\n| data | T[] | [] | Row data |\r\n| selectable | boolean | false | Enable row selection with checkboxes |\r\n| loading | boolean | false | Show skeleton loading state |\r\n| error | boolean | false | Show error state |\r\n| paginated | boolean | false | Enable pagination |\r\n| pageSize | number | 20 | Rows per page |\r\n| totalItems | number | 0 | Total number of items |\r\n| currentPage | number | 1 | Current page |\r\n| sortKey | string | null | Currently sorted column key |\r\n| sortDirection | 'asc'/'desc'/null | null | Sort direction |\r\n        `,\r\n      },\r\n    },\r\n  },\r\n  argTypes: {\r\n    selectable: {\r\n      control: 'boolean',\r\n      description: 'Enable row selection with checkboxes',\r\n    },\r\n    loading: {\r\n      control: 'boolean',\r\n      description: 'Show skeleton loading state',\r\n    },\r\n    error: {\r\n      control: 'boolean',\r\n      description: 'Show error state',\r\n    },\r\n    paginated: {\r\n      control: 'boolean',\r\n      description: 'Enable pagination',\r\n    },\r\n    pageSize: {\r\n      control: { type: 'number', min: 5, max: 50, step: 5 },\r\n      description: 'Rows per page',\r\n    },\r\n    errorMessage: {\r\n      control: 'text',\r\n      description: 'Error message to display',\r\n    },\r\n    emptyMessage: {\r\n      control: 'text',\r\n      description: 'Empty state message',\r\n    },\r\n    skeletonRows: {\r\n      control: { type: 'number', min: 1, max: 20 },\r\n      description: 'Number of skeleton rows when loading',\r\n    },\r\n  },\r\n}"
                 },
                 {
                     "name": "page1Data",
@@ -4237,6 +4908,16 @@
                     "deprecationMessage": "",
                     "type": "unknown",
                     "defaultValue": "sampleData.slice(0, 20)"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    selectable: false,\r\n    loading: false,\r\n    error: false,\r\n    paginated: true,\r\n    pageSize: 20,\r\n    skeletonRows: 8,\r\n    errorMessage: 'An error occurred while loading data.',\r\n    emptyMessage: 'No data available.',\r\n  },\r\n  render: (args) => ({\r\n    props: {\r\n      ...args,\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"selectable\"\r\n        [loading]=\"loading\"\r\n        [error]=\"error\"\r\n        [paginated]=\"paginated\"\r\n        [pageSize]=\"pageSize\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        [skeletonRows]=\"skeletonRows\"\r\n        [errorMessage]=\"errorMessage\"\r\n        [emptyMessage]=\"emptyMessage\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
                 },
                 {
                     "name": "REGIONS",
@@ -4266,7 +4947,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    moduleMetadata: {\n      imports: [LucideAngularModule, BadgeComponent],\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"1\"\n        [totalItems]=\"52\"\n      >\n        <ng-template #actions let-row>\n          <button style=\"\n            background: none;\n            border: none;\n            cursor: pointer;\n            padding: 4px;\n            color: var(--color-text-secondary);\n            display: inline-flex;\n          \">\n            ...\n          </button>\n        </ng-template>\n      </ds-table>\n    `,\n  }),\n}"
+                    "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      data: page1Data,\r\n      actions: [\r\n        { label: 'View details', icon: Eye },\r\n        { label: 'Edit server', icon: Edit2 },\r\n        { divider: true },\r\n        { label: 'Delete', icon: Trash2, danger: true },\r\n      ],\r\n      onAction(event: any) {\r\n        console.log('Action clicked:', event.item.label, 'for row:', event.row.owner);\r\n      },\r\n    },\r\n    moduleMetadata: {\r\n      imports: [LucideAngularModule, BadgeComponent],\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"data\"\r\n        [rowActions]=\"actions\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"1\"\r\n        [totalItems]=\"52\"\r\n        (rowActionClick)=\"onAction($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
                 },
                 {
                     "name": "WithPagination",
@@ -4276,7 +4957,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      allData: sampleData,\n      currentData: page1Data,\n      currentPage: 1,\n      totalItems: sampleData.length,\n      onPageChange(event: any) {\n        const start = (event.page - 1) * event.pageSize;\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\n        this['currentPage'] = event.page;\n      },\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"currentData\"\n        [paginated]=\"true\"\n        [pageSize]=\"20\"\n        [currentPage]=\"currentPage\"\n        [totalItems]=\"totalItems\"\n        (pageChange)=\"onPageChange($event)\"\n      />\n    `,\n  }),\n}"
+                    "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
                 },
                 {
                     "name": "WithSelection",
@@ -4286,7 +4967,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    props: {\n      columns,\n      data: page1Data,\n    },\n    template: `\n      <ds-table\n        [columns]=\"columns\"\n        [data]=\"data\"\n        [selectable]=\"true\"\n      />\n    `,\n  }),\n}"
+                    "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      data: page1Data,\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"data\"\r\n        [selectable]=\"true\"\r\n      />\r\n    `,\r\n  }),\r\n}"
                 }
             ],
             "projects/gob-ds/src/stories/components/filter.stories.ts": [
@@ -4775,6 +5456,132 @@
                     "defaultValue": "{\r\n  args: {\r\n    label: 'Búsqueda de opciones',\r\n    showSearch: true,\r\n    options: options,\r\n  },\r\n}"
                 }
             ],
+            "projects/gob-ds/src/stories/components/navbar.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    logoSrc: logoUrl,\r\n    userName: 'Ricardo Garcia',\r\n    systemName: 'Banco Integrado de Proyectos',\r\n    leftMenuItems: leftItems,\r\n    rightMenuItems: rightItems,\r\n  },\r\n}"
+                },
+                {
+                    "name": "Guest",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    logoSrc: logoUrl,\r\n    userName: 'Guest',\r\n    leftMenuItems: [{ label: 'Inicio', icon: Home }],\r\n    rightMenuItems: [{ label: 'Ayuda', icon: HelpCircle }],\r\n  },\r\n}"
+                },
+                {
+                    "name": "leftItems",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "NavbarMenuItem[]",
+                    "defaultValue": "[\r\n  { id: '1', label: 'Inicio' },\r\n  { id: '2', label: 'Reportes' },\r\n]"
+                },
+                {
+                    "name": "logoUrl",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "'images/base-logo.png'"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NavbarComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/Navbar',\r\n  component: NavbarComponent,\r\n  tags: ['autodocs'],\r\n  parameters: {\r\n    layout: 'fullscreen',\r\n  },\r\n  argTypes: {\r\n    logoSrc: { control: 'text' },\r\n    userName: { control: 'text' },\r\n    userAvatar: { control: 'text' },\r\n    systemName: { control: 'text' },\r\n  },\r\n}"
+                },
+                {
+                    "name": "MobileView",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    ...Default.args,\r\n  },\r\n  parameters: {\r\n    viewport: {\r\n      defaultViewport: 'mobile1',\r\n    },\r\n  },\r\n}"
+                },
+                {
+                    "name": "rightItems",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "NavbarMenuItem[]",
+                    "defaultValue": "[\r\n  { id: '3', label: 'Notificaciones', icon: Bell },\r\n  { id: '4', label: 'Configuración', icon: Settings },\r\n  { id: '5', label: 'Ayuda', icon: HelpCircle },\r\n]"
+                }
+            ],
+            "projects/gob-ds/src/stories/components/navigator.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/navigator.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    items: [\r\n      { label: 'Inicio', url: '#' },\r\n      { label: 'Reportes', url: '#' },\r\n      { label: 'Detalle' },\r\n    ],\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/navigator.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NavigatorComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/Navigator',\r\n  component: NavigatorComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    items: { control: 'object' },\r\n  },\r\n}"
+                }
+            ],
+            "projects/gob-ds/src/stories/components/profilemenu.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <div style=\"display: flex; justify-content: flex-end; padding: 16px 24px; background: #FFFFFF; min-height: 60px; align-items: center;\">\r\n                <app-profile-menu [name]=\"name\" [role]=\"role\" (logout)=\"logout($event)\"></app-profile-menu>\r\n            </div>\r\n            <div style=\"padding: 200px 24px 24px; background: #F5F7F9; min-height: 300px;\"></div>\r\n        `,\r\n    }),\r\n}"
+                },
+                {
+                    "name": "LongName",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    render: (args) => ({\r\n        props: { ...args, name: 'María Fernanda López', role: 'Coordinadora de Proyectos' },\r\n        template: `\r\n            <div style=\"display: flex; justify-content: flex-end; padding: 16px 24px; background: #FFFFFF; min-height: 60px; align-items: center;\">\r\n                <app-profile-menu [name]=\"name\" [role]=\"role\" (logout)=\"logout($event)\"></app-profile-menu>\r\n            </div>\r\n            <div style=\"padding: 200px 24px 24px; background: #F5F7F9; min-height: 300px;\"></div>\r\n        `,\r\n    }),\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<ProfileMenuComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/ProfileMenu',\r\n    component: ProfileMenuComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({ imports: [ProfileMenuComponent] }),\r\n    ],\r\n    parameters: {\r\n        layout: 'fullscreen',\r\n    },\r\n    argTypes: {\r\n        name: { control: 'text', description: 'Nombre completo del usuario' },\r\n        role: { control: 'text', description: 'Rol o cargo del usuario' },\r\n        logout: { action: 'logout' },\r\n    },\r\n    args: {\r\n        name: 'Ricardo Gonzalez',\r\n        role: 'Administrador',\r\n    },\r\n}"
+                }
+            ],
             "projects/gob-ds/src/stories/components/select.stories.ts": [
                 {
                     "name": "Default",
@@ -4959,6 +5766,130 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\r\n  args: {\r\n    text: 'Aparece con delay de 500ms',\r\n    position: 'top',\r\n    delay: 500,\r\n  },\r\n  render: (args) => ({\r\n    props: args,\r\n    template: `\r\n      <div style=\"padding: 60px;\">\r\n        <ds-tooltip [text]=\"text\" [position]=\"position\" [delay]=\"delay\">\r\n          <button style=\"\r\n            padding: 8px 16px;\r\n            border: 1px solid var(--color-border);\r\n            border-radius: 6px;\r\n            background: var(--color-bg-default);\r\n            cursor: pointer;\r\n          \">Hover (con delay)</button>\r\n        </ds-tooltip>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
+                }
+            ],
+            "projects/gob-ds/src/stories/components/topbar.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<TopbarComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Topbar',\r\n    component: TopbarComponent,\r\n    tags: ['autodocs'],\r\n    parameters: { layout: 'fullscreen' },\r\n    decorators: [\r\n        moduleMetadata({ imports: [TopbarComponent] }),\r\n    ],\r\n    argTypes: {\r\n        title: {\r\n            control: 'text',\r\n            description: 'Título centrado (columna del medio)',\r\n        },\r\n        leftText: {\r\n            control: 'text',\r\n            description: 'Texto libre en la columna izquierda',\r\n        },\r\n        leftIcon: {\r\n            control: 'select',\r\n            options: ['none', 'info', 'shield'],\r\n            mapping: {\r\n                none: null,\r\n                info: Info,\r\n                shield: Shield,\r\n            },\r\n            description: 'Ícono en la columna izquierda',\r\n        },\r\n    },\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n        leftText: '',\r\n        leftIcon: null,\r\n    },\r\n}"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n        leftText: 'v2.1.0',\r\n        leftIcon: null,\r\n    },\r\n}"
+                },
+                {
+                    "name": "WithLeftIcon",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        leftIcon: Info,\r\n        leftText: 'Información',\r\n    },\r\n}"
+                },
+                {
+                    "name": "WithLeftIconAndText",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        leftIcon: Shield,\r\n        leftText: 'Administración Pública',\r\n    },\r\n}"
+                },
+                {
+                    "name": "WithLeftText",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        leftText: 'v2.1.0',\r\n    },\r\n}"
+                }
+            ],
+            "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: { disabled: true },\r\n}"
+                },
+                {
+                    "name": "ErrorState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: { error: 'El rango de fechas no es válido.' },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<DateRangePickerComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/DateRangePicker',\r\n    component: DateRangePickerComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        startPlaceholder: { control: 'text', description: 'Placeholder fecha inicio' },\r\n        endPlaceholder: { control: 'text', description: 'Placeholder fecha fin' },\r\n        hint: { control: 'text', description: 'Texto de ayuda' },\r\n        error: { control: 'text', description: 'Mensaje de error' },\r\n        required: { control: 'boolean', description: 'Campo requerido' },\r\n        disabled: { control: 'boolean', description: 'Campo deshabilitado' },\r\n        rangeChange: { action: 'rangeChange' },\r\n    },\r\n    args: {\r\n        startPlaceholder: 'Start date',\r\n        endPlaceholder: 'End date',\r\n        hint: '',\r\n        error: '',\r\n        required: false,\r\n        disabled: false,\r\n    },\r\n}"
+                },
+                {
+                    "name": "WithHint",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: { hint: 'Selecciona el rango de fechas.' },\r\n}"
+                },
+                {
+                    "name": "WithMinMaxDate",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        hint: 'Solo los próximos 30 días.',\r\n        minDate: new Date(),\r\n        maxDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),\r\n    },\r\n}"
                 }
             ],
             "projects/gob-ds/src/tokens/stories/shadows.stories.ts": [
@@ -5212,7 +6143,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
+                    "defaultValue": "{\r\n  parameters: {\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n}"
                 }
             ]
         },
@@ -5381,6 +6312,19 @@
                     "kind": 184
                 }
             ],
+            "projects/gob-ds/src/stories/components/footer.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<FooterComponent>",
+                    "file": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/gob-ds/src/stories/components/input.stories.ts": [
                 {
                     "name": "Story",
@@ -5427,6 +6371,58 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<MultiSelectComponent>",
                     "file": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/gob-ds/src/stories/components/navbar.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NavbarComponent>",
+                    "file": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/gob-ds/src/stories/components/navigator.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NavigatorComponent>",
+                    "file": "projects/gob-ds/src/stories/components/navigator.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/gob-ds/src/stories/components/notification.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NotificationComponent>",
+                    "file": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/gob-ds/src/stories/components/profilemenu.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<ProfileMenuComponent>",
+                    "file": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -5537,6 +6533,19 @@
                     "kind": 184
                 }
             ],
+            "projects/gob-ds/src/stories/components/topbar.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<TopbarComponent>",
+                    "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/gob-ds/src/tokens/stories/borders.stories.ts": [
                 {
                     "name": "Story",
@@ -5557,6 +6566,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<ColorsDocComponent>",
                     "file": "projects/gob-ds/src/tokens/stories/colors.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<DateRangePickerComponent>",
+                    "file": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -6460,6 +7482,76 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "App",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "defaultPolicies",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Login",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "SinPoliticas",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/footer.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/gob-ds/src/stories/components/input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -6711,6 +7803,276 @@
             },
             {
                 "filePath": "projects/gob-ds/src/stories/components/multi-select.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Guest",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "leftItems",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "logoUrl",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "MobileView",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "rightItems",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navbar.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navigator.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navigator.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/navigator.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AllTypes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BannerError",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BannerInfo",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BannerSuccess",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BannerWarning",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ErrorState",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InfoState",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "SuccessState",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WarningState",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/notification.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LongName",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/profilemenu.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -7014,6 +8376,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "page1Data",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -7369,6 +8741,76 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithLeftIcon",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithLeftIconAndText",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithLeftText",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/gob-ds/src/tokens/stories/borders.stories.ts",
                 "type": "component",
                 "linktype": "component",
@@ -7478,6 +8920,76 @@
             },
             {
                 "filePath": "projects/gob-ds/src/tokens/stories/colors.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ErrorState",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithHint",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithMinMaxDate",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",

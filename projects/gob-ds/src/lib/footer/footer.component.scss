@@ -1,0 +1,165 @@
+:host {
+    display: block;
+    width: 100%;
+    font-family: var(--font-family-sans);
+}
+
+// ─── Footer base ──────────────────────────────────────────────
+.footer {
+    background: var(--color-bg-subtle); // #F6F7F8
+    border-top: var(--border-width-thin) solid var(--color-border); // 1px #C3CAD7
+    padding: var(--space-3) var(--space-6) var(--space-3); // 12px 24px
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1); // 4px
+    box-sizing: border-box;
+    width: 100%;
+}
+
+// ─── Copyright ────────────────────────────────────────────────
+.footer__copy {
+    font-size: var(--font-size-sm); // 12px
+    font-weight: var(--font-weight-regular); // 400
+    color: var(--color-text-primary); // #373C46
+    margin: 0;
+    text-align: center;
+    line-height: var(--line-height-normal); // 1.35
+}
+
+// ─── Bottom row ───────────────────────────────────────────────
+.footer__bottom {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6); // 24px
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+// ─── Certifications ───────────────────────────────────────────
+.footer__cert {
+    font-size: var(--font-size-sm); // 12px
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
+}
+
+// ─── Policy link (app mode — inline) ─────────────────────────
+.footer__policy-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
+    padding: 0;
+    text-align: left;
+    transition: color 0.15s ease;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: transparent;
+
+    &:hover {
+        color: var(--color-text-secondary); // #6B7280
+        text-decoration-color: var(--color-text-primary);
+    }
+}
+
+// ─── Policies dropdown trigger (login mode) ───────────────────
+.footer__policies-dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1); // 4px
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
+    user-select: none;
+    padding: var(--space-0-5) var(--space-1); // 2px 4px
+    border-radius: var(--radius-sm); // 2px
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: var(--color-bg-muted); // #E3E9F5
+    }
+
+    lucide-icon {
+        transition: transform 0.2s ease;
+
+        &.rotated {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+// ─── Dropdown base ────────────────────────────────────────────
+.footer__dropdown {
+    position: absolute;
+    left: 50%;
+    min-width: 220px;
+    background: var(--color-bg-default); // #ffffff
+    border: var(--border-width-thin) solid var(--color-border);
+    border-radius: var(--radius-lg); // 8px
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    z-index: 1000;
+
+    &--up {
+        bottom: calc(100% + 6px);
+        top: auto;
+        transform: translateX(-50%);
+        animation: dropUp 0.18s ease;
+
+        @keyframes dropUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+    }
+
+    &--down {
+        top: calc(100% + 6px);
+        bottom: auto;
+        transform: translateX(-50%);
+        animation: dropDown 0.18s ease;
+
+        @keyframes dropDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+    }
+}
+
+// ─── Dropdown item ────────────────────────────────────────────
+.footer__dropdown-item {
+    display: block;
+    width: 100%;
+    padding: var(--space-2-5) var(--space-4); // 10px 16px
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
+    text-align: left;
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: var(--color-bg-subtle);
+    }
+}

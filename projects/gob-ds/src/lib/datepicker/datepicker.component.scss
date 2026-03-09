@@ -1,173 +1,163 @@
 :host {
-    --primary: #6366f1;
-    --primary-light: #e0e7ff;
-    --primary-dark: #4f46e5;
-    --error: #ef4444;
-    --error-light: #fee2e2;
-    --success: #22c55e;
-    --success-light: #dcfce7;
-    --text: #1e293b;
-    --text-muted: #94a3b8;
-    --border: #e2e8f0;
-    --bg: #ffffff;
-    --bg-hover: #f8fafc;
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-    --radius: 10px;
-    --radius-sm: 6px;
-
-    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    display: block;
+    font-family: var(--font-family-sans);
 }
 
-// ─── Wrapper ─────────────────────────────────────────────────────────────────
+// ─── Wrapper ─────────────────────────────────────────────────
 .datepicker-wrapper {
     position: relative;
     display: inline-flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--space-1); // 4px
     min-width: 220px;
 }
 
-// ─── Sizes ───────────────────────────────────────────────────────────────────
+// ─── Sizes ───────────────────────────────────────────────────
 .size-sm .datepicker-input {
     padding: 7px 12px;
-    font-size: 13px;
+    font-size: var(--font-size-sm);
 }
 
 .size-md .datepicker-input {
     padding: 10px 14px;
-    font-size: 14px;
+    font-size: var(--font-size-md);
 }
 
 .size-lg .datepicker-input {
     padding: 13px 16px;
-    font-size: 15px;
+    font-size: var(--font-size-lg);
 }
 
-// ─── Label ───────────────────────────────────────────────────────────────────
+// ─── Label ───────────────────────────────────────────────────
 .datepicker-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: 0.01em;
+    font-size: var(--font-size-sm); // 12px
+    font-weight: var(--font-weight-semibold); // 600
+    color: var(--color-text-primary);
+    letter-spacing: var(--letter-spacing-normal);
 }
 
 .required-star {
-    color: var(--error);
-    margin-left: 2px;
+    color: var(--color-status-error); // #a21315
+    margin-left: var(--space-0-5); // 2px
 }
 
-// ─── Input trigger ────────────────────────────────────────────────────────────
+// ─── Input trigger ───────────────────────────────────────────
 .datepicker-input {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-2); // 8px
     width: 420px;
     height: 33.78px;
     padding: 0 12px;
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
+    background: var(--color-bg-default);
+    border: var(--border-width-thin) solid var(--color-border);
+    border-radius: var(--radius-lg); // 8px
     cursor: pointer;
     transition: all 0.18s ease;
     user-select: none;
     box-sizing: border-box;
 
     &:hover:not(.disabled) {
-        border-color: #a5b4fc;
-        background: var(--bg-hover);
+        border-color: var(--color-brand-300); // #6699BE
+        background: var(--color-bg-subtle);
     }
 
     &.open {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px var(--primary-light);
+        border-color: var(--color-brand-400);
+        box-shadow: 0 0 0 3px var(--color-brand-50);
     }
 
     &.disabled {
         opacity: 0.55;
         cursor: not-allowed;
-        background: #f1f5f9;
+        background: var(--color-bg-subtle);
     }
 
     &.state-error {
-        border-color: var(--error);
+        border-color: var(--color-status-error);
 
         &.open {
-            box-shadow: 0 0 0 3px var(--error-light);
+            box-shadow: 0 0 0 3px var(--color-status-error-bg);
         }
 
         .input-icon--prefix {
-            color: var(--error);
+            color: var(--color-status-error);
         }
     }
 
     &.state-success {
-        border-color: var(--success);
+        border-color: var(--color-status-success);
 
         &.open {
-            box-shadow: 0 0 0 3px var(--success-light);
+            box-shadow: 0 0 0 3px var(--color-status-success-bg);
         }
     }
 }
 
-// ─── Input parts ─────────────────────────────────────────────────────────────
+// ─── Input parts ─────────────────────────────────────────────
 .input-icon--prefix {
     display: inline-flex;
     align-items: center;
-    color: var(--text-muted);
+    color: var(--color-text-tertiary); // #878E9D
     flex-shrink: 0;
 }
 
 .input-text {
     flex: 1;
-    color: var(--text);
+    color: var(--color-text-primary);
     font-size: inherit;
 
     &.placeholder {
-        color: var(--text-muted);
+        color: var(--color-text-disabled);
     }
+
+    // #A4ACBA
 }
 
 .clear-btn {
     display: flex;
     align-items: center;
-    color: var(--text-muted);
+    color: var(--color-text-tertiary);
     padding: 2px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: color 0.15s, background 0.15s;
+    transition: color 0.15s ease, background 0.15s ease;
 
     &:hover {
-        color: var(--text);
-        background: var(--border);
+        color: var(--color-text-primary);
+        background: var(--color-border);
     }
 }
 
-// ─── Helper text ─────────────────────────────────────────────────────────────
+// ─── Helper text ─────────────────────────────────────────────
 .helper-text {
-    font-size: 12px;
+    font-size: var(--font-size-sm);
     margin: 0;
-    color: var(--text-muted);
+    color: var(--color-text-secondary);
 
     &.helper-error {
-        color: var(--error);
+        color: var(--color-status-error-text);
     }
 
+    // #82181A
     &.helper-success {
-        color: var(--success);
+        color: var(--color-status-success-text);
     }
+
+    // #004E3B
 }
 
-// ─── Calendar dropdown ───────────────────────────────────────────────────────
+// ─── Calendar dropdown ───────────────────────────────────────
 .calendar-dropdown {
     position: absolute;
     top: calc(100% + 6px);
     left: 0;
     z-index: 1000;
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 16px;
+    background: var(--color-bg-default);
+    border: var(--border-width-thin) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-4); // 16px
     min-width: 280px;
     animation: dropIn 0.18s ease;
 
@@ -184,7 +174,7 @@
     }
 }
 
-// ─── Calendar header ─────────────────────────────────────────────────────────
+// ─── Calendar header ─────────────────────────────────────────
 .calendar-header {
     display: flex;
     align-items: center;
@@ -201,42 +191,42 @@
     justify-content: center;
     width: 30px;
     height: 30px;
-    border-radius: var(--radius-sm);
-    color: var(--text-muted);
-    transition: background 0.15s, color 0.15s;
+    border-radius: var(--radius-md);
+    color: var(--color-text-tertiary);
+    transition: background 0.15s ease, color 0.15s ease;
 
     &:hover {
-        background: var(--primary-light);
-        color: var(--primary);
+        background: var(--color-brand-50); // #E6EEF5
+        color: var(--color-brand-400); // #3377A9
     }
 }
 
 .month-year {
     display: flex;
-    gap: 6px;
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--text);
+    gap: var(--space-1-5); // 6px
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg); // 16px
+    color: var(--color-text-primary);
 }
 
-// ─── Day headers ─────────────────────────────────────────────────────────────
+// ─── Day headers ─────────────────────────────────────────────
 .day-headers {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    margin-bottom: 6px;
+    margin-bottom: var(--space-1);
 
     span {
         text-align: center;
-        font-size: 11px;
-        font-weight: 700;
-        color: var(--text-muted);
+        font-size: var(--font-size-xs); // 11px
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-tertiary);
         text-transform: uppercase;
-        padding: 4px 0;
-        letter-spacing: 0.05em;
+        padding: var(--space-1) 0;
+        letter-spacing: var(--letter-spacing-wider); // 0.05em
     }
 }
 
-// ─── Day grid ────────────────────────────────────────────────────────────────
+// ─── Day grid ────────────────────────────────────────────────
 .day-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -251,32 +241,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    border-radius: var(--radius-sm);
-    transition: background 0.13s, color 0.13s;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    border-radius: var(--radius-md);
+    transition: background 0.13s ease, color 0.13s ease;
 
     &:hover:not(.disabled):not(.selected) {
-        background: var(--primary-light);
-        color: var(--primary);
+        background: var(--color-brand-50);
+        color: var(--color-brand-400);
     }
 
     &.other-month {
-        color: var(--text-muted);
+        color: var(--color-text-disabled);
         opacity: 0.5;
     }
 
     &.today {
-        border: 1.5px solid var(--primary);
-        color: var(--primary);
-        font-weight: 700;
+        border: var(--border-width-thin) solid var(--color-brand-400);
+        color: var(--color-brand-400);
+        font-weight: var(--font-weight-bold);
     }
 
     &.selected {
-        background: var(--primary);
-        color: #fff;
-        font-weight: 700;
+        background: var(--color-brand-400);
+        color: var(--color-white);
+        font-weight: var(--font-weight-bold);
 
         &.today {
             border-color: transparent;
@@ -289,11 +279,11 @@
     }
 }
 
-// ─── Calendar footer ─────────────────────────────────────────────────────────
+// ─── Calendar footer ─────────────────────────────────────────
 .calendar-footer {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: var(--border-width-thin) solid var(--color-border);
     display: flex;
     justify-content: center;
 }
@@ -302,14 +292,14 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--primary);
-    padding: 4px 12px;
-    border-radius: var(--radius-sm);
-    transition: background 0.15s;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-brand-400);
+    padding: var(--space-1) var(--space-3); // 4px 12px
+    border-radius: var(--radius-md);
+    transition: background 0.15s ease;
 
     &:hover {
-        background: var(--primary-light);
+        background: var(--color-brand-50);
     }
 }
