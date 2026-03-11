@@ -238,18 +238,18 @@ class StorySelectFilterComponent {
           (clear)="clearConditionFilter($event)"
         >
           <div style="display: flex; flex-direction: column; gap: 12px;">
-            <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Condicion</label>
+            <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Condition</label>
             <ds-select
               [options]="conditionOptions"
-              placeholder="Seleccionar condicion"
+              placeholder="Select condition"
               (selectionChange)="onConditionChange($event)"
             />
 
-            <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Valor</label>
+            <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Value</label>
             <input
               type="number"
               [(ngModel)]="pendingValue"
-              placeholder="Cantidad"
+              placeholder="Amount"
               style="
                 width: 100%;
                 padding: 8px 12px;
@@ -263,11 +263,11 @@ class StorySelectFilterComponent {
             />
 
             @if (pendingCondition === 'between') {
-              <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Valor maximo</label>
+              <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Max value</label>
               <input
                 type="number"
                 [(ngModel)]="pendingValueMax"
-                placeholder="Cantidad maxima"
+                placeholder="Max amount"
                 style="
                   width: 100%;
                   padding: 8px 12px;
@@ -287,9 +287,9 @@ class StorySelectFilterComponent {
       <table style="width: 100%; border-collapse: collapse; font-family: var(--font-family-sans); font-size: 14px;">
         <thead>
           <tr style="border-bottom: 2px solid var(--color-border); text-align: left;">
-            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Producto</th>
-            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Categoria</th>
-            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary); text-align: right;">Costo</th>
+            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Product</th>
+            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Category</th>
+            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary); text-align: right;">Cost</th>
             <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary); text-align: right;">Stock</th>
           </tr>
         </thead>
@@ -309,7 +309,7 @@ class StorySelectFilterComponent {
           @if (filteredRows.length === 0) {
             <tr>
               <td colspan="4" style="padding: 32px 16px; text-align: center; color: var(--color-text-tertiary);">
-                No se encontraron resultados con los filtros aplicados.
+                No results found with the applied filters.
               </td>
             </tr>
           }
@@ -320,22 +320,22 @@ class StorySelectFilterComponent {
 })
 class StoryConditionFilterComponent {
   rows = [
-    { product: 'Laptop Pro', category: 'Electronica', cost: 1299.99, stock: 45 },
-    { product: 'Monitor 27"', category: 'Electronica', cost: 449.00, stock: 120 },
-    { product: 'Teclado Mecanico', category: 'Accesorios', cost: 89.99, stock: 300 },
-    { product: 'Mouse Inalambrico', category: 'Accesorios', cost: 35.50, stock: 500 },
-    { product: 'Silla Ergonomica', category: 'Mobiliario', cost: 599.00, stock: 25 },
-    { product: 'Escritorio Ajustable', category: 'Mobiliario', cost: 750.00, stock: 18 },
-    { product: 'Webcam HD', category: 'Electronica', cost: 79.99, stock: 200 },
-    { product: 'Hub USB-C', category: 'Accesorios', cost: 45.00, stock: 350 },
-    { product: 'Audifonos BT', category: 'Electronica', cost: 199.99, stock: 80 },
+    { product: 'Laptop Pro', category: 'Electronics', cost: 1299.99, stock: 45 },
+    { product: 'Monitor 27"', category: 'Electronics', cost: 449.00, stock: 120 },
+    { product: 'Mechanical Keyboard', category: 'Accessories', cost: 89.99, stock: 300 },
+    { product: 'Wireless Mouse', category: 'Accessories', cost: 35.50, stock: 500 },
+    { product: 'Ergonomic Chair', category: 'Furniture', cost: 599.00, stock: 25 },
+    { product: 'Adjustable Desk', category: 'Furniture', cost: 750.00, stock: 18 },
+    { product: 'HD Webcam', category: 'Electronics', cost: 79.99, stock: 200 },
+    { product: 'USB-C Hub', category: 'Accessories', cost: 45.00, stock: 350 },
+    { product: 'BT Headphones', category: 'Electronics', cost: 199.99, stock: 80 },
   ];
 
   conditionOptions = [
-    { label: 'Es igual a', value: 'equal' },
-    { label: 'Es entre', value: 'between' },
-    { label: 'Es mayor que', value: 'greater' },
-    { label: 'Es menor que', value: 'less' },
+    { label: 'Is equal to', value: 'equal' },
+    { label: 'Is between', value: 'between' },
+    { label: 'Is greater than', value: 'greater' },
+    { label: 'Is less than', value: 'less' },
   ];
 
   pendingCondition = '';
@@ -407,9 +407,9 @@ class StoryConditionFilterComponent {
   template: `
     <div style="display: flex; flex-direction: column; gap: 24px; padding: 20px; min-height: 600px;">
       <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <!-- Checkbox filter: Categoria -->
+        <!-- Checkbox filter: Category -->
         <ds-filter
-          label="Categoria"
+          label="Category"
           [active]="hasCategoryFilter"
           [activeLabel]="activeCategoryLabel"
           (apply)="applyCategoryFilter()"
@@ -423,9 +423,9 @@ class StoryConditionFilterComponent {
           </div>
         </ds-filter>
 
-        <!-- Select filter: Estado -->
+        <!-- Select filter: Status -->
         <ds-filter
-          label="Estado"
+          label="Status"
           [active]="!!appliedStatus"
           [activeLabel]="appliedStatus"
           (apply)="applyStatusFilter()"
@@ -434,14 +434,14 @@ class StoryConditionFilterComponent {
         >
           <ds-select
             [options]="statusOptions"
-            placeholder="Seleccionar estado"
+            placeholder="Select status"
             (selectionChange)="onPendingStatusChange($event)"
           />
         </ds-filter>
 
-        <!-- Condition filter: Precio -->
+        <!-- Condition filter: Price -->
         <ds-filter
-          label="Precio"
+          label="Price"
           [active]="isPriceFilterActive"
           [activeLabel]="activePriceLabel"
           (apply)="applyPriceFilter()"
@@ -449,25 +449,25 @@ class StoryConditionFilterComponent {
           (clear)="clearPriceFilter($event)"
         >
           <div style="display: flex; flex-direction: column; gap: 12px;">
-            <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Condicion</label>
+            <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Condition</label>
             <ds-select
               [options]="conditionOptions"
-              placeholder="Seleccionar condicion"
+              placeholder="Select condition"
               (selectionChange)="onPriceConditionChange($event)"
             />
-            <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Valor</label>
+            <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Value</label>
             <input
               type="number"
               [(ngModel)]="pendingPrice"
-              placeholder="Cantidad"
+              placeholder="Amount"
               style="width: 100%; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 8px; font-size: 14px; font-family: var(--font-family-sans); box-sizing: border-box; color: var(--color-text-primary);"
             />
             @if (pendingPriceCondition === 'between') {
-              <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Valor maximo</label>
+              <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Max value</label>
               <input
                 type="number"
                 [(ngModel)]="pendingPriceMax"
-                placeholder="Cantidad maxima"
+                placeholder="Max amount"
                 style="width: 100%; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: 8px; font-size: 14px; font-family: var(--font-family-sans); box-sizing: border-box; color: var(--color-text-primary);"
               />
             }
@@ -478,10 +478,10 @@ class StoryConditionFilterComponent {
       <table style="width: 100%; border-collapse: collapse; font-family: var(--font-family-sans); font-size: 14px;">
         <thead>
           <tr style="border-bottom: 2px solid var(--color-border); text-align: left;">
-            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Producto</th>
-            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Categoria</th>
-            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Estado</th>
-            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary); text-align: right;">Precio</th>
+            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Product</th>
+            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Category</th>
+            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary);">Status</th>
+            <th style="padding: 12px 16px; font-weight: 600; color: var(--color-text-primary); text-align: right;">Price</th>
           </tr>
         </thead>
         <tbody>
@@ -490,8 +490,8 @@ class StoryConditionFilterComponent {
               <td style="padding: 12px 16px; color: var(--color-text-primary);">{{ row.product }}</td>
               <td style="padding: 12px 16px; color: var(--color-text-secondary);">{{ row.category }}</td>
               <td style="padding: 12px 16px;">
-                <span [style.background]="row.status === 'Disponible' ? 'var(--color-success-50, #ecfdf5)' : row.status === 'Agotado' ? 'var(--color-error-50, #fef2f2)' : 'var(--color-warning-50, #fffbeb)'"
-                      [style.color]="row.status === 'Disponible' ? 'var(--color-success-700, #15803d)' : row.status === 'Agotado' ? 'var(--color-error-700, #b91c1c)' : 'var(--color-warning-700, #a16207)'"
+                <span [style.background]="row.status === 'Available' ? 'var(--color-success-50, #ecfdf5)' : row.status === 'Out of stock' ? 'var(--color-error-50, #fef2f2)' : 'var(--color-warning-50, #fffbeb)'"
+                      [style.color]="row.status === 'Available' ? 'var(--color-success-700, #15803d)' : row.status === 'Out of stock' ? 'var(--color-error-700, #b91c1c)' : 'var(--color-warning-700, #a16207)'"
                       style="padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 500;">
                   {{ row.status }}
                 </span>
@@ -504,7 +504,7 @@ class StoryConditionFilterComponent {
           @if (filteredRows.length === 0) {
             <tr>
               <td colspan="4" style="padding: 32px 16px; text-align: center; color: var(--color-text-tertiary);">
-                No se encontraron resultados con los filtros aplicados.
+                No results found with the applied filters.
               </td>
             </tr>
           }
@@ -519,31 +519,31 @@ class StoryConditionFilterComponent {
 })
 class StoryCombinedFiltersComponent {
   allRows = [
-    { product: 'Laptop Pro', category: 'Electronica', status: 'Disponible', price: 1299.99 },
-    { product: 'Monitor 27"', category: 'Electronica', status: 'Disponible', price: 449.00 },
-    { product: 'Teclado Mecanico', category: 'Accesorios', status: 'Disponible', price: 89.99 },
-    { product: 'Mouse Inalambrico', category: 'Accesorios', status: 'Agotado', price: 35.50 },
-    { product: 'Silla Ergonomica', category: 'Mobiliario', status: 'Poco stock', price: 599.00 },
-    { product: 'Escritorio Ajustable', category: 'Mobiliario', status: 'Disponible', price: 750.00 },
-    { product: 'Webcam HD', category: 'Electronica', status: 'Agotado', price: 79.99 },
-    { product: 'Hub USB-C', category: 'Accesorios', status: 'Disponible', price: 45.00 },
-    { product: 'Audifonos BT', category: 'Electronica', status: 'Poco stock', price: 199.99 },
-    { product: 'Lampara LED', category: 'Mobiliario', status: 'Disponible', price: 65.00 },
+    { product: 'Laptop Pro', category: 'Electronica', status: 'Available', price: 1299.99 },
+    { product: 'Monitor 27"', category: 'Electronica', status: 'Available', price: 449.00 },
+    { product: 'Mechanical Keyboard', category: 'Accessories', status: 'Available', price: 89.99 },
+    { product: 'Wireless Mouse', category: 'Accessories', status: 'Out of stock', price: 35.50 },
+    { product: 'Ergonomic Chair', category: 'Furniture', status: 'Low stock', price: 599.00 },
+    { product: 'Adjustable Desk', category: 'Furniture', status: 'Available', price: 750.00 },
+    { product: 'Webcam HD', category: 'Electronica', status: 'Out of stock', price: 79.99 },
+    { product: 'Hub USB-C', category: 'Accessories', status: 'Available', price: 45.00 },
+    { product: 'BT Headphones', category: 'Electronica', status: 'Low stock', price: 199.99 },
+    { product: 'LED Lamp', category: 'Furniture', status: 'Available', price: 65.00 },
   ];
 
-  allCategories = ['Electronica', 'Accesorios', 'Mobiliario'];
+  allCategories = ['Electronica', 'Accessories', 'Furniture'];
 
   statusOptions = [
-    { label: 'Disponible', value: 'Disponible' },
-    { label: 'Agotado', value: 'Agotado' },
-    { label: 'Poco stock', value: 'Poco stock' },
+    { label: 'Available', value: 'Available' },
+    { label: 'Out of stock', value: 'Out of stock' },
+    { label: 'Low stock', value: 'Low stock' },
   ];
 
   conditionOptions = [
-    { label: 'Es igual a', value: 'equal' },
-    { label: 'Es entre', value: 'between' },
-    { label: 'Es mayor que', value: 'greater' },
-    { label: 'Es menor que', value: 'less' },
+    { label: 'Is equal to', value: 'equal' },
+    { label: 'Is between', value: 'between' },
+    { label: 'Is greater than', value: 'greater' },
+    { label: 'Is less than', value: 'less' },
   ];
 
   // Category filter state
@@ -626,7 +626,7 @@ const meta: Meta<FilterComponent> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Componente de filtro con dropdown que soporta contenido proyectado (checkboxes, selects, condiciones). Incluye estados activo/inactivo, botones de Apply/Reset y pill con resumen del filtro aplicado.',
+        component: 'Filter component with dropdown that supports projected content (checkboxes, selects, conditions). Includes active/inactive states, Apply/Reset buttons and pill with applied filter summary.',
       },
     },
   },

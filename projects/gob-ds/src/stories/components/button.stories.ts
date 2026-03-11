@@ -12,9 +12,9 @@ const meta: Meta<ButtonComponent> = {
     docs: {
       description: {
         component: `
-Componente base de acción del design system.
+Base action component of the design system.
 
-| Prop | Tipo | Valores |
+| Prop | Type | Values |
 |------|------|---------|
 | \`variant\` | enum | \`primary\` \`secondary\` \`outline\` \`ghost\` \`destructive\` \`link\` |
 | \`size\` | enum | \`sm\` \`md\` \`lg\` |

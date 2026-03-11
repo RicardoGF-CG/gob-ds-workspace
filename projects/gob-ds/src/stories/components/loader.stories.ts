@@ -9,7 +9,7 @@ const meta: Meta<LoaderComponent> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Indicador de carga con ícono giratorio (spinner). Opcionalmente puede mostrar texto a la derecha.',
+        component: 'Loading indicator with a rotating spinner icon. Optionally, it can display text to the right.',
       },
     },
   },
@@ -17,11 +17,11 @@ const meta: Meta<LoaderComponent> = {
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Tamaño del spinner',
+      description: 'Spinner size',
     },
     text: {
       control: 'text',
-      description: 'Texto opcional junto al spinner',
+      description: 'Optional text next to the spinner',
     },
   },
 };
@@ -36,7 +36,7 @@ export const Default: Story = {
 export const WithText: Story = {
   args: {
     size: 'md',
-    text: 'Cargando datos...',
+    text: 'Loading data...',
   },
 };
 
@@ -44,9 +44,9 @@ export const Sizes: Story = {
   render: () => ({
     template: `
       <div style="display: flex; align-items: center; gap: 24px;">
-        <ds-loader size="sm" text="Pequeño" />
-        <ds-loader size="md" text="Mediano" />
-        <ds-loader size="lg" text="Grande" />
+        <ds-loader size="sm" text="Small" />
+        <ds-loader size="md" text="Medium" />
+        <ds-loader size="lg" text="Large" />
       </div>
     `,
   }),
@@ -82,7 +82,7 @@ export const InButton: Story = {
         opacity: 0.8;
       ">
         <ds-loader size="sm" />
-        Procesando...
+        Processing...
       </button>
     `,
   }),

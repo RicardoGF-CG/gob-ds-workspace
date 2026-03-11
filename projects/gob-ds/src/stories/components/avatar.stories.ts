@@ -9,17 +9,17 @@ const meta: Meta<AvatarComponent> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Avatar que muestra las iniciales del nombre o una imagen. Si la imagen falla, se muestran las iniciales como fallback.',
+        component: 'Avatar that shows initials of the name or an image. If the image fails to load, the initials are shown as fallback.',
       },
     },
   },
   argTypes: {
-    name: { control: 'text', description: 'Nombre para generar iniciales' },
-    src: { control: 'text', description: 'URL de la imagen del avatar' },
+    name: { control: 'text', description: 'Name to generate initials' },
+    src: { control: 'text', description: 'URL of the avatar image' },
     size: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Tamaño del avatar',
+      description: 'Avatar size',
     },
   },
 };

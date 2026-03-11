@@ -10,7 +10,7 @@ const meta: Meta<ContextMenuComponent> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Menu contextual desplegable con soporte para iconos de Lucide. Se activa al hacer clic en un boton trigger.',
+        component: 'Dropdown menu component with support for Lucide icons. Activated by clicking a trigger button.',
       },
     },
   },
@@ -18,7 +18,7 @@ const meta: Meta<ContextMenuComponent> = {
     align: {
       control: 'radio',
       options: ['left', 'right'],
-      description: 'Alineacion del menu desplegable',
+      description: 'Dropdown menu alignment',
     },
   },
 };
@@ -27,11 +27,11 @@ export default meta;
 type Story = StoryObj<ContextMenuComponent>;
 
 const defaultItems = [
-  { label: 'Ver detalle' },
-  { label: 'Editar', icon: Pencil },
-  { label: 'Duplicar', icon: Copy },
+  { label: 'View details' },
+  { label: 'Edit', icon: Pencil },
+  { label: 'Duplicate', icon: Copy },
   { label: '', divider: true },
-  { label: 'Eliminar', icon: Trash2, danger: true },
+  { label: 'Delete', icon: Trash2, danger: true },
 ];
 
 export const Default: Story = {
@@ -52,11 +52,11 @@ export const Default: Story = {
 export const WithoutIcons: Story = {
   args: {
     items: [
-      { label: 'Ver detalle' },
-      { label: 'Editar' },
-      { label: 'Duplicar' },
+      { label: 'View details' },
+      { label: 'Edit' },
+      { label: 'Duplicate' },
       { label: '', divider: true },
-      { label: 'Eliminar', danger: true },
+      { label: 'Delete', danger: true },
     ],
   },
   render: (args) => ({
@@ -72,9 +72,9 @@ export const WithoutIcons: Story = {
 export const WithTextTrigger: Story = {
   args: {
     items: [
-      { label: 'Exportar CSV', icon: FileDown },
-      { label: 'Exportar PDF', icon: FileText },
-      { label: 'Imprimir', icon: Printer },
+      { label: 'Export to CSV', icon: FileDown },
+      { label: 'Export to PDF', icon: FileText },
+      { label: 'Print', icon: Printer },
     ],
   },
   render: (args) => ({
@@ -90,11 +90,11 @@ export const WithTextTrigger: Story = {
 export const WithDisabledItems: Story = {
   args: {
     items: [
-      { label: 'Ver detalle', icon: Eye },
-      { label: 'Editar', icon: Pencil, disabled: true },
+      { label: 'View details', icon: Eye },
+      { label: 'Edit', icon: Pencil, disabled: true },
       { label: '', divider: true },
-      { label: 'Archivar', icon: Archive },
-      { label: 'Eliminar', icon: Trash2, danger: true, disabled: true },
+      { label: 'Archive', icon: Archive },
+      { label: 'Delete', icon: Trash2, danger: true, disabled: true },
     ],
   },
   render: (args) => ({

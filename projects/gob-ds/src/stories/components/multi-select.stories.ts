@@ -28,8 +28,8 @@ type Story = StoryObj<MultiSelectComponent>;
 
 export const Default: Story = {
   args: {
-    label: 'Etiquetas',
-    placeholder: 'Selecciona etiquetas',
+    label: 'Tags',
+    placeholder: 'Select tags',
     options: options,
     value: ['a10', 'c12'],
   },
@@ -37,8 +37,8 @@ export const Default: Story = {
 
 export const Empty: Story = {
   args: {
-    label: 'Filtro por Categoría',
-    placeholder: 'Seleccionar categorías...',
+    label: 'Filter by Category',
+    placeholder: 'Select categories...',
     options: options,
     value: [],
   },
@@ -46,7 +46,7 @@ export const Empty: Story = {
 
 export const Disabled: Story = {
   args: {
-    label: 'Campo deshabilitado',
+    label: 'Disabled field',
     disabled: true,
     options: options,
     value: ['a10'],
@@ -55,7 +55,7 @@ export const Disabled: Story = {
 
 export const Loading: Story = {
   args: {
-    label: 'Cargando datos...',
+    label: 'Loading data...',
     loading: true,
     options: options,
   },
@@ -63,7 +63,7 @@ export const Loading: Story = {
 
 export const WithSearch: Story = {
   args: {
-    label: 'Búsqueda de opciones',
+    label: 'Search options',
     showSearch: true,
     options: options,
   },

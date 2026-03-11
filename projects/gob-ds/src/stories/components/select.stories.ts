@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { SelectComponent, SelectOption } from '../../lib/select/select.component';
 
 const options: SelectOption[] = [
-  { label: 'Opción 1', value: 1 },
-  { label: 'Opción 2', value: 2 },
-  { label: 'Opción 3', value: 3, disabled: true },
-  { label: 'Opción 4', value: 4 },
-  { label: 'Opción 5', value: 5 },
+  { label: 'Option 1', value: 1 },
+  { label: 'Option 2', value: 2 },
+  { label: 'Option 3', value: 3, disabled: true },
+  { label: 'Option 4', value: 4 },
+  { label: 'Option 5', value: 5 },
 ];
 
 const meta: Meta<SelectComponent> = {
@@ -28,20 +28,20 @@ type Story = StoryObj<SelectComponent>;
 
 export const Default: Story = {
   args: {
-    label: 'País',
-    placeholder: 'Selecciona un país',
+    label: 'Country',
+    placeholder: 'Select a country',
     options: [
-      { label: 'México', value: 'mx' },
-      { label: 'España', value: 'es' },
-      { label: 'Estados Unidos', value: 'us' },
-      { label: 'Canadá', value: 'ca' },
+      { label: 'Mexico', value: 'mx' },
+      { label: 'Spain', value: 'es' },
+      { label: 'United States', value: 'us' },
+      { label: 'Canada', value: 'ca' },
     ],
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Campo deshabilitado',
+    label: 'Disabled field',
     disabled: true,
     options: options,
   },
@@ -49,7 +49,7 @@ export const Disabled: Story = {
 
 export const Loading: Story = {
   args: {
-    label: 'Cargando datos...',
+    label: 'Loading data...',
     loading: true,
     options: options,
   },
@@ -57,7 +57,7 @@ export const Loading: Story = {
 
 export const WithSearch: Story = {
   args: {
-    label: 'Búsqueda interna',
+    label: 'Internal search',
     showSearch: true,
     options: options,
   },
@@ -65,7 +65,7 @@ export const WithSearch: Story = {
 
 export const Required: Story = {
   args: {
-    label: 'Campo obligatorio',
+    label: 'Required field',
     required: true,
     options: options,
   },
@@ -73,12 +73,12 @@ export const Required: Story = {
 
 export const DisabledOptions: Story = {
   args: {
-    label: 'Opciones bloqueadas',
+    label: 'Disabled options',
     options: [
-      { label: 'Disponible 1', value: 1 },
-      { label: 'Bloqueada (Ya seleccionada)', value: 2, disabled: true },
-      { label: 'Bloqueada (Sistema)', value: 3, disabled: true },
-      { label: 'Disponible 2', value: 4 },
+      { label: 'Available 1', value: 1 },
+      { label: 'Disabled (Already selected)', value: 2, disabled: true },
+      { label: 'Disabled (System)', value: 3, disabled: true },
+      { label: 'Available 2', value: 4 },
     ],
   },
 };

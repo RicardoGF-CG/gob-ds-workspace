@@ -18,11 +18,11 @@ const meta: Meta<TopbarComponent> = {
     argTypes: {
         title: {
             control: 'text',
-            description: 'Título centrado (única propiedad del componente)',
+            description: 'Centered title (only property of the component)',
         },
     },
     args: {
-        title: 'Sistema de Evaluación Individual del Desempeño',
+        title: 'Evaluation System',
     },
 };
 
@@ -51,8 +51,8 @@ export const WithLinks: Story = {
         props: args,
         template: `
             <app-topbar title="${args['title']}">
-                <a topbar-left href="/">Inicio</a>
-                <a topbar-right href="/privacidad">Aviso de privacidad</a>
+                <a topbar-left href="/">Home</a>
+                <a topbar-right href="/privacy">Privacy policy</a>
             </app-topbar>
         `,
     }),
@@ -78,9 +78,9 @@ export const WithBadgeAndLink: Story = {
         template: `
             <app-topbar title="${args['title']}">
                 <span topbar-left class="badge">Beta</span>
-                <span topbar-left>Guanajuato</span>
-                <a topbar-right href="/ayuda">Ayuda</a>
-                <a topbar-right href="/salir">Cerrar sesión</a>
+                <span topbar-left>State of Guanajuato</span>
+                <a topbar-right href="/help">Help</a>
+                <a topbar-right href="/logout">Logout</a>
             </app-topbar>
         `,
     }),
@@ -93,10 +93,10 @@ export const Mixed: Story = {
         template: `
             <app-topbar title="${args['title']}">
                 <img topbar-left src="https://placehold.co/80x24/ffffff/003F6E?text=LOGO" alt="Logo" />
-                <span topbar-left>Secretaría de Finanzas</span>
+                <span topbar-left>State of Guanajuato</span>
                 <span topbar-right class="badge">Admin</span>
-                <button topbar-right>Notificaciones</button>
-                <a topbar-right href="/salir">Salir</a>
+                <button topbar-right>Notifications</button>
+                <a topbar-right href="/logout">Logout</a>
             </app-topbar>
         `,
     }),
@@ -113,9 +113,9 @@ export const WithIcons: Story = {
         template: `
             <app-topbar title="${args['title']}">
                 <lucide-icon topbar-left [img]="ShieldIcon" [size]="16"></lucide-icon>
-                <span topbar-left>Administración</span>
+                <span topbar-left>State of Guanajuato</span>
                 <lucide-icon topbar-right [img]="BellIcon" [size]="16"></lucide-icon>
-                <a topbar-right href="/notificaciones">Notificaciones</a>
+                <a topbar-right href="/notifications">Notifications</a>
             </app-topbar>
         `,
     }),

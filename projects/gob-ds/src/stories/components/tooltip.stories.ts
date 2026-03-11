@@ -9,20 +9,20 @@ const meta: Meta<TooltipComponent> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Tooltip similar a shadcn. Se muestra al hacer hover o focus sobre el elemento hijo. Soporta posiciones: top, bottom, left, right.',
+        component: 'Tooltip similar to shadcn. It shows up when hovering or focusing on the child element. Supports positions: top, bottom, left, right.',
       },
     },
   },
   argTypes: {
-    text: { control: 'text', description: 'Texto del tooltip' },
+    text: { control: 'text', description: 'Tooltip text' },
     position: {
       control: 'select',
       options: ['top', 'bottom', 'left', 'right'],
-      description: 'Posición del tooltip',
+      description: 'Tooltip position',
     },
     delay: {
       control: 'number',
-      description: 'Delay en milisegundos antes de mostrar',
+      description: 'Delay in milliseconds before showing',
     },
   },
 };
@@ -32,7 +32,7 @@ type Story = StoryObj<TooltipComponent>;
 
 export const Default: Story = {
   args: {
-    text: 'Este es un tooltip',
+    text: 'This is a tooltip',
     position: 'top',
   },
   render: (args) => ({
@@ -58,16 +58,16 @@ export const Positions: Story = {
   render: () => ({
     template: `
       <div style="display: flex; gap: 32px; padding: 80px;">
-        <ds-tooltip text="Arriba" position="top">
+        <ds-tooltip text="Top" position="top">
           <button style="padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-default); cursor: pointer;">Top</button>
         </ds-tooltip>
-        <ds-tooltip text="Abajo" position="bottom">
+        <ds-tooltip text="Bottom" position="bottom">
           <button style="padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-default); cursor: pointer;">Bottom</button>
         </ds-tooltip>
-        <ds-tooltip text="Izquierda" position="left">
+        <ds-tooltip text="Left" position="left">
           <button style="padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-default); cursor: pointer;">Left</button>
         </ds-tooltip>
-        <ds-tooltip text="Derecha" position="right">
+        <ds-tooltip text="Right" position="right">
           <button style="padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-default); cursor: pointer;">Right</button>
         </ds-tooltip>
       </div>
@@ -77,7 +77,7 @@ export const Positions: Story = {
 
 export const WithDelay: Story = {
   args: {
-    text: 'Aparece con delay de 500ms',
+    text: 'Appears with 500ms delay',
     position: 'top',
     delay: 500,
   },
@@ -92,7 +92,7 @@ export const WithDelay: Story = {
             border-radius: 6px;
             background: var(--color-bg-default);
             cursor: pointer;
-          ">Hover (con delay)</button>
+          ">Hover (with delay)</button>
         </ds-tooltip>
       </div>
     `,
@@ -103,7 +103,7 @@ export const InIcons: Story = {
   render: () => ({
     template: `
       <div style="display: flex; gap: 16px; padding: 60px;">
-        <ds-tooltip text="Configuración" position="bottom">
+        <ds-tooltip text="Configuration" position="bottom">
           <button style="
             width: 36px; height: 36px;
             border: 1px solid var(--color-border);
@@ -116,7 +116,7 @@ export const InIcons: Story = {
             font-size: 16px;
           ">⚙</button>
         </ds-tooltip>
-        <ds-tooltip text="Notificaciones" position="bottom">
+        <ds-tooltip text="Notifications" position="bottom">
           <button style="
             width: 36px; height: 36px;
             border: 1px solid var(--color-border);
@@ -129,7 +129,7 @@ export const InIcons: Story = {
             font-size: 16px;
           ">🔔</button>
         </ds-tooltip>
-        <ds-tooltip text="Perfil de usuario" position="bottom">
+        <ds-tooltip text="User profile" position="bottom">
           <button style="
             width: 36px; height: 36px;
             border: 1px solid var(--color-border);

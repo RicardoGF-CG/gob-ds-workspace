@@ -30,9 +30,9 @@ export const Default: Story = {
 export const LargeLabels: Story = {
   args: {
     tabs: [
-      { id: 1, label: 'Panel de Control' },
-      { id: 2, label: 'Estadísticas Avanzadas' },
-      { id: 3, label: 'Configuración Global' },
+      { id: 1, label: 'Dashboard' },
+      { id: 2, label: 'Advanced Statistics' },
+      { id: 3, label: 'Global Configuration' },
     ],
     activeTabId: 1,
   },
@@ -41,9 +41,9 @@ export const LargeLabels: Story = {
 export const WithDisabled: Story = {
   args: {
     tabs: [
-      { id: 1, label: 'Activo' },
-      { id: 2, label: 'Deshabilitado', disabled: true },
-      { id: 3, label: 'Siguiente' },
+      { id: 1, label: 'Active' },
+      { id: 2, label: 'Disabled', disabled: true },
+      { id: 3, label: 'Next' },
     ],
     activeTabId: 1,
   },

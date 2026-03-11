@@ -21,14 +21,14 @@ export default meta;
 type Story = StoryObj<NavbarComponent>;
 
 const leftItems: NavbarMenuItem[] = [
-  { id: '1', label: 'Inicio' },
-  { id: '2', label: 'Reportes' },
+  { id: '1', label: 'Home' },
+  { id: '2', label: 'Reports' },
 ];
 
 const rightItems: NavbarMenuItem[] = [
-  { id: '3', label: 'Notificaciones', icon: Bell },
-  { id: '4', label: 'Configuración', icon: Settings },
-  { id: '5', label: 'Ayuda', icon: HelpCircle },
+  { id: '3', label: 'Notifications', icon: Bell },
+  { id: '4', label: 'Configuration', icon: Settings },
+  { id: '5', label: 'Help', icon: HelpCircle },
 ];
 
 const logoUrl = 'images/base-logo.png';
@@ -47,8 +47,8 @@ export const Guest: Story = {
   args: {
     logoSrc: logoUrl,
     userName: 'Guest',
-    leftMenuItems: [{ label: 'Inicio', icon: Home }],
-    rightMenuItems: [{ label: 'Ayuda', icon: HelpCircle }],
+    leftMenuItems: [{ label: 'Home', icon: Home }],
+    rightMenuItems: [{ label: 'Help', icon: HelpCircle }],
   },
 };
 

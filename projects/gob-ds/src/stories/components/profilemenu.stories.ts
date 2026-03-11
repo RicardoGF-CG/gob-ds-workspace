@@ -12,13 +12,13 @@ const meta: Meta<ProfileMenuComponent> = {
         layout: 'fullscreen',
     },
     argTypes: {
-        name: { control: 'text', description: 'Nombre completo del usuario' },
-        role: { control: 'text', description: 'Rol o cargo del usuario' },
+        name: { control: 'text', description: 'User full name' },
+        role: { control: 'text', description: 'User role' },
         logout: { action: 'logout' },
     },
     args: {
         name: 'Ricardo Gonzalez',
-        role: 'Administrador',
+        role: 'Administrator',
     },
 };
 
@@ -39,7 +39,7 @@ export const Default: Story = {
 
 export const LongName: Story = {
     render: (args) => ({
-        props: { ...args, name: 'María Fernanda López', role: 'Coordinadora de Proyectos' },
+        props: { ...args, name: 'María Fernanda López', role: 'Coordinator of Projects' },
         template: `
             <div style="display: flex; justify-content: flex-end; padding: 16px 24px; background: #FFFFFF; min-height: 60px; align-items: center;">
                 <app-profile-menu [name]="name" [role]="role" (logout)="logout($event)"></app-profile-menu>

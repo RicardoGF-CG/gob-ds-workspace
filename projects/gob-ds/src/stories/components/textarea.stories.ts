@@ -8,53 +8,53 @@ const meta: Meta<TextareaComponent> = {
     argTypes: {
         label: {
             control: 'text',
-            description: 'Etiqueta del campo',
+            description: 'Field label',
         },
         placeholder: {
             control: 'text',
-            description: 'Texto placeholder',
+            description: 'Placeholder text',
         },
         hint: {
             control: 'text',
-            description: 'Texto de ayuda',
+            description: 'Help text',
         },
         error: {
             control: 'text',
-            description: 'Mensaje de error (reemplaza hint)',
+            description: 'Error message (replaces hint)',
         },
         rows: {
             control: { type: 'number', min: 2, max: 20 },
-            description: 'Número de filas visibles',
+            description: 'Number of visible rows',
             table: { defaultValue: { summary: '4' } },
         },
         maxlength: {
             control: { type: 'number', min: 0 },
-            description: 'Límite de caracteres (0 = sin límite)',
+            description: 'Character limit (0 = no limit)',
             table: { defaultValue: { summary: '0' } },
         },
         showCount: {
             control: 'boolean',
-            description: 'Muestra contador de caracteres',
+            description: 'Show character count',
             table: { defaultValue: { summary: 'false' } },
         },
         resize: {
             control: { type: 'select' },
             options: ['none', 'vertical', 'horizontal', 'both'],
-            description: 'Control de redimensión',
+            description: 'Resize control',
             table: { defaultValue: { summary: 'vertical' } },
         },
         required: {
             control: 'boolean',
-            description: 'Campo requerido',
+            description: 'Required field',
         },
         disabled: {
             control: 'boolean',
-            description: 'Campo deshabilitado',
+            description: 'Disabled field',
         },
     },
     args: {
-        label: 'Descripción',
-        placeholder: 'Escribe aquí...',
+        label: 'Description',
+        placeholder: 'Write here...',
         hint: '',
         error: '',
         rows: 4,
@@ -74,53 +74,53 @@ const wrapper = 'style="max-width:480px; padding:24px;"';
 // ─── Default ──────────────────────────────────────────────────────────────────
 export const Default: Story = {
     args: {
-        label: 'Descripción',
-        placeholder: 'Escribe una descripción...',
+        label: 'Description',
+        placeholder: 'Write here...',
     },
 };
 
 // ─── With Hint ────────────────────────────────────────────────────────────────
 export const WithHint: Story = {
     args: {
-        label: 'Comentarios',
-        placeholder: 'Añade tus comentarios...',
-        hint: 'Tu comentario será visible para el equipo.',
+        label: 'Comments',
+        placeholder: 'Add your comments...',
+        hint: 'Your comment will be visible to the team.',
     },
 };
 
 // ─── Required ─────────────────────────────────────────────────────────────────
 export const Required: Story = {
     args: {
-        label: 'Descripción',
-        placeholder: 'Este campo es obligatorio',
+        label: 'Description',
+        placeholder: 'This field is required',
         required: true,
-        hint: 'Este campo es obligatorio.',
+        hint: 'This field is required.',
     },
 };
 
 // ─── Error ────────────────────────────────────────────────────────────────────
 export const ErrorState: Story = {
     args: {
-        label: 'Descripción',
-        placeholder: 'Escribe aquí...',
-        error: 'Este campo no puede estar vacío.',
+        label: 'Description',
+        placeholder: 'Write here...',
+        error: 'This field cannot be empty.',
     },
 };
 
 // ─── Disabled ─────────────────────────────────────────────────────────────────
 export const Disabled: Story = {
     args: {
-        label: 'Descripción',
-        placeholder: 'Campo deshabilitado',
+        label: 'Description',
+        placeholder: 'Disabled field',
         disabled: true,
-        hint: 'No puedes editar este campo.',
+        hint: 'This field is disabled.',
     },
 };
 
 // ─── With Character Count ─────────────────────────────────────────────────────
 export const WithCharCount: Story = {
     args: {
-        placeholder: 'Escribe aquí...',
+        placeholder: 'Write here...',
         maxlength: 7000,
         showCount: true,
         resize: 'none',
@@ -130,10 +130,10 @@ export const WithCharCount: Story = {
 // ─── No Resize ────────────────────────────────────────────────────────────────
 export const NoResize: Story = {
     args: {
-        label: 'Notas',
-        placeholder: 'Sin redimensión...',
+        label: 'Notes',
+        placeholder: 'Without resize...',
         resize: 'none',
-        hint: 'Este campo no se puede redimensionar.',
+        hint: 'This field cannot be resized.',
     },
 };
 
@@ -142,9 +142,9 @@ export const AllRows: Story = {
     render: () => ({
         template: `
             <div style="display:flex; flex-direction:column; gap:24px; max-width:480px; padding:24px;">
-                <ds-textarea label="2 filas"  placeholder="rows=2"  [rows]="2"></ds-textarea>
-                <ds-textarea label="4 filas"  placeholder="rows=4"  [rows]="4"></ds-textarea>
-                <ds-textarea label="8 filas"  placeholder="rows=8"  [rows]="8"></ds-textarea>
+                <ds-textarea label="2 rows"  placeholder="rows=2"  [rows]="2"></ds-textarea>
+                <ds-textarea label="4 rows"  placeholder="rows=4"  [rows]="4"></ds-textarea>
+                <ds-textarea label="8 rows"  placeholder="rows=8"  [rows]="8"></ds-textarea>
             </div>
         `,
     }),
@@ -155,10 +155,10 @@ export const AllStates: Story = {
     render: () => ({
         template: `
             <div style="display:flex; flex-direction:column; gap:24px; max-width:480px; padding:24px;">
-                <ds-textarea label="Default"   placeholder="Estado normal"></ds-textarea>
-                <ds-textarea label="Con hint"  placeholder="Con texto de ayuda" hint="Texto de ayuda visible aquí."></ds-textarea>
-                <ds-textarea label="Error"     placeholder="Con error" error="Este campo es requerido."></ds-textarea>
-                <ds-textarea label="Disabled"  placeholder="Deshabilitado" [disabled]="true" hint="Campo no disponible."></ds-textarea>
+                <ds-textarea label="Default"   placeholder="Default"></ds-textarea>
+                <ds-textarea label="With hint"  placeholder="With text hint" hint="Text hint visible here."></ds-textarea>
+                <ds-textarea label="Error"     placeholder="With error" error="This field is required."></ds-textarea>
+                <ds-textarea label="Disabled"  placeholder="Disabled" [disabled]="true" hint="Field is disabled."></ds-textarea>
             </div>
         `,
     }),

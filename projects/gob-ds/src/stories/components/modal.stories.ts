@@ -9,7 +9,7 @@ const meta: Meta<ModalComponent> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Modal con header (titulo + linea divisoria de marca), contenido proyectado y footer con acciones.',
+        component: 'Modal with header (title + brand divider), projected content and footer with actions.',
       },
     },
   },
@@ -19,7 +19,7 @@ const meta: Meta<ModalComponent> = {
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Ancho maximo del modal',
+      description: 'Modal maximum width',
     },
     closeOnOverlayClick: { control: 'boolean' },
     disableClose: { control: 'boolean' },
@@ -32,7 +32,7 @@ type Story = StoryObj<ModalComponent>;
 export const Default: Story = {
   args: {
     open: true,
-    title: 'Agregar objetivo particular',
+    title: 'Add personal objective',
     size: 'md',
   },
   render: (args) => ({
@@ -49,9 +49,9 @@ export const Default: Story = {
         (openChange)="open = $event"
       >
         <div style="display: flex; flex-direction: column; gap: 6px;">
-          <label style="font-size: 14px; font-weight: 500; color: var(--color-text-primary);">Descripcion</label>
+          <label style="font-size: 14px; font-weight: 500; color: var(--color-text-primary);">Description</label>
           <textarea
-            placeholder="Escribe aqui..."
+            placeholder="Write here..."
             maxlength="500"
             rows="6"
             style="
@@ -66,7 +66,7 @@ export const Default: Story = {
               box-sizing: border-box;
             "
           ></textarea>
-          <span style="font-size: 13px; color: var(--color-text-tertiary); text-align: right;">0/500 caracteres usados</span>
+          <span style="font-size: 13px; color: var(--color-text-tertiary); text-align: right;">0/500 characters used</span>
         </div>
 
         <div modal-footer>
@@ -79,7 +79,7 @@ export const Default: Story = {
             font-size: 14px;
             cursor: pointer;
             margin-right: 8px;
-          ">Cancelar</button>
+          ">Cancel</button>
           <button style="
             padding: 8px 16px;
             border: none;
@@ -89,7 +89,7 @@ export const Default: Story = {
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-          ">Agregar</button>
+          ">Add</button>
         </div>
       </ds-modal>
     `,
@@ -99,7 +99,7 @@ export const Default: Story = {
 export const Small: Story = {
   args: {
     open: true,
-    title: 'Confirmar accion',
+    title: 'Confirm action',
     size: 'sm',
   },
   render: (args) => ({
@@ -107,7 +107,7 @@ export const Small: Story = {
     template: `
       <ds-modal [open]="open" [title]="title" size="sm" (openChange)="open = $event">
         <p style="margin: 0; font-size: 14px; color: var(--color-text-secondary);">
-          Esta seguro de que desea continuar con esta accion? Esta operacion no se puede deshacer.
+          Are you sure you want to continue with this action? This operation cannot be undone.
         </p>
         <div modal-footer>
           <button style="
@@ -118,7 +118,7 @@ export const Small: Story = {
             color: var(--color-text-primary);
             font-size: 14px;
             cursor: pointer;
-          ">Cancelar</button>
+          ">Cancel</button>
           <button style="
             padding: 8px 16px;
             border: none;
@@ -128,7 +128,7 @@ export const Small: Story = {
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-          ">Confirmar</button>
+          ">Confirm</button>
         </div>
       </ds-modal>
     `,
@@ -180,7 +180,7 @@ export const Big: Story = {
               font-size: 14px;
               resize: vertical;
               box-sizing: border-box;
-            ">Texto de ejemplo</textarea>
+            ">Text example</textarea>
           </div>
         </div>
         <div modal-footer>
@@ -192,7 +192,7 @@ export const Big: Story = {
             color: var(--color-text-primary);
             font-size: 14px;
             cursor: pointer;
-          ">Cancelar</button>
+          ">Cancel</button>
           <button style="
             padding: 8px 16px;
             border: none;
@@ -202,7 +202,7 @@ export const Big: Story = {
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-          ">Guardar</button>
+          ">Save</button>
         </div>
       </ds-modal>
     `,

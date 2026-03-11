@@ -16,9 +16,9 @@ type Story = StoryObj<NavigatorComponent>;
 export const Default: Story = {
   args: {
     items: [
-      { label: 'Inicio', url: '#' },
-      { label: 'Reportes', url: '#' },
-      { label: 'Detalle' },
+      { label: 'Home', url: '#' },
+      { label: 'Reports', url: '#' },
+      { label: 'Detail' },
     ],
   },
 };

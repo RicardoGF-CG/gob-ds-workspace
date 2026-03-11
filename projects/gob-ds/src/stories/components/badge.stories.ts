@@ -9,7 +9,7 @@ const meta: Meta<BadgeComponent> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Chip de estado al estilo Tremor. Usado en tablas y listas para indicar el estado de un ítem.',
+        component: 'Chip of state style Tremor. Used in tables and lists to indicate the state of an item.',
       },
     },
   },
@@ -17,11 +17,12 @@ const meta: Meta<BadgeComponent> = {
     variant: {
       control: 'select',
       options: ['success', 'warning', 'neutral', 'default', 'error'],
-      description: 'Variante de color según el estado',
+      description: 'Variant of color according to the state',
     },
     size: {
       control: 'radio',
       options: ['sm', 'md'],
+      description: 'Badge size',
     }
   },
 };

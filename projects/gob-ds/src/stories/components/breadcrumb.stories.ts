@@ -9,7 +9,7 @@ const meta: Meta<BreadcrumbComponent> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Componente de navegacion tipo breadcrumb con separador ChevronRight de Lucide Icons.',
+        component: 'Navigation component type breadcrumb with ChevronRight separator from Lucide Icons.',
       },
     },
   },
@@ -21,9 +21,9 @@ type Story = StoryObj<BreadcrumbComponent>;
 export const Default: Story = {
   args: {
     items: [
-      { label: 'Inicio', url: '#' },
-      { label: 'Proyectos', url: '#' },
-      { label: 'Detalle del proyecto' },
+      { label: 'Home', url: '#' },
+      { label: 'Projects', url: '#' },
+      { label: 'Project details' },
     ],
   },
 };
@@ -31,8 +31,8 @@ export const Default: Story = {
 export const TwoLevels: Story = {
   args: {
     items: [
-      { label: 'Inicio', url: '#' },
-      { label: 'Configuracion' },
+      { label: 'Home', url: '#' },
+      { label: 'Configuration' },
     ],
   },
 };
@@ -40,12 +40,12 @@ export const TwoLevels: Story = {
 export const LongPath: Story = {
   args: {
     items: [
-      { label: 'Inicio', url: '#' },
-      { label: 'Administracion', url: '#' },
-      { label: 'Usuarios', url: '#' },
+      { label: 'Home', url: '#' },
+      { label: 'Administration', url: '#' },
+      { label: 'Users', url: '#' },
       { label: 'Roles', url: '#' },
-      { label: 'Permisos', url: '#' },
-      { label: 'Detalle' },
+      { label: 'Permissions', url: '#' },
+      { label: 'Details' },
     ],
   },
 };

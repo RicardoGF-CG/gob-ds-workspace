@@ -8,7 +8,7 @@ const meta: Meta<SearchComponent> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Input de búsqueda con ícono prefix, botón de limpiar y eventos `search` y `cleared`.',
+        component: 'Search input with prefix icon, clear button and `search` and `cleared` events.',
       },
     },
   },
@@ -24,7 +24,7 @@ type Story = StoryObj<SearchComponent>;
 // ── Playground ─────────────────────────────────────────────────
 export const Playground: Story = {
   args: {
-    placeholder: 'Buscar por nombre o RFC...',
+    placeholder: 'Search by name or RFC...',
   },
   render: (args) => ({
     props: args,
@@ -44,7 +44,7 @@ export const States: Story = {
   render: () => ({
     template: `
       <div style="width:320px; display:flex; flex-direction:column; gap:12px;">
-        <ds-search placeholder="Sin texto (default)" />
+        <ds-search placeholder="Without text (default)" />
         <ds-search placeholder="Disabled" [disabled]="true" />
       </div>
     `,
@@ -69,10 +69,10 @@ export const TableToolbar: Story = {
         min-width: 560px;
       ">
         <div style="flex:1; max-width:320px;">
-          <ds-search placeholder="Buscar por nombre o RFC..." />
+          <ds-search placeholder="Search by name or RFC..." />
         </div>
         <span style="font-size:13px; color:var(--color-text-tertiary);">
-          52 resultados
+          52 results
         </span>
       </div>
     `,

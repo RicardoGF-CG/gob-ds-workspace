@@ -53,10 +53,10 @@ const meta: Meta<FooterComponent> = {
         docs: {
             description: {
                 component: `
-El componente \`FooterComponent\` tiene dos modos:
+The \`FooterComponent\` has two modes:
 
-- **\`login\`** — Muestra las políticas agrupadas en un dropdown (pantalla de inicio de sesión).
-- **\`app\`** — Muestra las políticas como links inline separados (pantallas internas).
+- **\`login\`** — Shows policies grouped in a dropdown (login screen).
+- **\`app\`** — Shows policies as inline links (internal screens).
 
 \`\`\`html
 <!-- Login -->
@@ -84,7 +84,7 @@ export const Login: Story = {
     parameters: {
         docs: {
             description: {
-                story: 'Footer en la pantalla de login. Las políticas se muestran como un dropdown.',
+                story: 'Footer in the login screen. Policies are displayed as a dropdown.',
             },
         },
     },
@@ -92,7 +92,7 @@ export const Login: Story = {
 
 // ─── App ──────────────────────────────────────────────────────
 export const App: Story = {
-    name: 'App (pantallas internas)',
+    name: 'App (internal screens)',
     args: {
         mode: 'app',
         policies: defaultPolicies,
@@ -100,7 +100,7 @@ export const App: Story = {
     parameters: {
         docs: {
             description: {
-                story: 'Footer en pantallas internas. Las políticas se despliegan como links individuales.',
+                story: 'Footer in internal screens. Policies are displayed as inline links.',
             },
         },
     },
@@ -108,7 +108,7 @@ export const App: Story = {
 
 // ─── Sin políticas ────────────────────────────────────────────
 export const SinPoliticas: Story = {
-    name: 'Sin políticas',
+    name: 'Without policies',
     args: {
         mode: 'login',
         policies: [],
@@ -116,7 +116,7 @@ export const SinPoliticas: Story = {
     parameters: {
         docs: {
             description: {
-                story: 'Footer sin ninguna política configurada.',
+                story: 'Footer without any policies configured.',
             },
         },
     },
@@ -132,7 +132,7 @@ export const Playground: Story = {
     parameters: {
         docs: {
             description: {
-                story: 'Usa los controles del panel para alternar entre modos y editar las políticas.',
+                story: 'Use the panel controls to switch between modes and edit policies.',
             },
         },
     },

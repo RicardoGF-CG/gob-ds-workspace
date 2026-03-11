@@ -9,16 +9,16 @@ const meta: Meta<NotificationComponent> = {
         type: {
             control: { type: 'select' },
             options: ['default', 'info', 'success', 'warning', 'error'],
-            description: 'Tipo de notificación',
+            description: 'Notification type',
         },
         variant: {
             control: { type: 'select' },
             options: ['toast', 'banner'],
-            description: 'Estilo: emergente o banner',
+            description: 'Style: toast or banner',
         },
-        title: { control: 'text', description: 'Título' },
-        message: { control: 'text', description: 'Descripción' },
-        dismissible: { control: 'boolean', description: 'Muestra botón de cierre' },
+        title: { control: 'text', description: 'Title' },
+        message: { control: 'text', description: 'Description' },
+        dismissible: { control: 'boolean', description: 'Show close button' },
         dismissed: { action: 'dismissed' },
     },
     args: {
@@ -76,7 +76,7 @@ export const BannerInfo: Story = {
         variant: 'banner',
         type: 'info',
         title: 'Cookies',
-        message: 'Usamos cookies para mejorar tu experiencia. Puedes cerrar este mensaje cuando quieras.',
+        message: 'We use cookies to improve your experience. You can close this message when you want.',
     },
 };
 
@@ -84,8 +84,8 @@ export const BannerSuccess: Story = {
     args: {
         variant: 'banner',
         type: 'success',
-        title: 'Preferencias guardadas',
-        message: 'Tus preferencias de cookies han sido guardadas.',
+        title: 'Preferences saved',
+        message: 'Your cookie preferences have been saved.',
     },
 };
 
@@ -93,8 +93,8 @@ export const BannerWarning: Story = {
     args: {
         variant: 'banner',
         type: 'warning',
-        title: 'Advertencia',
-        message: 'Este sitio usa cookies de terceros.',
+        title: 'Warning',
+        message: 'This site uses third-party cookies.',
     },
 };
 
@@ -103,6 +103,6 @@ export const BannerError: Story = {
         variant: 'banner',
         type: 'error',
         title: 'Error',
-        message: 'No se pudieron cargar las preferencias de cookies.',
+        message: 'Could not load cookie preferences.',
     },
 };

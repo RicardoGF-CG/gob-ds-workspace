@@ -9,7 +9,7 @@ const meta: Meta<SkeletonComponent> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Placeholder animado para indicar carga de contenido. Soporta variantes: texto, circular, rectangular y redondeado.',
+        component: 'Animated placeholder to indicate content loading. Supports variants: text, circular, rectangular and rounded.',
       },
     },
   },
@@ -17,10 +17,10 @@ const meta: Meta<SkeletonComponent> = {
     variant: {
       control: 'select',
       options: ['text', 'circular', 'rectangular', 'rounded'],
-      description: 'Forma del skeleton',
+      description: 'Skeleton shape',
     },
-    width: { control: 'text', description: 'Ancho del skeleton' },
-    height: { control: 'text', description: 'Alto del skeleton' },
+    width: { control: 'text', description: 'Skeleton width' },
+    height: { control: 'text', description: 'Skeleton height' },
   },
 };
 

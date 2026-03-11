@@ -10,7 +10,7 @@ const meta: Meta<InputComponent> = {
         layout: 'centered',
         docs: {
             description: {
-                component: 'Campo de texto base del design system. Compatible con ReactiveForms y ngModel.',
+                component: 'Base text input component of the design system. Compatible with ReactiveForms and ngModel.',
             },
         },
     },
@@ -66,8 +66,8 @@ export const LoginForm: Story = {
     parameters: { layout: 'centered' },
 };
 
-// ── Estados ────────────────────────────────────────────────────
-export const Estados: Story = {
+// ── States ────────────────────────────────────────────────────
+export const States: Story = {
     render: () => ({
         template: `
       <div style="width: 320px; display: flex; flex-direction: column; gap: 16px;">
@@ -83,8 +83,8 @@ export const Estados: Story = {
     parameters: { layout: 'padded' },
 };
 
-// ── Con íconos ─────────────────────────────────────────────────
-export const ConIconos: Story = {
+// ── With icons ─────────────────────────────────────────────────
+export const WithIcons: Story = {
     render: () => ({
         props: { Search, Mail },
         template: `

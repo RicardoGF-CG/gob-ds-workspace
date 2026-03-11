@@ -10,7 +10,7 @@ const meta: Meta<FileUploadComponent> = {
     docs: {
       description: {
         component:
-          'Componente de carga de archivos con soporte para drag & drop, seleccion de archivos, botones de descarga opcionales y lista de archivos cargados.',
+          'Component for file upload with support for drag & drop, file selection, optional download buttons and list of uploaded files.',
       },
     },
   },
@@ -29,7 +29,7 @@ type Story = StoryObj<FileUploadComponent>;
 
 export const Default: Story = {
   args: {
-    label: 'Subir archivos',
+    label: 'Upload files',
     multiple: true,
   },
   render: (args) => ({
@@ -52,9 +52,9 @@ export const Default: Story = {
 
 export const WithDownloadButton: Story = {
   args: {
-    label: 'Subir archivos',
+    label: 'Upload files',
     downloadButtons: [
-      { label: 'Descargar plantilla de imagenes' },
+      { label: 'Download image template' },
     ],
   },
   render: (args) => ({
@@ -77,7 +77,7 @@ export const WithDownloadButton: Story = {
 
 export const WithAcceptFilter: Story = {
   args: {
-    label: 'Subir documento PDF',
+    label: 'Upload PDF document',
     accept: '.pdf',
     multiple: false,
   },

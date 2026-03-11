@@ -9,7 +9,7 @@ const meta: Meta<CheckboxComponent> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Checkbox accesible con soporte para estado indeterminado y ReactiveForms.',
+        component: 'Checkbox accesible with support for indeterminate state and ReactiveForms.',
       },
     },
   },
@@ -40,8 +40,8 @@ export const Playground: Story = {
   }),
 };
 
-// ── Estados ────────────────────────────────────────────────────
-export const Estados: Story = {
+// ── States ────────────────────────────────────────────────────
+export const States: Story = {
   render: () => ({
     template: `
       <div style="display:flex; flex-direction:column; gap:16px;">
@@ -55,8 +55,8 @@ export const Estados: Story = {
   }),
 };
 
-// ── Con hint ───────────────────────────────────────────────────
-export const ConHint: Story = {
+// ── With hint ───────────────────────────────────────────────────
+export const WithHint: Story = {
   render: () => ({
     template: `
       <div style="display:flex; flex-direction:column; gap:16px; max-width:280px;">
@@ -74,8 +74,8 @@ export const ConHint: Story = {
   }),
 };
 
-// ── Grupo (lista de opciones) ──────────────────────────────────
-export const Grupo: Story = {
+// ── Group (list of options) ──────────────────────────────────
+export const Group: Story = {
   parameters: { layout: 'padded' },
   render: () => ({
     template: `
@@ -92,8 +92,8 @@ export const Grupo: Story = {
   }),
 };
 
-// ── En contexto (como en tu imagen de login) ───────────────────
-export const EnLogin: Story = {
+// ── In context (like in your login image) ───────────────────
+export const InContext: Story = {
   render: () => ({
     template: `
       <ds-checkbox label="Mantener sesión iniciada" [checked]="true" />
