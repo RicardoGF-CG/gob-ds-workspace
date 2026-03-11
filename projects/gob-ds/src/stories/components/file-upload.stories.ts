@@ -39,7 +39,7 @@ export const Default: Story = {
     },
     template: `
       <div style="width: 500px;">
-        <ds-file-upload
+        <sf-file-upload
           [label]="label"
           [iconSrc]="iconSrc"
           [multiple]="multiple"
@@ -64,7 +64,7 @@ export const WithDownloadButton: Story = {
     },
     template: `
       <div style="width: 500px;">
-        <ds-file-upload
+        <sf-file-upload
           [label]="label"
           [iconSrc]="iconSrc"
           [downloadButtons]="downloadButtons"
@@ -85,7 +85,7 @@ export const WithAcceptFilter: Story = {
     props: args,
     template: `
       <div style="width: 500px;">
-        <ds-file-upload
+        <sf-file-upload
           [label]="label"
           [iconSrc]="iconSrc"
           [accept]="accept"
@@ -105,7 +105,7 @@ export const Required: Story = {
     props: args,
     template: `
       <div style="width: 500px;">
-        <ds-file-upload [label]="label" [required]="required" />
+        <sf-file-upload [label]="label" [required]="required" />
       </div>
     `,
   }),
@@ -120,7 +120,7 @@ export const AllowedExtensions: Story = {
     props: args,
     template: `
       <div style="width: 500px;">
-        <ds-file-upload [label]="label" [allowedExtensions]="allowedExtensions" />
+        <sf-file-upload [label]="label" [allowedExtensions]="allowedExtensions" />
       </div>
     `,
   }),
@@ -132,7 +132,7 @@ export const NoLabel: Story = {
     props: args,
     template: `
       <div style="width: 500px;">
-        <ds-file-upload />
+        <sf-file-upload />
       </div>
     `,
   }),

@@ -39,12 +39,12 @@ export const Variants: Story = {
   render: () => ({
     template: `
       <div style="display: flex; flex-direction: column; gap: 16px; width: 300px;">
-        <ds-skeleton variant="text" width="100%" height="16px" />
-        <ds-skeleton variant="text" width="75%" height="16px" />
-        <ds-skeleton variant="text" width="50%" height="16px" />
-        <ds-skeleton variant="circular" width="48px" height="48px" />
-        <ds-skeleton variant="rectangular" width="100%" height="120px" />
-        <ds-skeleton variant="rounded" width="100%" height="60px" />
+        <sf-skeleton variant="text" width="100%" height="16px" />
+        <sf-skeleton variant="text" width="75%" height="16px" />
+        <sf-skeleton variant="text" width="50%" height="16px" />
+        <sf-skeleton variant="circular" width="48px" height="48px" />
+        <sf-skeleton variant="rectangular" width="100%" height="120px" />
+        <sf-skeleton variant="rounded" width="100%" height="60px" />
       </div>
     `,
   }),
@@ -62,13 +62,13 @@ export const CardSkeleton: Story = {
         flex-direction: column;
         gap: 12px;
       ">
-        <ds-skeleton variant="rounded" width="100%" height="160px" />
-        <ds-skeleton variant="text" width="70%" height="20px" />
-        <ds-skeleton variant="text" width="100%" height="14px" />
-        <ds-skeleton variant="text" width="90%" height="14px" />
+        <sf-skeleton variant="rounded" width="100%" height="160px" />
+        <sf-skeleton variant="text" width="70%" height="20px" />
+        <sf-skeleton variant="text" width="100%" height="14px" />
+        <sf-skeleton variant="text" width="90%" height="14px" />
         <div style="display: flex; gap: 8px; align-items: center; margin-top: 8px;">
-          <ds-skeleton variant="circular" width="32px" height="32px" />
-          <ds-skeleton variant="text" width="120px" height="14px" />
+          <sf-skeleton variant="circular" width="32px" height="32px" />
+          <sf-skeleton variant="text" width="120px" height="14px" />
         </div>
       </div>
     `,
@@ -81,10 +81,10 @@ export const ListSkeleton: Story = {
       <div style="width: 400px; display: flex; flex-direction: column; gap: 16px;">
         @for (i of [1,2,3,4]; track i) {
           <div style="display: flex; gap: 12px; align-items: center;">
-            <ds-skeleton variant="circular" width="40px" height="40px" />
+            <sf-skeleton variant="circular" width="40px" height="40px" />
             <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
-              <ds-skeleton variant="text" width="60%" height="14px" />
-              <ds-skeleton variant="text" width="40%" height="12px" />
+              <sf-skeleton variant="text" width="60%" height="14px" />
+              <sf-skeleton variant="text" width="40%" height="12px" />
             </div>
           </div>
         }

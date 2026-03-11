@@ -53,7 +53,7 @@ export interface TablePageEvent {
 
 @Component({
   standalone: true,
-  selector: 'ds-table',
+  selector: 'sf-table',
   imports: [
     CommonModule,
     LucideAngularModule,

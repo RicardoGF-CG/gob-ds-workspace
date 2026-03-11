@@ -9,7 +9,7 @@ export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 
 @Component({
   standalone: true,
-  selector: 'ds-tooltip',
+  selector: 'sf-tooltip',
   imports: [CommonModule],
   styleUrl: './tooltip.scss',
   template: `

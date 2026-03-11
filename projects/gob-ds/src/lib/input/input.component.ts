@@ -4,7 +4,7 @@ import { LucideAngularModule, Eye, EyeOff } from 'lucide-angular';
 
 @Component({
     standalone: true,
-    selector: 'ds-input',
+    selector: 'sf-input',
     imports: [LucideAngularModule, ReactiveFormsModule],
     templateUrl: './input.component.html',
     styleUrl: './input.component.scss',
@@ -38,7 +38,7 @@ export class InputComponent implements ControlValueAccessor {
     private onTouched = () => { };
 
     private static nextId = 0;
-    readonly inputId = `ds-input-${InputComponent.nextId++}`;
+    readonly inputId = `sf-input-${InputComponent.nextId++}`;
 
     get currentType(): string {
         if (this.type === 'password') {

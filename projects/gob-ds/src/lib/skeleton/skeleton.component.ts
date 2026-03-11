@@ -5,7 +5,7 @@ export type SkeletonVariant = 'text' | 'circular' | 'rectangular' | 'rounded';
 
 @Component({
   standalone: true,
-  selector: 'ds-skeleton',
+  selector: 'sf-skeleton',
   imports: [CommonModule],
   styleUrl: './skeleton.scss',
   template: `

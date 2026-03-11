@@ -41,7 +41,7 @@ export const Default: Story = {
       onClose: () => {},
     },
     template: `
-      <ds-modal
+      <sf-modal
         [open]="open"
         [title]="title"
         [size]="size"
@@ -91,7 +91,7 @@ export const Default: Story = {
             cursor: pointer;
           ">Add</button>
         </div>
-      </ds-modal>
+      </sf-modal>
     `,
   }),
 };
@@ -105,7 +105,7 @@ export const Small: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <ds-modal [open]="open" [title]="title" size="sm" (openChange)="open = $event">
+      <sf-modal [open]="open" [title]="title" size="sm" (openChange)="open = $event">
         <p style="margin: 0; font-size: 14px; color: var(--color-text-secondary);">
           Are you sure you want to continue with this action? This operation cannot be undone.
         </p>
@@ -130,7 +130,7 @@ export const Small: Story = {
             cursor: pointer;
           ">Confirm</button>
         </div>
-      </ds-modal>
+      </sf-modal>
     `,
   }),
 };
@@ -144,7 +144,7 @@ export const Big: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <ds-modal [open]="open" [title]="title" size="lg" (openChange)="open = $event">
+      <sf-modal [open]="open" [title]="title" size="lg" (openChange)="open = $event">
         <div style="display: flex; flex-direction: column; gap: 16px;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
             <div>
@@ -204,7 +204,7 @@ export const Big: Story = {
             cursor: pointer;
           ">Save</button>
         </div>
-      </ds-modal>
+      </sf-modal>
     `,
   }),
 };

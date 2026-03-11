@@ -9,7 +9,7 @@ export interface TabsPillItem {
 
 @Component({
   standalone: true,
-  selector: 'ds-tabs-pill',
+  selector: 'sf-tabs-pill',
   imports: [CommonModule],
   templateUrl: './tabs-pill.component.html',
   styleUrl: './tabs-pill.component.scss',

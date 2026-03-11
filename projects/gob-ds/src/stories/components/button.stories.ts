@@ -58,7 +58,7 @@ export const Playground: Story = {
   args: { variant: 'primary', size: 'md', disabled: false, loading: false },
   render: (args) => ({
     props: args,
-    template: `<ds-button [variant]="variant" [size]="size" [disabled]="disabled" [loading]="loading">Guardar cambios</ds-button>`,
+    template: `<sf-button [variant]="variant" [size]="size" [disabled]="disabled" [loading]="loading">Guardar cambios</sf-button>`,
   }),
 };
 
@@ -67,12 +67,12 @@ export const Variants: Story = {
   render: () => ({
     template: `
       <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
-        <ds-button variant="primary">Primary</ds-button>
-        <ds-button variant="secondary">Secondary</ds-button>
-        <ds-button variant="outline">Outline</ds-button>
-        <ds-button variant="ghost">Ghost</ds-button>
-        <ds-button variant="destructive">Destructive</ds-button>
-        <ds-button variant="link">Link</ds-button>
+        <sf-button variant="primary">Primary</sf-button>
+        <sf-button variant="secondary">Secondary</sf-button>
+        <sf-button variant="outline">Outline</sf-button>
+        <sf-button variant="ghost">Ghost</sf-button>
+        <sf-button variant="destructive">Destructive</sf-button>
+        <sf-button variant="link">Link</sf-button>
       </div>
     `,
   }),
@@ -83,9 +83,9 @@ export const Sizes: Story = {
   render: () => ({
     template: `
       <div style="display:flex; align-items:center; gap:12px;">
-        <ds-button size="sm">Small</ds-button>
-        <ds-button size="md">Default</ds-button>
-        <ds-button size="lg">Large</ds-button>
+        <sf-button size="sm">Small</sf-button>
+        <sf-button size="md">Default</sf-button>
+        <sf-button size="lg">Large</sf-button>
       </div>
     `,
   }),
@@ -97,10 +97,10 @@ export const WithIcons: Story = {
     props: { ArrowRight, Plus, Trash2, GitBranch },
     template: `
       <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
-        <ds-button variant="primary"      [icon]="Plus"      iconPosition="left">Nuevo</ds-button>
-        <ds-button variant="outline"      [icon]="ArrowRight" iconPosition="right">Continuar</ds-button>
-        <ds-button variant="destructive"  [icon]="Trash2"    iconPosition="left">Eliminar</ds-button>
-        <ds-button variant="secondary"    [icon]="GitBranch" iconPosition="left">New Branch</ds-button>
+        <sf-button variant="primary"      [icon]="Plus"      iconPosition="left">Nuevo</sf-button>
+        <sf-button variant="outline"      [icon]="ArrowRight" iconPosition="right">Continuar</sf-button>
+        <sf-button variant="destructive"  [icon]="Trash2"    iconPosition="left">Eliminar</sf-button>
+        <sf-button variant="secondary"    [icon]="GitBranch" iconPosition="left">New Branch</sf-button>
       </div>
     `,
   }),
@@ -112,9 +112,9 @@ export const IconOnly: Story = {
     props: { Plus, Trash2, ArrowRight },
     template: `
       <div style="display:flex; align-items:center; gap:12px;">
-        <ds-button variant="primary"     [icon]="Plus"      iconPosition="only" size="sm" />
-        <ds-button variant="outline"     [icon]="ArrowRight" iconPosition="only" size="md" />
-        <ds-button variant="destructive" [icon]="Trash2"    iconPosition="only" size="lg" />
+        <sf-button variant="primary"     [icon]="Plus"      iconPosition="only" size="sm" />
+        <sf-button variant="outline"     [icon]="ArrowRight" iconPosition="only" size="md" />
+        <sf-button variant="destructive" [icon]="Trash2"    iconPosition="only" size="lg" />
       </div>
     `,
   }),
@@ -133,11 +133,11 @@ export const Status: Story = {
             Primary states
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-            <ds-button variant="primary">Default</ds-button>
-            <ds-button variant="primary" [disabled]="true">Disabled</ds-button>
-            <ds-button variant="primary" [loading]="true">Loading</ds-button>
-            <ds-button variant="primary" [icon]="Plus" iconPosition="left">With icon</ds-button>
-            <ds-button variant="primary" [icon]="Plus" iconPosition="left" [loading]="true">Loading + icon</ds-button>
+            <sf-button variant="primary">Default</sf-button>
+            <sf-button variant="primary" [disabled]="true">Disabled</sf-button>
+            <sf-button variant="primary" [loading]="true">Loading</sf-button>
+            <sf-button variant="primary" [icon]="Plus" iconPosition="left">With icon</sf-button>
+            <sf-button variant="primary" [icon]="Plus" iconPosition="left" [loading]="true">Loading + icon</sf-button>
           </div>
         </div>
 
@@ -147,17 +147,17 @@ export const Status: Story = {
             Other variants states
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-            <ds-button variant="secondary">Secondary</ds-button>
-            <ds-button variant="secondary" [disabled]="true">Secondary disabled</ds-button>
-            <ds-button variant="secondary" [loading]="true">Secondary loading</ds-button>
+            <sf-button variant="secondary">Secondary</sf-button>
+            <sf-button variant="secondary" [disabled]="true">Secondary disabled</sf-button>
+            <sf-button variant="secondary" [loading]="true">Secondary loading</sf-button>
 
-            <ds-button variant="outline">Outline</ds-button>
-            <ds-button variant="outline" [disabled]="true">Outline disabled</ds-button>
-            <ds-button variant="outline" [loading]="true">Outline loading</ds-button>
+            <sf-button variant="outline">Outline</sf-button>
+            <sf-button variant="outline" [disabled]="true">Outline disabled</sf-button>
+            <sf-button variant="outline" [loading]="true">Outline loading</sf-button>
 
-            <ds-button variant="ghost">Ghost</ds-button>
-            <ds-button variant="ghost" [disabled]="true">Ghost disabled</ds-button>
-            <ds-button variant="ghost" [loading]="true">Ghost loading</ds-button>
+            <sf-button variant="ghost">Ghost</sf-button>
+            <sf-button variant="ghost" [disabled]="true">Ghost disabled</sf-button>
+            <sf-button variant="ghost" [loading]="true">Ghost loading</sf-button>
           </div>
         </div>
 
@@ -167,11 +167,11 @@ export const Status: Story = {
             Destructive states
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-            <ds-button variant="destructive">Delete</ds-button>
-            <ds-button variant="destructive" [disabled]="true">Disabled</ds-button>
-            <ds-button variant="destructive" [loading]="true">Deleting...</ds-button>
-            <ds-button variant="destructive" [icon]="Trash2" iconPosition="left">With icon</ds-button>
-            <ds-button variant="destructive" [icon]="Trash2" iconPosition="left" [loading]="true">Loading + icon</ds-button>
+            <sf-button variant="destructive">Delete</sf-button>
+            <sf-button variant="destructive" [disabled]="true">Disabled</sf-button>
+            <sf-button variant="destructive" [loading]="true">Deleting...</sf-button>
+            <sf-button variant="destructive" [icon]="Trash2" iconPosition="left">With icon</sf-button>
+            <sf-button variant="destructive" [icon]="Trash2" iconPosition="left" [loading]="true">Loading + icon</sf-button>
           </div>
         </div>
 
@@ -181,10 +181,10 @@ export const Status: Story = {
             Link states (special)
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-            <ds-button variant="link">Link</ds-button>
-            <ds-button variant="link" [disabled]="true">Link disabled</ds-button>
-            <ds-button variant="link" [loading]="true">Link loading</ds-button>
-            <ds-button variant="link" [icon]="ArrowRight" iconPosition="right">Link + icon</ds-button>
+            <sf-button variant="link">Link</sf-button>
+            <sf-button variant="link" [disabled]="true">Link disabled</sf-button>
+            <sf-button variant="link" [loading]="true">Link loading</sf-button>
+            <sf-button variant="link" [icon]="ArrowRight" iconPosition="right">Link + icon</sf-button>
           </div>
         </div>
 
@@ -194,13 +194,13 @@ export const Status: Story = {
             Icon-only edge cases
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-            <ds-button variant="primary" [icon]="Plus" iconPosition="only" size="sm" />
-            <ds-button variant="primary" [icon]="Plus" iconPosition="only" size="sm" [disabled]="true" />
-            <ds-button variant="primary" [icon]="Plus" iconPosition="only" size="sm" [loading]="true" />
+            <sf-button variant="primary" [icon]="Plus" iconPosition="only" size="sm" />
+            <sf-button variant="primary" [icon]="Plus" iconPosition="only" size="sm" [disabled]="true" />
+            <sf-button variant="primary" [icon]="Plus" iconPosition="only" size="sm" [loading]="true" />
 
-            <ds-button variant="outline" [icon]="ArrowRight" iconPosition="only" size="md" />
-            <ds-button variant="outline" [icon]="ArrowRight" iconPosition="only" size="md" [disabled]="true" />
-            <ds-button variant="outline" [icon]="ArrowRight" iconPosition="only" size="md" [loading]="true" />
+            <sf-button variant="outline" [icon]="ArrowRight" iconPosition="only" size="md" />
+            <sf-button variant="outline" [icon]="ArrowRight" iconPosition="only" size="md" [disabled]="true" />
+            <sf-button variant="outline" [icon]="ArrowRight" iconPosition="only" size="md" [loading]="true" />
           </div>
         </div>
 
@@ -210,9 +210,9 @@ export const Status: Story = {
             Full width states
           </div>
           <div style="display:flex; flex-direction:column; gap:10px;">
-            <ds-button variant="primary" [fullWidth]="true" size="lg">Continue</ds-button>
-            <ds-button variant="primary" [fullWidth]="true" size="lg" [loading]="true">Continue</ds-button>
-            <ds-button variant="outline" [fullWidth]="true" size="lg" [disabled]="true">Cancel</ds-button>
+            <sf-button variant="primary" [fullWidth]="true" size="lg">Continue</sf-button>
+            <sf-button variant="primary" [fullWidth]="true" size="lg" [loading]="true">Continue</sf-button>
+            <sf-button variant="outline" [fullWidth]="true" size="lg" [disabled]="true">Cancel</sf-button>
           </div>
         </div>
 
@@ -227,8 +227,8 @@ export const FullWidth: Story = {
   render: () => ({
     template: `
       <div style="display:flex; flex-direction:column; gap:10px; width:320px;">
-        <ds-button variant="primary"  [fullWidth]="true">Iniciar sesión</ds-button>
-        <ds-button variant="outline"  [fullWidth]="true">Crear cuenta</ds-button>
+        <sf-button variant="primary"  [fullWidth]="true">Iniciar sesión</sf-button>
+        <sf-button variant="outline"  [fullWidth]="true">Crear cuenta</sf-button>
       </div>
     `,
   }),
@@ -239,14 +239,14 @@ export const Toolbar: Story = {
   render: () => ({
     template: `
       <div style="display:flex; gap:0;">
-        <ds-button variant="outline" size="sm"
-          style="border-radius: 6px 0 0 6px; border-right: none;">Archive</ds-button>
-        <ds-button variant="outline" size="sm"
-          style="border-radius: 0; border-right: none;">Report</ds-button>
-        <ds-button variant="outline" size="sm"
-          style="border-radius: 0; border-right: none;">Snooze</ds-button>
-        <ds-button variant="outline" size="sm"
-          style="border-radius: 0 6px 6px 0;">···</ds-button>
+        <sf-button variant="outline" size="sm"
+          style="border-radius: 6px 0 0 6px; border-right: none;">Archive</sf-button>
+        <sf-button variant="outline" size="sm"
+          style="border-radius: 0; border-right: none;">Report</sf-button>
+        <sf-button variant="outline" size="sm"
+          style="border-radius: 0; border-right: none;">Snooze</sf-button>
+        <sf-button variant="outline" size="sm"
+          style="border-radius: 0 6px 6px 0;">···</sf-button>
       </div>
     `,
   }),
@@ -270,11 +270,11 @@ export const StateMatrix: Story = {
           <div style="display:grid; grid-template-columns: 140px repeat(5, 160px); gap:12px; align-items:center;">
             <div style="color: var(--color-text-secondary); font-size: 13px;">${variant}</div>
 
-            <ds-button variant="${variant}">Label</ds-button>
-            <ds-button variant="${variant}" class="is-hover">Label</ds-button>
-            <ds-button variant="${variant}" class="is-active">Label</ds-button>
-            <ds-button variant="${variant}" class="is-focus">Label</ds-button>
-            <ds-button variant="${variant}" disabled>Label</ds-button>
+            <sf-button variant="${variant}">Label</sf-button>
+            <sf-button variant="${variant}" class="is-hover">Label</sf-button>
+            <sf-button variant="${variant}" class="is-active">Label</sf-button>
+            <sf-button variant="${variant}" class="is-focus">Label</sf-button>
+            <sf-button variant="${variant}" disabled>Label</sf-button>
           </div>
         `).join('')}
       </div>
@@ -288,12 +288,12 @@ export const LoadingMatrix: Story = {
     template: `
       <div style="display:grid; gap:12px;">
         <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-          <ds-button variant="primary" [loading]="true">Primary</ds-button>
-          <ds-button variant="secondary" [loading]="true">Secondary</ds-button>
-          <ds-button variant="outline" [loading]="true">Outline</ds-button>
-          <ds-button variant="ghost" [loading]="true">Ghost</ds-button>
-          <ds-button variant="destructive" [loading]="true">Destructive</ds-button>
-          <ds-button variant="link" [loading]="true">Link</ds-button>
+          <sf-button variant="primary" [loading]="true">Primary</sf-button>
+          <sf-button variant="secondary" [loading]="true">Secondary</sf-button>
+          <sf-button variant="outline" [loading]="true">Outline</sf-button>
+          <sf-button variant="ghost" [loading]="true">Ghost</sf-button>
+          <sf-button variant="destructive" [loading]="true">Destructive</sf-button>
+          <sf-button variant="link" [loading]="true">Link</sf-button>
         </div>
       </div>
     `,
@@ -305,12 +305,12 @@ export const DisabledPerVariant: Story = {
   render: () => ({
     template: `
       <div style="display:flex; flex-wrap:wrap; gap:12px;">
-        <ds-button variant="primary" [disabled]="true">Primary</ds-button>
-        <ds-button variant="secondary" [disabled]="true">Secondary</ds-button>
-        <ds-button variant="outline" [disabled]="true">Outline</ds-button>
-        <ds-button variant="ghost" [disabled]="true">Ghost</ds-button>
-        <ds-button variant="destructive" [disabled]="true">Destructive</ds-button>
-        <ds-button variant="link" [disabled]="true">Link</ds-button>
+        <sf-button variant="primary" [disabled]="true">Primary</sf-button>
+        <sf-button variant="secondary" [disabled]="true">Secondary</sf-button>
+        <sf-button variant="outline" [disabled]="true">Outline</sf-button>
+        <sf-button variant="ghost" [disabled]="true">Ghost</sf-button>
+        <sf-button variant="destructive" [disabled]="true">Destructive</sf-button>
+        <sf-button variant="link" [disabled]="true">Link</sf-button>
       </div>
     `,
   }),
@@ -321,9 +321,9 @@ export const AsLink: Story = {
   render: () => ({
     template: `
       <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-        <ds-button asTag="a" variant="primary">Anchor Primary</ds-button>
-        <ds-button asTag="a" variant="outline">Anchor Outline</ds-button>
-        <ds-button asTag="a" variant="link">Anchor Link</ds-button>
+        <sf-button asTag="a" variant="primary">Anchor Primary</sf-button>
+        <sf-button asTag="a" variant="outline">Anchor Outline</sf-button>
+        <sf-button asTag="a" variant="link">Anchor Link</sf-button>
       </div>
     `,
   }),

@@ -5,7 +5,7 @@
       <tr class="tbl__row tbl__row--header">
         @if (selectable) {
         <th class="tbl__th tbl__th--checkbox">
-          <ds-checkbox
+          <sf-checkbox
             [checked]="isAllSelected"
             [indeterminate]="isIndeterminate"
             (click)="toggleAll()"
@@ -44,15 +44,15 @@
       <tr class="tbl__row tbl__row--skeleton">
         @if (selectable) {
         <td class="tbl__td tbl__td--checkbox">
-          <ds-skeleton variant="rectangular" width="20px" height="20px" />
+          <sf-skeleton variant="rectangular" width="20px" height="20px" />
         </td>
         } @for (col of columns; track col.key) {
         <td class="tbl__td" [style.text-align]="col.align ?? 'left'">
-          <ds-skeleton variant="text" width="70%" height="14px" />
+          <sf-skeleton variant="text" width="70%" height="14px" />
         </td>
         } @if (actionsTemplate) {
         <td class="tbl__td tbl__td--actions">
-          <ds-skeleton variant="rectangular" width="24px" height="24px" />
+          <sf-skeleton variant="rectangular" width="24px" height="24px" />
         </td>
         }
       </tr>
@@ -105,7 +105,7 @@
       <tr class="tbl__row" [class.tbl__row--selected]="selectable && isRowSelected(row)">
         @if (selectable) {
         <td class="tbl__td tbl__td--checkbox">
-          <ds-checkbox [checked]="isRowSelected(row)" (click)="toggleRow(row)" />
+          <sf-checkbox [checked]="isRowSelected(row)" (click)="toggleRow(row)" />
         </td>
         } @for (col of columns; track col.key) {
         <td class="tbl__td" [style.text-align]="col.align ?? 'left'">
@@ -126,13 +126,13 @@
             [ngTemplateOutletContext]="{ $implicit: row }"
           />
           } @else if (rowActions.length > 0) {
-          <ds-context-menu
+          <sf-context-menu
             [items]="rowActions"
             align="right"
             (itemClick)="onRowActionClick($event, row)"
           >
             <lucide-icon [img]="Ellipsis" [size]="14" />
-          </ds-context-menu>
+          </sf-context-menu>
           }
         </td>
         }

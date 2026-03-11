@@ -20,7 +20,7 @@ export interface MultiSelectOption {
 
 @Component({
   standalone: true,
-  selector: 'ds-multi-select',
+  selector: 'sf-multi-select',
   imports: [CommonModule, LucideAngularModule, FormsModule],
   templateUrl: './multi-select.component.html',
   styleUrl: './multi-select.component.scss',

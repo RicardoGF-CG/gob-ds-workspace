@@ -5,7 +5,7 @@ export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 @Component({
   standalone: true,
-  selector: 'ds-avatar',
+  selector: 'sf-avatar',
   imports: [CommonModule],
   styleUrl: './avatar.scss',
   template: `

@@ -18,7 +18,7 @@ export type ModalSize = 'sm' | 'md' | 'lg';
 
 @Component({
   standalone: true,
-  selector: 'ds-modal',
+  selector: 'sf-modal',
   imports: [CommonModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',

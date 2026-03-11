@@ -30,7 +30,7 @@ export const Playground: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <ds-checkbox
+      <sf-checkbox
         [label]="label"
         [hint]="hint"
         [disabled]="disabled"
@@ -45,11 +45,11 @@ export const States: Story = {
   render: () => ({
     template: `
       <div style="display:flex; flex-direction:column; gap:16px;">
-        <ds-checkbox label="Sin marcar" />
-        <ds-checkbox label="Marcado" [checked]="true" />
-        <ds-checkbox label="Indeterminado" [indeterminate]="true" />
-        <ds-checkbox label="Deshabilitado sin marcar" [disabled]="true" />
-        <ds-checkbox label="Deshabilitado marcado"    [disabled]="true" [checked]="true" />
+        <sf-checkbox label="Sin marcar" />
+        <sf-checkbox label="Marcado" [checked]="true" />
+        <sf-checkbox label="Indeterminado" [indeterminate]="true" />
+        <sf-checkbox label="Deshabilitado sin marcar" [disabled]="true" />
+        <sf-checkbox label="Deshabilitado marcado"    [disabled]="true" [checked]="true" />
       </div>
     `,
   }),
@@ -60,11 +60,11 @@ export const WithHint: Story = {
   render: () => ({
     template: `
       <div style="display:flex; flex-direction:column; gap:16px; max-width:280px;">
-        <ds-checkbox
+        <sf-checkbox
           label="Mantener sesión iniciada"
           hint="Tu sesión no cerrará al salir del navegador."
         />
-        <ds-checkbox
+        <sf-checkbox
           label="Recibir notificaciones"
           hint="Te avisaremos sobre cambios importantes en tu cuenta."
           [checked]="true"
@@ -83,10 +83,10 @@ export const Group: Story = {
         <legend style="font-size:13px; font-weight:600; color:var(--color-text-secondary); padding:0 6px;">
           Permisos de acceso
         </legend>
-        <ds-checkbox label="Ver reportes"         hint="Acceso de solo lectura a todos los reportes." [checked]="true" />
-        <ds-checkbox label="Editar registros"     hint="Puede modificar datos existentes." />
-        <ds-checkbox label="Eliminar registros"   hint="Acción irreversible." [disabled]="true" />
-        <ds-checkbox label="Administrar usuarios" hint="Requiere aprobación del administrador." [indeterminate]="true" />
+        <sf-checkbox label="Ver reportes"         hint="Acceso de solo lectura a todos los reportes." [checked]="true" />
+        <sf-checkbox label="Editar registros"     hint="Puede modificar datos existentes." />
+        <sf-checkbox label="Eliminar registros"   hint="Acción irreversible." [disabled]="true" />
+        <sf-checkbox label="Administrar usuarios" hint="Requiere aprobación del administrador." [indeterminate]="true" />
       </fieldset>
     `,
   }),
@@ -96,7 +96,7 @@ export const Group: Story = {
 export const InContext: Story = {
   render: () => ({
     template: `
-      <ds-checkbox label="Mantener sesión iniciada" [checked]="true" />
+      <sf-checkbox label="Mantener sesión iniciada" [checked]="true" />
     `,
   }),
 };

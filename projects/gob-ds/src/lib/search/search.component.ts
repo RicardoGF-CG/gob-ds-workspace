@@ -4,7 +4,7 @@ import { LucideAngularModule, Search, X } from 'lucide-angular';
 
 @Component({
   standalone: true,
-  selector: 'ds-search',
+  selector: 'sf-search',
   imports: [LucideAngularModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',

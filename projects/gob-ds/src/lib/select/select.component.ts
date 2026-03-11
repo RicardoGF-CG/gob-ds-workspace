@@ -20,7 +20,7 @@ export interface SelectOption {
 
 @Component({
   standalone: true,
-  selector: 'ds-select',
+  selector: 'sf-select',
   imports: [CommonModule, LucideAngularModule, FormsModule],
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',

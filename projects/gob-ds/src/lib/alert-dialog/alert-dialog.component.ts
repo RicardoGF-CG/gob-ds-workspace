@@ -16,7 +16,7 @@ export type AlertDialogVariant = 'default' | 'destructive';
 
 @Component({
   standalone: true,
-  selector: 'ds-alert-dialog',
+  selector: 'sf-alert-dialog',
   imports: [CommonModule],
   templateUrl: './alert-dialog.component.html',
   styleUrl: './alert-dialog.component.scss',

@@ -21,7 +21,7 @@ export interface ContextMenuItem {
 
 @Component({
   standalone: true,
-  selector: 'ds-context-menu',
+  selector: 'sf-context-menu',
   imports: [CommonModule, LucideAngularModule],
   styleUrl: './context-menu.scss',
   templateUrl: './context-menu.component.html',

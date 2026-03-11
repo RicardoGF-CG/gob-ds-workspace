@@ -1,4 +1,4 @@
-# gob-ds-workspace
+# gob-sf-workspace
 
 ## 0.3.0
 

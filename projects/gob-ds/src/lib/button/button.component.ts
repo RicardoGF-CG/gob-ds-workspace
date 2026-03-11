@@ -8,7 +8,7 @@ export type ButtonAs = 'button' | 'a';
 
 @Component({
     standalone: true,
-    selector: 'ds-button',
+    selector: 'sf-button',
     imports: [CommonModule, LucideAngularModule],
     templateUrl: './button.component.html',
     styleUrl: './button.component.scss',

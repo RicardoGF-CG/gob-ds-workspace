@@ -5,7 +5,7 @@ export type LoaderSize = 'sm' | 'md' | 'lg';
 
 @Component({
   standalone: true,
-  selector: 'ds-loader',
+  selector: 'sf-loader',
   imports: [CommonModule],
   styleUrl: './loader.scss',
   template: `

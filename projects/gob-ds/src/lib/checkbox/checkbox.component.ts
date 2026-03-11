@@ -4,7 +4,7 @@ import { LucideAngularModule, Check, Minus } from 'lucide-angular';
 
 @Component({
     standalone: true,
-    selector: 'ds-checkbox',
+    selector: 'sf-checkbox',
     imports: [LucideAngularModule],
     templateUrl: './checkbox.component.html',
     styleUrl: './checkbox.component.scss',

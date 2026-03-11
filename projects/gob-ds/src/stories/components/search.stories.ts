@@ -30,7 +30,7 @@ export const Playground: Story = {
     props: args,
     template: `
       <div style="width: 340px;">
-        <ds-search
+        <sf-search
           [placeholder]="placeholder"
           [disabled]="disabled"
         />
@@ -44,8 +44,8 @@ export const States: Story = {
   render: () => ({
     template: `
       <div style="width:320px; display:flex; flex-direction:column; gap:12px;">
-        <ds-search placeholder="Without text (default)" />
-        <ds-search placeholder="Disabled" [disabled]="true" />
+        <sf-search placeholder="Without text (default)" />
+        <sf-search placeholder="Disabled" [disabled]="true" />
       </div>
     `,
   }),
@@ -69,7 +69,7 @@ export const TableToolbar: Story = {
         min-width: 560px;
       ">
         <div style="flex:1; max-width:320px;">
-          <ds-search placeholder="Search by name or RFC..." />
+          <sf-search placeholder="Search by name or RFC..." />
         </div>
         <span style="font-size:13px; color:var(--color-text-tertiary);">
           52 results

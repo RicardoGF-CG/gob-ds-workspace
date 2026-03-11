@@ -21,7 +21,7 @@ export interface DownloadButton {
 
 @Component({
   standalone: true,
-  selector: 'ds-file-upload',
+  selector: 'sf-file-upload',
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './file-upload.component.html',
   styleUrl: './file-upload.component.scss',

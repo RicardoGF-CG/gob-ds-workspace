@@ -142,9 +142,9 @@ export const AllRows: Story = {
     render: () => ({
         template: `
             <div style="display:flex; flex-direction:column; gap:24px; max-width:480px; padding:24px;">
-                <ds-textarea label="2 rows"  placeholder="rows=2"  [rows]="2"></ds-textarea>
-                <ds-textarea label="4 rows"  placeholder="rows=4"  [rows]="4"></ds-textarea>
-                <ds-textarea label="8 rows"  placeholder="rows=8"  [rows]="8"></ds-textarea>
+                <sf-textarea label="2 rows"  placeholder="rows=2"  [rows]="2"></sf-textarea>
+                <sf-textarea label="4 rows"  placeholder="rows=4"  [rows]="4"></sf-textarea>
+                <sf-textarea label="8 rows"  placeholder="rows=8"  [rows]="8"></sf-textarea>
             </div>
         `,
     }),
@@ -155,10 +155,10 @@ export const AllStates: Story = {
     render: () => ({
         template: `
             <div style="display:flex; flex-direction:column; gap:24px; max-width:480px; padding:24px;">
-                <ds-textarea label="Default"   placeholder="Default"></ds-textarea>
-                <ds-textarea label="With hint"  placeholder="With text hint" hint="Text hint visible here."></ds-textarea>
-                <ds-textarea label="Error"     placeholder="With error" error="This field is required."></ds-textarea>
-                <ds-textarea label="Disabled"  placeholder="Disabled" [disabled]="true" hint="Field is disabled."></ds-textarea>
+                <sf-textarea label="Default"   placeholder="Default"></sf-textarea>
+                <sf-textarea label="With hint"  placeholder="With text hint" hint="Text hint visible here."></sf-textarea>
+                <sf-textarea label="Error"     placeholder="With error" error="This field is required."></sf-textarea>
+                <sf-textarea label="Disabled"  placeholder="Disabled" [disabled]="true" hint="Field is disabled."></sf-textarea>
             </div>
         `,
     }),

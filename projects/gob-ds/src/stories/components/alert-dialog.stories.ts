@@ -41,7 +41,7 @@ export const Playground: Story = {
     },
     template: `
       <div style="width: 520px; display:flex; justify-content:center;">
-        <ds-alert-dialog
+        <sf-alert-dialog
           [open]="open"
           (openChange)="openChange($event)"
           [title]="title"

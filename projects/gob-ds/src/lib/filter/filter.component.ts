@@ -4,7 +4,7 @@ import { LucideAngularModule, Plus, X, ChevronDown } from 'lucide-angular';
 
 @Component({
   standalone: true,
-  selector: 'ds-filter',
+  selector: 'sf-filter',
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'

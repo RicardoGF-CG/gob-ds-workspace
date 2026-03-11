@@ -13,7 +13,7 @@ export interface TabItem {
 
 @Component({
   standalone: true,
-  selector: 'ds-tabs',
+  selector: 'sf-tabs',
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',

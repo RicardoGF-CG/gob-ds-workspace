@@ -6,7 +6,7 @@ export type TextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
 
 @Component({
     standalone: true,
-    selector: 'ds-textarea',
+    selector: 'sf-textarea',
     imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './textarea.component.html',
     styleUrl: './textarea.component.scss',
@@ -45,7 +45,7 @@ export class TextareaComponent implements ControlValueAccessor {
     private onTouched = () => { };
 
     private static nextId = 0;
-    readonly textareaId = `ds-textarea-${TextareaComponent.nextId++}`;
+    readonly textareaId = `sf-textarea-${TextareaComponent.nextId++}`;
 
     get hasError(): boolean {
         return !!this.error;

@@ -44,9 +44,9 @@ export const Sizes: Story = {
   render: () => ({
     template: `
       <div style="display: flex; align-items: center; gap: 24px;">
-        <ds-loader size="sm" text="Small" />
-        <ds-loader size="md" text="Medium" />
-        <ds-loader size="lg" text="Large" />
+        <sf-loader size="sm" text="Small" />
+        <sf-loader size="md" text="Medium" />
+        <sf-loader size="lg" text="Large" />
       </div>
     `,
   }),
@@ -56,9 +56,9 @@ export const OnlySpinner: Story = {
   render: () => ({
     template: `
       <div style="display: flex; align-items: center; gap: 16px;">
-        <ds-loader size="sm" />
-        <ds-loader size="md" />
-        <ds-loader size="lg" />
+        <sf-loader size="sm" />
+        <sf-loader size="md" />
+        <sf-loader size="lg" />
       </div>
     `,
   }),
@@ -81,7 +81,7 @@ export const InButton: Story = {
         cursor: not-allowed;
         opacity: 0.8;
       ">
-        <ds-loader size="sm" />
+        <sf-loader size="sm" />
         Processing...
       </button>
     `,

@@ -9,7 +9,7 @@ export interface BreadcrumbItem {
 
 @Component({
   standalone: true,
-  selector: 'ds-breadcrumb',
+  selector: 'sf-breadcrumb',
   imports: [CommonModule, LucideAngularModule],
   styleUrl: './breadcrumb.scss',
   template: `

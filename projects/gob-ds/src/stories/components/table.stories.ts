@@ -139,7 +139,7 @@ export const Default: Story = {
       },
     },
     template: `
-      <ds-table
+      <sf-table
         [columns]="columns"
         [data]="currentData"
         [selectable]="true"
@@ -181,7 +181,7 @@ export const Playground: Story = {
       },
     },
     template: `
-      <ds-table
+      <sf-table
         [columns]="columns"
         [data]="currentData"
         [selectable]="selectable"
@@ -208,7 +208,7 @@ export const WithSelection: Story = {
       data: page1Data,
     },
     template: `
-      <ds-table
+      <sf-table
         [columns]="columns"
         [data]="data"
         [selectable]="true"
@@ -234,7 +234,7 @@ export const WithPagination: Story = {
       },
     },
     template: `
-      <ds-table
+      <sf-table
         [columns]="columns"
         [data]="currentData"
         [paginated]="true"
@@ -264,7 +264,7 @@ export const FullFeatured: Story = {
       },
     },
     template: `
-      <ds-table
+      <sf-table
         [columns]="columns"
         [data]="currentData"
         [selectable]="true"
@@ -283,7 +283,7 @@ export const Loading: Story = {
   render: () => ({
     props: { columns },
     template: `
-      <ds-table
+      <sf-table
         [columns]="columns"
         [data]="[]"
         [loading]="true"
@@ -298,7 +298,7 @@ export const Empty: Story = {
   render: () => ({
     props: { columns },
     template: `
-      <ds-table
+      <sf-table
         [columns]="columns"
         [data]="[]"
         emptyMessage="No items found."
@@ -312,7 +312,7 @@ export const Error: Story = {
   render: () => ({
     props: { columns },
     template: `
-      <ds-table
+      <sf-table
         [columns]="columns"
         [data]="[]"
         [error]="true"
@@ -342,7 +342,7 @@ export const WithActions: Story = {
       imports: [LucideAngularModule, BadgeComponent],
     },
     template: `
-      <ds-table
+      <sf-table
         [columns]="columns"
         [data]="data"
         [rowActions]="actions"

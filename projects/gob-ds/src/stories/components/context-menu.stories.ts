@@ -42,9 +42,9 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <ds-context-menu [items]="items" [align]="align">
+      <sf-context-menu [items]="items" [align]="align">
         &#8943;
-      </ds-context-menu>
+      </sf-context-menu>
     `,
   }),
 };
@@ -62,9 +62,9 @@ export const WithoutIcons: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <ds-context-menu [items]="items">
+      <sf-context-menu [items]="items">
         &#8943;
-      </ds-context-menu>
+      </sf-context-menu>
     `,
   }),
 };
@@ -80,9 +80,9 @@ export const WithTextTrigger: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <ds-context-menu [items]="items">
+      <sf-context-menu [items]="items">
         Acciones &#9662;
-      </ds-context-menu>
+      </sf-context-menu>
     `,
   }),
 };
@@ -100,9 +100,9 @@ export const WithDisabledItems: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <ds-context-menu [items]="items">
+      <sf-context-menu [items]="items">
         &#8943;
-      </ds-context-menu>
+      </sf-context-menu>
     `,
   }),
 };
@@ -116,9 +116,9 @@ export const RightAligned: Story = {
     props: args,
     template: `
       <div style="display: flex; justify-content: flex-end; width: 300px;">
-        <ds-context-menu [items]="items" align="right">
+        <sf-context-menu [items]="items" align="right">
           &#8943;
-        </ds-context-menu>
+        </sf-context-menu>
       </div>
     `,
   }),
@@ -149,14 +149,14 @@ export const InTable: Story = {
             <td style="padding: 12px 16px; color: #111827;">Ricardo Gonzalez</td>
             <td style="padding: 12px 16px; color: #6B7280;">Activo</td>
             <td style="padding: 12px 16px; text-align: right;">
-              <ds-context-menu [items]="menuItems" align="right">&#8943;</ds-context-menu>
+              <sf-context-menu [items]="menuItems" align="right">&#8943;</sf-context-menu>
             </td>
           </tr>
           <tr style="border-bottom: 1px solid #F3F4F6;">
             <td style="padding: 12px 16px; color: #111827;">Ana Garcia</td>
             <td style="padding: 12px 16px; color: #6B7280;">Inactivo</td>
             <td style="padding: 12px 16px; text-align: right;">
-              <ds-context-menu [items]="menuItems" align="right">&#8943;</ds-context-menu>
+              <sf-context-menu [items]="menuItems" align="right">&#8943;</sf-context-menu>
             </td>
           </tr>
         </tbody>

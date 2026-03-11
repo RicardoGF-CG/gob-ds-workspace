@@ -39,37 +39,37 @@ export const AllVariants: Story = {
       <div style="display: flex; flex-direction: column; gap: 40px;">
         <div>
           <p style="margin-bottom: 8px; color: #666; font-size: 12px;">Default (Inactive)</p>
-          <ds-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'default' }]" [activeTabId]="0"></ds-tabs>
+          <sf-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'default' }]" [activeTabId]="0"></sf-tabs>
         </div>
         
         <div>
           <p style="margin-bottom: 8px; color: #666; font-size: 12px;">Active</p>
-          <ds-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'default' }]" [activeTabId]="1"></ds-tabs>
+          <sf-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'default' }]" [activeTabId]="1"></sf-tabs>
         </div>
 
         <div>
           <p style="margin-bottom: 8px; color: #666; font-size: 12px;">Completed</p>
-          <ds-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'completed' }]" [activeTabId]="0"></ds-tabs>
+          <sf-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'completed' }]" [activeTabId]="0"></sf-tabs>
         </div>
 
         <div>
           <p style="margin-bottom: 8px; color: #666; font-size: 12px;">Active Completed</p>
-          <ds-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'completed' }]" [activeTabId]="1"></ds-tabs>
+          <sf-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'completed' }]" [activeTabId]="1"></sf-tabs>
         </div>
 
         <div>
           <p style="margin-bottom: 8px; color: #666; font-size: 12px;">Error</p>
-          <ds-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'error' }]" [activeTabId]="0"></ds-tabs>
+          <sf-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'error' }]" [activeTabId]="0"></sf-tabs>
         </div>
 
         <div>
           <p style="margin-bottom: 8px; color: #666; font-size: 12px;">Error Active</p>
-          <ds-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'error' }]" [activeTabId]="1"></ds-tabs>
+          <sf-tabs [tabs]="[{ id: 1, label: 'Summary', status: 'error' }]" [activeTabId]="1"></sf-tabs>
         </div>
 
         <div>
           <p style="margin-bottom: 8px; color: #666; font-size: 12px;">Disabled</p>
-          <ds-tabs [tabs]="[{ id: 1, label: 'Summary', disabled: true }]" [activeTabId]="0"></ds-tabs>
+          <sf-tabs [tabs]="[{ id: 1, label: 'Summary', disabled: true }]" [activeTabId]="0"></sf-tabs>
         </div>
       </div>
     `,

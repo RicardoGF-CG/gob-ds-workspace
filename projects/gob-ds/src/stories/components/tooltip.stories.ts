@@ -39,7 +39,7 @@ export const Default: Story = {
     props: args,
     template: `
       <div style="padding: 60px;">
-        <ds-tooltip [text]="text" [position]="position">
+        <sf-tooltip [text]="text" [position]="position">
           <button style="
             padding: 8px 16px;
             border: 1px solid var(--color-border);
@@ -48,7 +48,7 @@ export const Default: Story = {
             cursor: pointer;
             font-size: 14px;
           ">Hover me</button>
-        </ds-tooltip>
+        </sf-tooltip>
       </div>
     `,
   }),
@@ -58,18 +58,18 @@ export const Positions: Story = {
   render: () => ({
     template: `
       <div style="display: flex; gap: 32px; padding: 80px;">
-        <ds-tooltip text="Top" position="top">
+        <sf-tooltip text="Top" position="top">
           <button style="padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-default); cursor: pointer;">Top</button>
-        </ds-tooltip>
-        <ds-tooltip text="Bottom" position="bottom">
+        </sf-tooltip>
+        <sf-tooltip text="Bottom" position="bottom">
           <button style="padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-default); cursor: pointer;">Bottom</button>
-        </ds-tooltip>
-        <ds-tooltip text="Left" position="left">
+        </sf-tooltip>
+        <sf-tooltip text="Left" position="left">
           <button style="padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-default); cursor: pointer;">Left</button>
-        </ds-tooltip>
-        <ds-tooltip text="Right" position="right">
+        </sf-tooltip>
+        <sf-tooltip text="Right" position="right">
           <button style="padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-default); cursor: pointer;">Right</button>
-        </ds-tooltip>
+        </sf-tooltip>
       </div>
     `,
   }),
@@ -85,7 +85,7 @@ export const WithDelay: Story = {
     props: args,
     template: `
       <div style="padding: 60px;">
-        <ds-tooltip [text]="text" [position]="position" [delay]="delay">
+        <sf-tooltip [text]="text" [position]="position" [delay]="delay">
           <button style="
             padding: 8px 16px;
             border: 1px solid var(--color-border);
@@ -93,7 +93,7 @@ export const WithDelay: Story = {
             background: var(--color-bg-default);
             cursor: pointer;
           ">Hover (with delay)</button>
-        </ds-tooltip>
+        </sf-tooltip>
       </div>
     `,
   }),
@@ -103,7 +103,7 @@ export const InIcons: Story = {
   render: () => ({
     template: `
       <div style="display: flex; gap: 16px; padding: 60px;">
-        <ds-tooltip text="Configuration" position="bottom">
+        <sf-tooltip text="Configuration" position="bottom">
           <button style="
             width: 36px; height: 36px;
             border: 1px solid var(--color-border);
@@ -115,8 +115,8 @@ export const InIcons: Story = {
             justify-content: center;
             font-size: 16px;
           ">⚙</button>
-        </ds-tooltip>
-        <ds-tooltip text="Notifications" position="bottom">
+        </sf-tooltip>
+        <sf-tooltip text="Notifications" position="bottom">
           <button style="
             width: 36px; height: 36px;
             border: 1px solid var(--color-border);
@@ -128,8 +128,8 @@ export const InIcons: Story = {
             justify-content: center;
             font-size: 16px;
           ">🔔</button>
-        </ds-tooltip>
-        <ds-tooltip text="User profile" position="bottom">
+        </sf-tooltip>
+        <sf-tooltip text="User profile" position="bottom">
           <button style="
             width: 36px; height: 36px;
             border: 1px solid var(--color-border);
@@ -141,7 +141,7 @@ export const InIcons: Story = {
             justify-content: center;
             font-size: 16px;
           ">👤</button>
-        </ds-tooltip>
+        </sf-tooltip>
       </div>
     `,
   }),

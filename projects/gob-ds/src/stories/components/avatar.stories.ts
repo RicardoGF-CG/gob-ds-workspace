@@ -46,11 +46,11 @@ export const Sizes: Story = {
   render: () => ({
     template: `
       <div style="display: flex; align-items: center; gap: 12px;">
-        <ds-avatar name="Ricardo Gonzalez" size="xs" />
-        <ds-avatar name="Ricardo Gonzalez" size="sm" />
-        <ds-avatar name="Ricardo Gonzalez" size="md" />
-        <ds-avatar name="Ricardo Gonzalez" size="lg" />
-        <ds-avatar name="Ricardo Gonzalez" size="xl" />
+        <sf-avatar name="Ricardo Gonzalez" size="xs" />
+        <sf-avatar name="Ricardo Gonzalez" size="sm" />
+        <sf-avatar name="Ricardo Gonzalez" size="md" />
+        <sf-avatar name="Ricardo Gonzalez" size="lg" />
+        <sf-avatar name="Ricardo Gonzalez" size="xl" />
       </div>
     `,
   }),
@@ -60,11 +60,11 @@ export const MultipleUsers: Story = {
   render: () => ({
     template: `
       <div style="display: flex; align-items: center; gap: 8px;">
-        <ds-avatar name="Ana García" size="md" />
-        <ds-avatar name="Carlos López" size="md" />
-        <ds-avatar name="Bruno Gonzalez" size="md" />
-        <ds-avatar name="Sanjuana Flores" size="md" />
-        <ds-avatar name="María" size="md" />
+        <sf-avatar name="Ana García" size="md" />
+        <sf-avatar name="Carlos López" size="md" />
+        <sf-avatar name="Bruno Gonzalez" size="md" />
+        <sf-avatar name="Sanjuana Flores" size="md" />
+        <sf-avatar name="María" size="md" />
       </div>
     `,
   }),
@@ -91,21 +91,21 @@ export const InList: Story = {
     template: `
       <div style="display: flex; flex-direction: column; gap: 12px; width: 320px;">
         <div style="display: flex; align-items: center; gap: 12px;">
-          <ds-avatar name="Ricardo Gonzalez" size="sm" />
+          <sf-avatar name="Ricardo Gonzalez" size="sm" />
           <div>
             <div style="font-size: 16px; font-weight: 500; color: var(--color-text-primary);">Ricardo Gonzalez</div>
             <div style="font-size: 14px; color: var(--color-text-tertiary);">ricardo@email.com</div>
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 12px;">
-          <ds-avatar name="Ana García" src="https://i.pravatar.cc/150?img=5" size="sm" />
+          <sf-avatar name="Ana García" src="https://i.pravatar.cc/150?img=5" size="sm" />
           <div>
             <div style="font-size: 16px; font-weight: 500; color: var(--color-text-primary);">Ana García</div>
             <div style="font-size: 14px; color: var(--color-text-tertiary);">ana@email.com</div>
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 12px;">
-          <ds-avatar name="Carlos López" size="sm" />
+          <sf-avatar name="Carlos López" size="sm" />
           <div>
             <div style="font-size: 16px; font-weight: 500; color: var(--color-text-primary);">Carlos López</div>
             <div style="font-size: 14px; color: var(--color-text-tertiary);">carlos@email.com</div>

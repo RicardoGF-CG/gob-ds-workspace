@@ -15,7 +15,7 @@ import { Component, Input } from '@angular/core';
   template: `
     <div style="display: flex; flex-direction: column; gap: 24px; padding: 20px; min-height: 500px;">
       <div style="display: flex; gap: 12px;">
-        <ds-filter
+        <sf-filter
           label="Estado"
           [active]="hasActiveFilters"
           [activeLabel]="activeStatusLabel"
@@ -24,12 +24,12 @@ import { Component, Input } from '@angular/core';
           (clear)="clearStatusFilter($event)"
         >
           <div style="display: flex; flex-direction: column; gap: 12px;">
-            <ds-checkbox label="Activo" [checked]="pendingStatus['Activo']" (click)="togglePendingStatus('Activo')" />
-            <ds-checkbox label="Inactivo" [checked]="pendingStatus['Inactivo']" (click)="togglePendingStatus('Inactivo')" />
-            <ds-checkbox label="Pendiente" [checked]="pendingStatus['Pendiente']" (click)="togglePendingStatus('Pendiente')" />
-            <ds-checkbox label="Archivado" [checked]="pendingStatus['Archivado']" (click)="togglePendingStatus('Archivado')" />
+            <sf-checkbox label="Activo" [checked]="pendingStatus['Activo']" (click)="togglePendingStatus('Activo')" />
+            <sf-checkbox label="Inactivo" [checked]="pendingStatus['Inactivo']" (click)="togglePendingStatus('Inactivo')" />
+            <sf-checkbox label="Pendiente" [checked]="pendingStatus['Pendiente']" (click)="togglePendingStatus('Pendiente')" />
+            <sf-checkbox label="Archivado" [checked]="pendingStatus['Archivado']" (click)="togglePendingStatus('Archivado')" />
           </div>
-        </ds-filter>
+        </sf-filter>
       </div>
 
       <table style="width: 100%; border-collapse: collapse; font-family: var(--font-family-sans); font-size: 14px;">
@@ -127,7 +127,7 @@ class StoryCheckboxFilterComponent {
   template: `
     <div style="display: flex; flex-direction: column; gap: 24px; padding: 20px; min-height: 500px;">
       <div style="display: flex; gap: 12px;">
-        <ds-filter
+        <sf-filter
           label="Rol"
           [active]="!!appliedRole"
           [activeLabel]="appliedRole"
@@ -135,12 +135,12 @@ class StoryCheckboxFilterComponent {
           (reset)="resetRoleFilter()"
           (clear)="clearRoleFilter($event)"
         >
-          <ds-select
+          <sf-select
             [options]="roleOptions"
             placeholder="Seleccionar rol"
             (selectionChange)="onPendingRoleChange($event)"
           />
-        </ds-filter>
+        </sf-filter>
       </div>
 
       <table style="width: 100%; border-collapse: collapse; font-family: var(--font-family-sans); font-size: 14px;">
@@ -229,7 +229,7 @@ class StorySelectFilterComponent {
   template: `
     <div style="display: flex; flex-direction: column; gap: 24px; padding: 20px; min-height: 500px;">
       <div style="display: flex; gap: 12px;">
-        <ds-filter
+        <sf-filter
           label="Costo"
           [active]="isFilterActive"
           [activeLabel]="activeConditionLabel"
@@ -239,7 +239,7 @@ class StorySelectFilterComponent {
         >
           <div style="display: flex; flex-direction: column; gap: 12px;">
             <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Condition</label>
-            <ds-select
+            <sf-select
               [options]="conditionOptions"
               placeholder="Select condition"
               (selectionChange)="onConditionChange($event)"
@@ -281,7 +281,7 @@ class StorySelectFilterComponent {
               />
             }
           </div>
-        </ds-filter>
+        </sf-filter>
       </div>
 
       <table style="width: 100%; border-collapse: collapse; font-family: var(--font-family-sans); font-size: 14px;">
@@ -408,7 +408,7 @@ class StoryConditionFilterComponent {
     <div style="display: flex; flex-direction: column; gap: 24px; padding: 20px; min-height: 600px;">
       <div style="display: flex; gap: 12px; flex-wrap: wrap;">
         <!-- Checkbox filter: Category -->
-        <ds-filter
+        <sf-filter
           label="Category"
           [active]="hasCategoryFilter"
           [activeLabel]="activeCategoryLabel"
@@ -418,13 +418,13 @@ class StoryConditionFilterComponent {
         >
           <div style="display: flex; flex-direction: column; gap: 12px;">
             @for (cat of allCategories; track cat) {
-              <ds-checkbox [label]="cat" [checked]="pendingCategories[cat]" (click)="togglePendingCategory(cat)" />
+              <sf-checkbox [label]="cat" [checked]="pendingCategories[cat]" (click)="togglePendingCategory(cat)" />
             }
           </div>
-        </ds-filter>
+        </sf-filter>
 
         <!-- Select filter: Status -->
-        <ds-filter
+        <sf-filter
           label="Status"
           [active]="!!appliedStatus"
           [activeLabel]="appliedStatus"
@@ -432,15 +432,15 @@ class StoryConditionFilterComponent {
           (reset)="resetStatusFilter()"
           (clear)="clearStatusFilter($event)"
         >
-          <ds-select
+          <sf-select
             [options]="statusOptions"
             placeholder="Select status"
             (selectionChange)="onPendingStatusChange($event)"
           />
-        </ds-filter>
+        </sf-filter>
 
         <!-- Condition filter: Price -->
-        <ds-filter
+        <sf-filter
           label="Price"
           [active]="isPriceFilterActive"
           [activeLabel]="activePriceLabel"
@@ -450,7 +450,7 @@ class StoryConditionFilterComponent {
         >
           <div style="display: flex; flex-direction: column; gap: 12px;">
             <label style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">Condition</label>
-            <ds-select
+            <sf-select
               [options]="conditionOptions"
               placeholder="Select condition"
               (selectionChange)="onPriceConditionChange($event)"
@@ -472,7 +472,7 @@ class StoryConditionFilterComponent {
               />
             }
           </div>
-        </ds-filter>
+        </sf-filter>
       </div>
 
       <table style="width: 100%; border-collapse: collapse; font-family: var(--font-family-sans); font-size: 14px;">
@@ -650,11 +650,11 @@ export const Default: Story = {
     props: args,
     template: `
       <div style="height: 400px; padding: 20px;">
-        <ds-filter [label]="label" [active]="active" [activeLabel]="activeLabel">
+        <sf-filter [label]="label" [active]="active" [activeLabel]="activeLabel">
           <p style="margin: 0; color: var(--color-text-secondary); font-size: 14px;">
             Content for the filter menu goes here.
           </p>
-        </ds-filter>
+        </sf-filter>
       </div>
     `,
   }),

@@ -12,7 +12,7 @@ export interface NavbarMenuItem {
 
 @Component({
   standalone: true,
-  selector: 'ds-navbar',
+  selector: 'sf-navbar',
   imports: [CommonModule, LucideAngularModule, AvatarComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.scss',

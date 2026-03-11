@@ -4,7 +4,7 @@ import { BreadcrumbComponent, BreadcrumbItem } from '../breadcrumb/breadcrumb.co
 
 @Component({
   standalone: true,
-  selector: 'ds-navigator',
+  selector: 'sf-navigator',
   imports: [CommonModule, BreadcrumbComponent],
   templateUrl: './navigator.component.html',
   styleUrl: './navigator.scss',

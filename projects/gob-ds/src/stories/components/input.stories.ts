@@ -39,7 +39,7 @@ export const Playground: Story = {
         props: args,
         template: `
       <div style="width: 320px;">
-        <ds-input
+        <sf-input
           [label]="label"
           [placeholder]="placeholder"
           [hint]="hint"
@@ -58,8 +58,8 @@ export const LoginForm: Story = {
     render: () => ({
         template: `
       <div style="width: 360px; display: flex; flex-direction: column; gap: 16px;">
-        <ds-input label="RFC"        placeholder="VECJ880326XXX" />
-        <ds-input label="Contraseña" type="password" placeholder="" />
+        <sf-input label="RFC"        placeholder="VECJ880326XXX" />
+        <sf-input label="Contraseña" type="password" placeholder="" />
       </div>
     `,
     }),
@@ -71,12 +71,12 @@ export const States: Story = {
     render: () => ({
         template: `
       <div style="width: 320px; display: flex; flex-direction: column; gap: 16px;">
-        <ds-input label="Default"   placeholder="Escribe algo..." />
-        <ds-input label="Con hint"  placeholder="usuario@empresa.com"
+        <sf-input label="Default"   placeholder="Escribe algo..." />
+        <sf-input label="Con hint"  placeholder="usuario@empresa.com"
                   hint="Usaremos este correo para notificaciones." />
-        <ds-input label="Con error" placeholder="RFC"
+        <sf-input label="Con error" placeholder="RFC"
                   error="El RFC ingresado no es válido." />
-        <ds-input label="Disabled"  placeholder="No editable" [disabled]="true" />
+        <sf-input label="Disabled"  placeholder="No editable" [disabled]="true" />
       </div>
     `,
     }),
@@ -89,9 +89,9 @@ export const WithIcons: Story = {
         props: { Search, Mail },
         template: `
       <div style="width: 320px; display: flex; flex-direction: column; gap: 16px;">
-        <ds-input label="Buscar"  placeholder="Buscar..." [prefixIcon]="Search" />
-        <ds-input label="Correo"  placeholder="usuario@empresa.com" [prefixIcon]="Mail" />
-        <ds-input label="Contraseña" type="password" />
+        <sf-input label="Buscar"  placeholder="Buscar..." [prefixIcon]="Search" />
+        <sf-input label="Correo"  placeholder="usuario@empresa.com" [prefixIcon]="Mail" />
+        <sf-input label="Contraseña" type="password" />
       </div>
     `,
     }),
