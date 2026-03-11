@@ -2694,7 +2694,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<TopbarComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Topbar',\r\n    component: TopbarComponent,\r\n    tags: ['autodocs'],\r\n    parameters: { layout: 'fullscreen' },\r\n    decorators: [\r\n        moduleMetadata({ imports: [TopbarComponent] }),\r\n    ],\r\n    argTypes: {\r\n        title: {\r\n            control: 'text',\r\n            description: 'Título centrado (columna del medio)',\r\n        },\r\n        leftText: {\r\n            control: 'text',\r\n            description: 'Texto libre en la columna izquierda',\r\n        },\r\n        leftIcon: {\r\n            control: 'select',\r\n            options: ['none', 'info', 'shield'],\r\n            mapping: {\r\n                none: null,\r\n                info: Info,\r\n                shield: Shield,\r\n            },\r\n            description: 'Ícono en la columna izquierda',\r\n        },\r\n    },\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n        leftText: '',\r\n        leftIcon: null,\r\n    },\r\n}"
+                "defaultValue": "{\r\n    title: 'Components/Topbar',\r\n    component: TopbarComponent,\r\n    tags: ['autodocs'],\r\n    parameters: { layout: 'fullscreen' },\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [\r\n                TopbarComponent,\r\n                LucideAngularModule.pick({ Shield, Bell, Info, HelpCircle }),\r\n            ],\r\n        }),\r\n    ],\r\n    argTypes: {\r\n        title: {\r\n            control: 'text',\r\n            description: 'Título centrado (única propiedad del componente)',\r\n        },\r\n    },\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n    },\r\n}"
             },
             {
                 "name": "meta",
@@ -2755,6 +2755,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<TypographyDocComponent>",
                 "defaultValue": "{\r\n  title: 'Tokens/Typography',\r\n  component: TypographyDocComponent,\r\n  parameters: { layout: 'fullscreen' },\r\n}"
+            },
+            {
+                "name": "Mixed",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <img topbar-left src=\"https://placehold.co/80x24/ffffff/003F6E?text=LOGO\" alt=\"Logo\" />\r\n                <span topbar-left>Secretaría de Finanzas</span>\r\n                <span topbar-right class=\"badge\">Admin</span>\r\n                <button topbar-right>Notificaciones</button>\r\n                <a topbar-right href=\"/salir\">Salir</a>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
             },
             {
                 "name": "MobileView",
@@ -2917,16 +2927,6 @@
                 "defaultValue": "{\r\n  args: {\r\n    selectable: false,\r\n    loading: false,\r\n    error: false,\r\n    paginated: true,\r\n    pageSize: 20,\r\n    skeletonRows: 8,\r\n    errorMessage: 'An error occurred while loading data.',\r\n    emptyMessage: 'No data available.',\r\n  },\r\n  render: (args) => ({\r\n    props: {\r\n      ...args,\r\n      columns,\r\n      allData: sampleData,\r\n      currentData: page1Data,\r\n      currentPage: 1,\r\n      totalItems: sampleData.length,\r\n      onPageChange(event: any) {\r\n        const start = (event.page - 1) * event.pageSize;\r\n        this['currentData'] = this['allData'].slice(start, start + event.pageSize);\r\n        this['currentPage'] = event.page;\r\n        this['totalItems'] = this['allData'].length;\r\n      },\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"currentData\"\r\n        [selectable]=\"selectable\"\r\n        [loading]=\"loading\"\r\n        [error]=\"error\"\r\n        [paginated]=\"paginated\"\r\n        [pageSize]=\"pageSize\"\r\n        [currentPage]=\"currentPage\"\r\n        [totalItems]=\"totalItems\"\r\n        [skeletonRows]=\"skeletonRows\"\r\n        [errorMessage]=\"errorMessage\"\r\n        [emptyMessage]=\"emptyMessage\"\r\n        (pageChange)=\"onPageChange($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
-                "name": "Playground",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n        leftText: 'v2.1.0',\r\n        leftIcon: null,\r\n    },\r\n}"
-            },
-            {
                 "name": "Positions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2944,7 +2944,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\r\n  parameters: {\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n}"
+                "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
             },
             {
                 "name": "radiusScale",
@@ -3317,6 +3317,16 @@
                 "defaultValue": "{\r\n  render: () => ({\r\n    props: {\r\n      columns,\r\n      data: page1Data,\r\n      actions: [\r\n        { label: 'View details', icon: Eye },\r\n        { label: 'Edit server', icon: Edit2 },\r\n        { divider: true },\r\n        { label: 'Delete', icon: Trash2, danger: true },\r\n      ],\r\n      onAction(event: any) {\r\n        console.log('Action clicked:', event.item.label, 'for row:', event.row.owner);\r\n      },\r\n    },\r\n    moduleMetadata: {\r\n      imports: [LucideAngularModule, BadgeComponent],\r\n    },\r\n    template: `\r\n      <ds-table\r\n        [columns]=\"columns\"\r\n        [data]=\"data\"\r\n        [rowActions]=\"actions\"\r\n        [selectable]=\"true\"\r\n        [paginated]=\"true\"\r\n        [pageSize]=\"20\"\r\n        [currentPage]=\"1\"\r\n        [totalItems]=\"52\"\r\n        (rowActionClick)=\"onAction($event)\"\r\n      />\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "WithBadgeAndLink",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <span topbar-left class=\"badge\">Beta</span>\r\n                <span topbar-left>Guanajuato</span>\r\n                <a topbar-right href=\"/ayuda\">Ayuda</a>\r\n                <a topbar-right href=\"/salir\">Cerrar sesión</a>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
+            },
+            {
                 "name": "WithCharCount",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -3427,6 +3437,16 @@
                 "defaultValue": "{\r\n  render: () => ({\r\n    props: { ArrowRight, Plus, Trash2, GitBranch },\r\n    template: `\r\n      <div style=\"display:flex; flex-wrap:wrap; align-items:center; gap:12px;\">\r\n        <ds-button variant=\"primary\"      [icon]=\"Plus\"      iconPosition=\"left\">Nuevo</ds-button>\r\n        <ds-button variant=\"outline\"      [icon]=\"ArrowRight\" iconPosition=\"right\">Continuar</ds-button>\r\n        <ds-button variant=\"destructive\"  [icon]=\"Trash2\"    iconPosition=\"left\">Eliminar</ds-button>\r\n        <ds-button variant=\"secondary\"    [icon]=\"GitBranch\" iconPosition=\"left\">New Branch</ds-button>\r\n      </div>\r\n    `,\r\n  }),\r\n}"
             },
             {
+                "name": "WithIcons",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    render: (args) => ({\r\n        props: {\r\n            ...args,\r\n            ShieldIcon: Shield,\r\n            BellIcon: Bell,\r\n        },\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <lucide-icon topbar-left [img]=\"ShieldIcon\" [size]=\"16\"></lucide-icon>\r\n                <span topbar-left>Administración</span>\r\n                <lucide-icon topbar-right [img]=\"BellIcon\" [size]=\"16\"></lucide-icon>\r\n                <a topbar-right href=\"/notificaciones\">Notificaciones</a>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
+            },
+            {
                 "name": "WithImage",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -3435,6 +3455,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    name: 'Ana García',\r\n    src: 'https://i.pravatar.cc/150?img=5',\r\n    size: 'md',\r\n  },\r\n}"
+            },
+            {
+                "name": "WithImage",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <img topbar-left src=\"https://placehold.co/80x24/ffffff/003F6E?text=LOGO\" alt=\"Logo\" />\r\n                <span topbar-right>© 2026</span>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
             },
             {
                 "name": "WithInitials",
@@ -3447,34 +3477,14 @@
                 "defaultValue": "{\r\n  args: {\r\n    name: 'Ricardo Gonzalez',\r\n    size: 'md',\r\n  },\r\n}"
             },
             {
-                "name": "WithLeftIcon",
+                "name": "WithLinks",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n        leftIcon: Info,\r\n        leftText: 'Información',\r\n    },\r\n}"
-            },
-            {
-                "name": "WithLeftIconAndText",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n        leftIcon: Shield,\r\n        leftText: 'Administración Pública',\r\n    },\r\n}"
-            },
-            {
-                "name": "WithLeftText",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n        leftText: 'v2.1.0',\r\n    },\r\n}"
+                "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <a topbar-left href=\"/\">Inicio</a>\r\n                <a topbar-right href=\"/privacidad\">Aviso de privacidad</a>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
             },
             {
                 "name": "WithMinMaxDate",
@@ -3565,6 +3575,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    size: 'md',\r\n    text: 'Cargando datos...',\r\n  },\r\n}"
+            },
+            {
+                "name": "WithText",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <span topbar-left>v2.1.0</span>\r\n                <span topbar-right>© 2026</span>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
             },
             {
                 "name": "WithTextTrigger",
@@ -5787,47 +5807,67 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<TopbarComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Topbar',\r\n    component: TopbarComponent,\r\n    tags: ['autodocs'],\r\n    parameters: { layout: 'fullscreen' },\r\n    decorators: [\r\n        moduleMetadata({ imports: [TopbarComponent] }),\r\n    ],\r\n    argTypes: {\r\n        title: {\r\n            control: 'text',\r\n            description: 'Título centrado (columna del medio)',\r\n        },\r\n        leftText: {\r\n            control: 'text',\r\n            description: 'Texto libre en la columna izquierda',\r\n        },\r\n        leftIcon: {\r\n            control: 'select',\r\n            options: ['none', 'info', 'shield'],\r\n            mapping: {\r\n                none: null,\r\n                info: Info,\r\n                shield: Shield,\r\n            },\r\n            description: 'Ícono en la columna izquierda',\r\n        },\r\n    },\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n        leftText: '',\r\n        leftIcon: null,\r\n    },\r\n}"
+                    "defaultValue": "{\r\n    title: 'Components/Topbar',\r\n    component: TopbarComponent,\r\n    tags: ['autodocs'],\r\n    parameters: { layout: 'fullscreen' },\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [\r\n                TopbarComponent,\r\n                LucideAngularModule.pick({ Shield, Bell, Info, HelpCircle }),\r\n            ],\r\n        }),\r\n    ],\r\n    argTypes: {\r\n        title: {\r\n            control: 'text',\r\n            description: 'Título centrado (única propiedad del componente)',\r\n        },\r\n    },\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n    },\r\n}"
                 },
                 {
-                    "name": "Playground",
+                    "name": "Mixed",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n        title: 'Sistema de Evaluación Individual del Desempeño',\r\n        leftText: 'v2.1.0',\r\n        leftIcon: null,\r\n    },\r\n}"
+                    "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <img topbar-left src=\"https://placehold.co/80x24/ffffff/003F6E?text=LOGO\" alt=\"Logo\" />\r\n                <span topbar-left>Secretaría de Finanzas</span>\r\n                <span topbar-right class=\"badge\">Admin</span>\r\n                <button topbar-right>Notificaciones</button>\r\n                <a topbar-right href=\"/salir\">Salir</a>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
                 },
                 {
-                    "name": "WithLeftIcon",
+                    "name": "WithBadgeAndLink",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n        leftIcon: Info,\r\n        leftText: 'Información',\r\n    },\r\n}"
+                    "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <span topbar-left class=\"badge\">Beta</span>\r\n                <span topbar-left>Guanajuato</span>\r\n                <a topbar-right href=\"/ayuda\">Ayuda</a>\r\n                <a topbar-right href=\"/salir\">Cerrar sesión</a>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
                 },
                 {
-                    "name": "WithLeftIconAndText",
+                    "name": "WithIcons",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n        leftIcon: Shield,\r\n        leftText: 'Administración Pública',\r\n    },\r\n}"
+                    "defaultValue": "{\r\n    render: (args) => ({\r\n        props: {\r\n            ...args,\r\n            ShieldIcon: Shield,\r\n            BellIcon: Bell,\r\n        },\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <lucide-icon topbar-left [img]=\"ShieldIcon\" [size]=\"16\"></lucide-icon>\r\n                <span topbar-left>Administración</span>\r\n                <lucide-icon topbar-right [img]=\"BellIcon\" [size]=\"16\"></lucide-icon>\r\n                <a topbar-right href=\"/notificaciones\">Notificaciones</a>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
                 },
                 {
-                    "name": "WithLeftText",
+                    "name": "WithImage",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n        leftText: 'v2.1.0',\r\n    },\r\n}"
+                    "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <img topbar-left src=\"https://placehold.co/80x24/ffffff/003F6E?text=LOGO\" alt=\"Logo\" />\r\n                <span topbar-right>© 2026</span>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
+                },
+                {
+                    "name": "WithLinks",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <a topbar-left href=\"/\">Inicio</a>\r\n                <a topbar-right href=\"/privacidad\">Aviso de privacidad</a>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
+                },
+                {
+                    "name": "WithText",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    render: (args) => ({\r\n        props: args,\r\n        template: `\r\n            <app-topbar title=\"${args['title']}\">\r\n                <span topbar-left>v2.1.0</span>\r\n                <span topbar-right>© 2026</span>\r\n            </app-topbar>\r\n        `,\r\n    }),\r\n}"
                 }
             ],
             "projects/gob-ds/src/tokens/stories/date-range-picker.stories.ts": [
@@ -6143,7 +6183,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\r\n  parameters: {\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n}"
+                    "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
                 }
             ]
         },
@@ -8765,7 +8805,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Playground",
+                "name": "Mixed",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -8775,7 +8815,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "WithLeftIcon",
+                "name": "WithBadgeAndLink",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -8785,7 +8825,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "WithLeftIconAndText",
+                "name": "WithIcons",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -8795,7 +8835,27 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "WithLeftText",
+                "name": "WithImage",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithLinks",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/gob-ds/src/stories/components/topbar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithText",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

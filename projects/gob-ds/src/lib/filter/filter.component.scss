@@ -112,6 +112,8 @@
     gap: var(--space-2);
     padding: var(--space-2);
     background: var(--color-bg-default);
+    border-bottom-left-radius: var(--radius-lg, 12px);
+    border-bottom-right-radius: var(--radius-lg, 12px);
   }
 
   &__btn {
